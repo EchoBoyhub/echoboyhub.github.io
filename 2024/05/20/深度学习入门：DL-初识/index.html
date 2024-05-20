@@ -1,0 +1,819 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Fairy Girl">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本教程专为零基础、初学者设计，旨在通过从零开始构建、训练和评估一个基础的深度学习模型，轻松步入这个充满可能的领域。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【深度学习入门】H01-初识">
+<meta property="og:url" content="http://example.com/2024/05/20/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%EF%BC%9ADL-%E5%88%9D%E8%AF%86/index.html">
+<meta property="og:site_name" content="Fairy Girl&#39;s BLOG">
+<meta property="og:description" content="本教程专为零基础、初学者设计，旨在通过从零开始构建、训练和评估一个基础的深度学习模型，轻松步入这个充满可能的领域。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/front/1.png">
+<meta property="article:published_time" content="2024-05-19T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-05-20T15:39:50.373Z">
+<meta property="article:author" content="Fairy Girl">
+<meta property="article:tag" content="人工智能">
+<meta property="article:tag" content="机器学习">
+<meta property="article:tag" content="初识">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/images/front/1.png">
+  
+  
+  
+  <title>【深度学习入门】H01-初识 - Fairy Girl&#39;s BLOG</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fairy Girl&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【深度学习入门】H01-初识"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-05-20 00:00" pubdate>
+          2024年5月20日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          18 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">【深度学习入门】H01-初识</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>欢迎来到深度学习的奇妙世界！作为人工智能的前沿技术，深度学习正改变着我们与技术的互动。深度学习通过模拟人脑的神经网络来处理数据，自动学习复杂的特征，在图像识别、语音处理等任务上表现非常出色。    </p>
+<p><img src="https://files.mdnice.com/user/52997/9655d25c-de0a-4a19-b602-3c822fe939c6.png" srcset="/img/loading.gif" lazyload></p>
+<p>本教程专为零基础、初学者设计，旨在通过从零开始构建、训练和评估一个基础的深度学习模型，轻松步入这个充满可能的领域。</p>
+<h3 id="本文大纲"><a href="#本文大纲" class="headerlink" title="本文大纲"></a>本文大纲</h3><ul>
+<li><p>第1部分：深度学习基础</p>
+<ul>
+<li>神经网络简介</li>
+<li>损失函数和优化器</li>
+<li>超参数配置</li>
+<li>神经网络训练过程</li>
+</ul>
+</li>
+<li><p>第2部分：环境搭建    </p>
+<ul>
+<li>编程语言</li>
+<li>深度学习框架</li>
+</ul>
+</li>
+<li><p>第3部分：神经网络模型实战     </p>
+</li>
+<li><p>第4部分：完整代码展示</p>
+</li>
+</ul>
+<h2 id="第1部分：深度学习基础"><a href="#第1部分：深度学习基础" class="headerlink" title="第1部分：深度学习基础"></a>第1部分：深度学习基础</h2><h3 id="1-1-神经网络简介"><a href="#1-1-神经网络简介" class="headerlink" title="1.1 神经网络简介"></a>1.1 神经网络简介</h3><ul>
+<li><strong>神经元</strong>：神经网络的基本单元，类似于人脑中的神经元。</li>
+<li><strong>网络层</strong>：神经网络由多个层组成，每个层由多个神经元组成。</li>
+<li><strong>权重和偏置</strong>：每个神经元的输入会被乘以一个权重，加上一个偏置，然后通过一个激活函数。</li>
+<li><strong>激活函数</strong>：激活函数是神经元中的关键组成部分，它引入了非线性，使得网络能够学习非线性数据。常见的激活函数包括ReLU（修正线性单元）、sigmoid 和 tanh。</li>
+</ul>
+<p><img src="https://files.mdnice.com/user/52997/637358e0-01be-44d5-a797-a80c57eab5b3.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="1-2-损失函数和优化器"><a href="#1-2-损失函数和优化器" class="headerlink" title="1.2 损失函数和优化器"></a>1.2 损失函数和优化器</h3><ul>
+<li><strong>损失函数</strong>：衡量模型预测值与实际值之间差异的函数，用于指导模型的学习。</li>
+<li><strong>优化器</strong>：用于在训练过程中调整网络权重以最小化损失函数的算法，如梯度下降。</li>
+</ul>
+<h3 id="1-3-超参数配置"><a href="#1-3-超参数配置" class="headerlink" title="1.3 超参数配置"></a>1.3 超参数配置</h3><p>超参数是模型的固定属性，如学习率、层数、每层的神经元数量等，在训练开始之前设置。超参数的选择对模型性能有重要影响。</p>
+<h3 id="1-4-神经网络训练过程"><a href="#1-4-神经网络训练过程" class="headerlink" title="1.4 神经网络训练过程"></a>1.4 神经网络训练过程</h3><ul>
+<li><strong>前向传播</strong>：数据通过输入层进行网络传播，生成预测；</li>
+<li><strong>计算损失</strong>：使用损失函数评估预测的准确性；</li>
+<li><strong>反向传播</strong>：根据损失函数评估结果对网络权重进行调整。</li>
+</ul>
+<hr>
+<h2 id="第2部分：环境搭建"><a href="#第2部分：环境搭建" class="headerlink" title="第2部分：环境搭建"></a>第2部分：环境搭建</h2><p>实战之前，请确保你的计算机上已安装了Python环境和TensorFlow框架。</p>
+<ul>
+<li>编程语言：<code>Python3.8</code></li>
+<li>深度学习框架：<code>TensorFlow2.10</code></li>
+</ul>
+<blockquote>
+<p>网上关于环境搭建的详细教程非常多，您可以通过在互联网上进行查找。如果您在尝试过程中遇到任何困难，欢迎在评论区留下您的问题，我们会根据反馈，适时推出更详尽的教程来帮助大家。</p>
+</blockquote>
+<hr>
+<h2 id="第3部分：神经网络模型实战"><a href="#第3部分：神经网络模型实战" class="headerlink" title="第3部分：神经网络模型实战"></a>第3部分：神经网络模型实战</h2><p>我们今天以<code>Mnist</code>手写数字识别为例，通过深度学习框架<code>Keras</code>构建一个简单的<code>Sequential</code>架构的神经网络。     </p>
+<ul>
+<li>本次使用的数据集为<code>Minst</code>数据集，这个是Keras中自带的一个数据集，我们可以通过Keras加载数据集。</li>
+<li>本次使用的深度学习框架为<code>Keras</code>：Keras 是一个开源的、用户友好的神经网络高级接口，它能够运行在多种深度学习框架，如 TensorFlow、Theano 和 CNTK，以快速构建和实验深度学习模型。</li>
+<li>本次使用的神经网络架构<code>Sequential</code>：顺序型的神经网络模型，按神经层的排列顺序，由上往下执行，每一层的输出都是下一层的输入，所以，除了第一层要设定输入的维度外，其他层都不需要设定。</li>
+</ul>
+<h3 id="3-1-数据准备"><a href="#3-1-数据准备" class="headerlink" title="3.1 数据准备"></a>3.1 数据准备</h3><p>首先，导入必要的Python库，包括<code>NumPy</code>、<code>TensorFlow</code>和<code>Keras</code>中的组件。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> tensorflow <span class="hljs-keyword">as</span> tf<br><span class="hljs-keyword">from</span> tensorflow.keras <span class="hljs-keyword">import</span> Sequential<br><span class="hljs-keyword">from</span> tensorflow.keras.layers <span class="hljs-keyword">import</span> Flatten, Dense, Dropout<br><span class="hljs-keyword">from</span> tensorflow.keras.datasets <span class="hljs-keyword">import</span> mnist<br><span class="hljs-keyword">from</span> tensorflow.keras.utils <span class="hljs-keyword">import</span> to_categorical<br></code></pre></td></tr></table></figure>
+<p>然后，加载Mnist数据集，这是一个包含了60000个训练样本和10000个测试样本的手写数字集。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs Python">(x_train, y_train), (x_test, y_test) = mnist.load_data()<br></code></pre></td></tr></table></figure>
+<h3 id="3-2-数据预处理"><a href="#3-2-数据预处理" class="headerlink" title="3.2 数据预处理"></a>3.2 数据预处理</h3><p>数据预处理包括<strong>归一化</strong>和<strong>独热编码</strong>。</p>
+<ul>
+<li><strong>归一化</strong>: 将图像像素值从0到255归一化到0到1之间，</li>
+<li><strong>独热编码</strong>: 将标签从整数转换为one-hot编码形式。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs Python">x_train = x_train / <span class="hljs-number">255.0</span><br>x_test = x_test / <span class="hljs-number">255.0</span><br>y_train = to_categorical(y_train, <span class="hljs-number">10</span>)<br>y_test = to_categorical(y_test, <span class="hljs-number">10</span>)<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="3-3-构建模型"><a href="#3-3-构建模型" class="headerlink" title="3.3 构建模型"></a>3.3 构建模型</h3><p>使用Keras的<code>Sequential</code>模型来构建一个顺序模型，这意味着各层将按顺序添加。其中包含：</p>
+<ul>
+<li><strong>输入层</strong>：将图像的28x28矩阵转换为784位的向量；</li>
+<li><strong>全连接层</strong>：128个神经元+<code>ReLU</code>激活函数；</li>
+<li><strong><code>Dropout</code>层</strong>：正则化技术，舍弃部分神经元防止模型过拟合；</li>
+<li><strong>全连接层</strong>：10个神经元+softmax激活函数;<blockquote>
+<p><code>softmax</code>函数可以将任意实数向量转换成相同维度的概率分布，即向量中的每个元素值转换成了0到1之间，并且所有元素的和为1。</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs Python">model = Sequential([<br>    Flatten(input_shape=(<span class="hljs-number">28</span>, <span class="hljs-number">28</span>)),  <span class="hljs-comment"># 将28x28图像展平为784维的向量</span><br>    Dense(<span class="hljs-number">128</span>, activation=<span class="hljs-string">&#x27;relu&#x27;</span>),  <span class="hljs-comment"># 添加一个128个神经元的全连接层，使用ReLU激活函数</span><br>    Dropout(<span class="hljs-number">0.2</span>),                   <span class="hljs-comment"># 添加一个Dropout层，丢弃20%的神经元，以减少过拟合</span><br>    Dense(<span class="hljs-number">10</span>, activation=<span class="hljs-string">&#x27;softmax&#x27;</span>) <span class="hljs-comment"># 添加一个10个神经元的全连接输出层，使用softmax激活函数</span><br>])<br></code></pre></td></tr></table></figure>
+<h3 id="3-4-编译模型"><a href="#3-4-编译模型" class="headerlink" title="3.4 编译模型"></a>3.4 编译模型</h3><p>在训练模型之前，我们需要编译模型，指定优化器、损失函数和评估指标。</p>
+<ul>
+<li>优化器：<code>Adam</code>；</li>
+<li>损失函数：<code>categorical_crossentropy</code>;</li>
+<li>评估指标：<code>Accuracy</code>。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs Python">model.<span class="hljs-built_in">compile</span>(<br>    optimizer=<span class="hljs-string">&#x27;adam&#x27;</span>,  <span class="hljs-comment"># 选择Adam优化器</span><br>    loss=<span class="hljs-string">&#x27;categorical_crossentropy&#x27;</span>,  <span class="hljs-comment"># 指定损失函数</span><br>    metrics=[<span class="hljs-string">&#x27;accuracy&#x27;</span>]  <span class="hljs-comment"># 选择评估指标</span><br>)<br></code></pre></td></tr></table></figure>
+<h3 id="3-5-训练模型"><a href="#3-5-训练模型" class="headerlink" title="3.5 训练模型"></a>3.5 训练模型</h3><p>接下来，我们将训练模型。使用<code>model.fit</code>函数通过训练集对模型进行训练。并在每个epoch后，从训练集中选取10%的数据作为验证集上来评估模型性能。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs Python">model.fit(x_train, y_train, epochs=<span class="hljs-number">5</span>, validation_split=<span class="hljs-number">0.1</span>)<br></code></pre></td></tr></table></figure>
+<ul>
+<li>输出：</li>
+</ul>
+<p><img src="https://files.mdnice.com/user/52997/ca2fc204-c503-4515-8588-e161b5dc0c00.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="3-6-测试模型"><a href="#3-6-测试模型" class="headerlink" title="3.6 测试模型"></a>3.6 测试模型</h3><p>一旦模型训练完成，我们就可以在测试集上评估其性能。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs Python">test_loss, test_acc = model.evaluate(x_test, y_test)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Test accuracy: <span class="hljs-subst">&#123;test_acc&#125;</span>&quot;</span>)<br></code></pre></td></tr></table></figure>
+<ul>
+<li>输出：</li>
+</ul>
+<p><img src="https://files.mdnice.com/user/52997/d8b4fc81-d72a-4cc7-a1d6-3143d7c66f27.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="3-7-保存模型"><a href="#3-7-保存模型" class="headerlink" title="3.7 保存模型"></a>3.7 保存模型</h3><p>Keras提供了一个简单的函数<code>model.save</code>来保存模型，以便日后使用或部署。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs Python">model.save(<span class="hljs-string">&#x27;my_model.h5&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<ul>
+<li>输出：</li>
+</ul>
+<p><img src="https://files.mdnice.com/user/52997/c8d7685a-802e-4eca-a329-3eb4c95158b0.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="3-8-加载模型"><a href="#3-8-加载模型" class="headerlink" title="3.8 加载模型"></a>3.8 加载模型</h3><p>保存的模型可以使用<code>load_model</code>函数加载回来，无需重新训练。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs Python">loaded_model = tf.keras.models.load_model(<span class="hljs-string">&#x27;my_model.h5&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<h3 id="3-9-预测新数据"><a href="#3-9-预测新数据" class="headerlink" title="3.9 预测新数据"></a>3.9 预测新数据</h3><p>最后，我们使用加载的模型对一些新数据进行预测。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs Python">predictions = loaded_model.predict(x_test[:<span class="hljs-number">5</span>])  <span class="hljs-comment"># 预测前5个测试样本</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Predicted labels for the first 5 test instances: <span class="hljs-subst">&#123;np.argmax(predictions, axis=<span class="hljs-number">1</span>)&#125;</span>&quot;</span>)<br></code></pre></td></tr></table></figure>
+<ul>
+<li>输出：</li>
+</ul>
+<p><img src="https://files.mdnice.com/user/52997/98bcbde9-fb5d-4cef-924d-cb27ae30310d.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="第4部分：完整代码展示"><a href="#第4部分：完整代码展示" class="headerlink" title="第4部分：完整代码展示"></a>第4部分：完整代码展示</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 导入必要的库</span><br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> tensorflow <span class="hljs-keyword">as</span> tf<br><span class="hljs-keyword">from</span> tensorflow.keras <span class="hljs-keyword">import</span> Sequential<br><span class="hljs-keyword">from</span> tensorflow.keras.layers <span class="hljs-keyword">import</span> Flatten, Dense, Dropout<br><span class="hljs-keyword">from</span> tensorflow.keras.datasets <span class="hljs-keyword">import</span> mnist<br><span class="hljs-keyword">from</span> tensorflow.keras.utils <span class="hljs-keyword">import</span> to_categorical<br><br><span class="hljs-comment"># 1. 数据准备</span><br><span class="hljs-comment"># 加载MNIST数据集</span><br>(x_train, y_train), (x_test, y_test) = mnist.load_data()<br><br><span class="hljs-comment"># 数据预处理：归一化和独热编码</span><br>x_train = x_train / <span class="hljs-number">255.0</span><br>x_test = x_test / <span class="hljs-number">255.0</span><br>y_train = to_categorical(y_train, <span class="hljs-number">10</span>)<br>y_test = to_categorical(y_test, <span class="hljs-number">10</span>)<br><br><span class="hljs-comment"># 2. 构建模型</span><br><span class="hljs-comment"># 使用Sequential模型构建一个简单的神经网络</span><br>model = Sequential([<br>    Flatten(input_shape=(<span class="hljs-number">28</span>, <span class="hljs-number">28</span>)),  <span class="hljs-comment"># 展平图像数据</span><br>    Dense(<span class="hljs-number">128</span>, activation=<span class="hljs-string">&#x27;relu&#x27;</span>),  <span class="hljs-comment"># 第一个隐藏层，128个神经元</span><br>    Dropout(<span class="hljs-number">0.2</span>),                   <span class="hljs-comment"># 防止过拟合</span><br>    Dense(<span class="hljs-number">10</span>, activation=<span class="hljs-string">&#x27;softmax&#x27;</span>) <span class="hljs-comment"># 输出层，10个神经元对应10个类别</span><br>])<br><br><span class="hljs-comment"># 3. 编译模型</span><br>model.<span class="hljs-built_in">compile</span>(<br>    optimizer=<span class="hljs-string">&#x27;adam&#x27;</span>,  <span class="hljs-comment"># 使用Adam优化器</span><br>    loss=<span class="hljs-string">&#x27;categorical_crossentropy&#x27;</span>,  <span class="hljs-comment"># 多分类问题使用categorical_crossentropy损失函数</span><br>    metrics=[<span class="hljs-string">&#x27;accuracy&#x27;</span>]  <span class="hljs-comment"># 准确率作为评估指标</span><br>)<br><br><span class="hljs-comment"># 4. 训练模型</span><br><span class="hljs-comment"># 训练模型，设置迭代次数为5，保留10%的训练数据作为验证集</span><br>model.fit(x_train, y_train, epochs=<span class="hljs-number">5</span>, validation_split=<span class="hljs-number">0.1</span>)<br><br><span class="hljs-comment"># 5. 评估模型</span><br><span class="hljs-comment"># 使用测试数据评估模型性能</span><br>test_loss, test_acc = model.evaluate(x_test, y_test)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Test accuracy: <span class="hljs-subst">&#123;test_acc&#125;</span>&quot;</span>)<br><br><span class="hljs-comment"># 6. 保存模型</span><br><span class="hljs-comment"># 将训练好的模型保存到磁盘</span><br>model.save(<span class="hljs-string">&#x27;my_model.h5&#x27;</span>)<br><br><span class="hljs-comment"># 7. 加载模型</span><br><span class="hljs-comment"># 从磁盘加载模型</span><br>loaded_model = tf.keras.models.load_model(<span class="hljs-string">&#x27;my_model.h5&#x27;</span>)<br><br><span class="hljs-comment"># 8. 预测新数据</span><br><span class="hljs-comment"># 使用加载的模型对新数据进行预测</span><br>predictions = loaded_model.predict(x_test[:<span class="hljs-number">5</span>])  <span class="hljs-comment"># 预测前5个测试样本</span><br><br><span class="hljs-comment"># 打印预测结果</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Predicted labels for the first 5 test instances: <span class="hljs-subst">&#123;np.argmax(predictions, axis=<span class="hljs-number">1</span>)&#125;</span>&quot;</span>)<br></code></pre></td></tr></table></figure>
+<p>上述是通过深度学习框架<code>Keras</code>中包含的<code>Mnist</code>数据集和<code>Sequential</code>模型快速实现的深度学习算法，希望这个案例能帮助你更好地理解深度学习必要知识和技能。最后，恭喜你完成了本篇深度学习的入门教程！</p>
+<hr>
+<p>随着今天的内容落下帷幕，我们的学习之旅才刚刚开始。如果您渴望深入了解深度学习的奇妙世界，记得关注我们的频道。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8/" class="category-chain-item">深度学习入门</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="print-no-link">#人工智能</a>
+      
+        <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="print-no-link">#机器学习</a>
+      
+        <a href="/tags/%E5%88%9D%E8%AF%86/" class="print-no-link">#初识</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>【深度学习入门】H01-初识</div>
+      <div>http://example.com/2024/05/20/深度学习入门：DL-初识/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Fairy Girl</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年5月20日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/05/20/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%EF%BC%9AML01-%E5%88%9D%E8%AF%86/" title="机器学习入门：H01-初识">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">机器学习入门：H01-初识</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/05/19/AI%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86%EF%BC%9AH01-%E5%87%BD%E6%95%B0/" title="AI数学知识：H01-函数">
+                        <span class="hidden-mobile">AI数学知识：H01-函数</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
