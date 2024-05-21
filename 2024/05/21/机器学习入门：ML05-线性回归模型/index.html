@@ -16,27 +16,26 @@
   <meta name="author" content="Fairy Girl">
   <meta name="keywords" content="">
   
-    <meta name="description" content="什么是函数？">
+    <meta name="description" content="线性回归是一种预测分析方法，它通过分析自变量与因变量之间的线性关系，来预测连续的数值。。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="AI数学知识：H01-函数">
-<meta property="og:url" content="http://example.com/2024/05/19/AI%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86%EF%BC%9AH01-%E5%87%BD%E6%95%B0/index.html">
+<meta property="og:title" content="机器学习入门：ML05-线性回归模型">
+<meta property="og:url" content="http://example.com/2024/05/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%EF%BC%9AML05-%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B/index.html">
 <meta property="og:site_name" content="Fairy Girl&#39;s BLOG">
-<meta property="og:description" content="什么是函数？">
+<meta property="og:description" content="线性回归是一种预测分析方法，它通过分析自变量与因变量之间的线性关系，来预测连续的数值。。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/images/front/2.png">
-<meta property="article:published_time" content="2024-05-18T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-05-20T15:39:58.283Z">
+<meta property="og:image" content="http://example.com/images/front/5.png">
+<meta property="article:published_time" content="2024-05-21T04:22:00.000Z">
+<meta property="article:modified_time" content="2024-05-21T15:05:54.172Z">
 <meta property="article:author" content="Fairy Girl">
 <meta property="article:tag" content="人工智能">
-<meta property="article:tag" content="数学知识">
-<meta property="article:tag" content="高等数学">
-<meta property="article:tag" content="函数">
+<meta property="article:tag" content="机器学习">
+<meta property="article:tag" content="线性回归">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/images/front/2.png">
+<meta name="twitter:image" content="http://example.com/images/front/5.png">
   
   
   
-  <title>AI数学知识：H01-函数 - Fairy Girl&#39;s BLOG</title>
+  <title>机器学习入门：ML05-线性回归模型 - Fairy Girl&#39;s BLOG</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -206,7 +205,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="AI数学知识：H01-函数"></span>
+            <span id="subtitle" data-typed-text="机器学习入门：ML05-线性回归模型"></span>
           
         </div>
 
@@ -217,8 +216,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-05-19 00:00" pubdate>
-          2024年5月19日 凌晨
+        <time datetime="2024-05-21 12:22" pubdate>
+          2024年5月21日 中午
         </time>
       </span>
     
@@ -229,7 +228,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          724 字
+          1.5k 字
         
       </span>
     
@@ -240,7 +239,7 @@
         
         
         
-          7 分钟
+          13 分钟
         
       </span>
     
@@ -277,54 +276,49 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">AI数学知识：H01-函数</h1>
+            <h1 id="seo-header">机器学习入门：ML05-线性回归模型</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="什么是函数？"><a href="#什么是函数？" class="headerlink" title="什么是函数？"></a>什么是函数？</h2><h3 id="一、函数定义"><a href="#一、函数定义" class="headerlink" title="一、函数定义"></a>一、函数定义</h3><p>设$x$和$y$是两个变量，$D$是一个非空数集；如果按照某个法则$f$，对每个变量$x∈D$，变量$y$总有唯一确定的值与之对应，则称此对应法则$f$为定义在$D$上的函数，与$x$对应的值$y$称为$f$在$x$处的函数值，记作$f(x)$，即$y&#x3D;f(x)$，其中：<br>· 变量$x$称为自变量；<br>· 变量$y$称为因变量；<br>· 数集$D$称为函数定义域；<br>· 数集$W&#x3D;{y|y&#x3D;f(x), x∈D}$称为自变量；    </p>
-<hr>
-<h3 id="二、函数性质"><a href="#二、函数性质" class="headerlink" title="二、函数性质"></a>二、函数性质</h3><p><strong>1. 有界性</strong></p>
-<p>设函数$y&#x3D;f(x)$的定义域为$D$；在集合$D$上，若存在正数$M$，使得$|f(x)|≤M$对于任意$x∈D$都成立，则称函数在$D$上有界；如果这样的$M$不存在，就称函数$f(x)$在$D$上无界。</p>
+                <p>大家好！今天我们来聊聊机器学习中的一位老朋友——线性回归。线性回归作为机器学习的基础，其实用和强大远超我们的想象。希望这篇文章能够帮助你理解线性回归的原理，并在未来的学习和工作中，运用它来解决实际问题。</p>
+<h2 id="一、线性算法概述"><a href="#一、线性算法概述" class="headerlink" title="一、线性算法概述"></a>一、线性算法概述</h2><p>机器学习中的线性算法通常指的是那些在时间复杂度上以输入数据规模的线性关系增长的算法。这类算法在处理大规模数据集时具有较高的效率，因为它们不需要进行复杂的迭代或递归计算。  </p>
+<p>常见的线性算法 ：</p>
+<ul>
+<li>线性回归（Linear Regression）：用于预测一个连续的输出值，基于输入特征和权重的线性组合。通过最小化预测值和实际值之间的平方差来优化权重。</li>
+<li>逻辑回归（Logistic Regression）  ：尽管名字中有“回归”，但逻辑回归实际上是一种分类算法。主要用于二分类问题，通过逻辑函数（Sigmoid函数）将线性回归的输出映射到0和1之间。</li>
+<li>线性判别分析（Linear Discriminant Analysis, LDA）：一种降维技术，同时也可以用于分类。通过寻找最佳的线性组合，以最大化类间可分性。</li>
+</ul>
+<h2 id="二、线性回归的定义"><a href="#二、线性回归的定义" class="headerlink" title="二、线性回归的定义"></a>二、线性回归的定义</h2><p>线性回归是一种统计学方法，用于建立一个或多个自变量（解释变量）与因变量（响应变量）之间的线性关系模型。</p>
+<ul>
+<li>其核心假设是自变量和因变量之间存在线性关系。</li>
+<li>其主要目的是通过一个线性方程来模拟自变量与因变量之间的依赖关系找到最佳拟合直线（在多维情况下是超平面），这条直线能够最好地预测数据集中的观测值。</li>
+</ul>
+<p>线性回归模型通常以线性方程的形式来表示，该方程描述了自变量和因变量之间的线性关系。对于简单的线性回归，方程为：$$y&#x3D;\beta_0+\beta_1x+\epsilon$$.<br>其中，$y$是因变量，$x$是自变量，$\beta_0$是截距项，$beta_1$是$x$的系数，$\epsilon$是误差项。</p>
 <blockquote>
-<p>等价于：无论对于任何正数$M$，总存在$x_1∈X$，使得$|f(x_1)|&gt;M$，那么函数$f(x)$在$X$上无界。此外，函数$f(x)$在$X$上有界的充分必要条件是它在$X$上既有上界也有下界。</p>
+<p>1、线性回归模型中的<strong>系数（参数）</strong>$\beta_0,\beta_1,\cdots,\beta_n$表示自变量$x$每变化一个单位，因变量$y$预期的平均变化量。<br>2、线性回归模型中的<strong>误差项</strong>$\epsilon$表示模型无法解释的随机变量，并且它假设为独立且同分布的，通常假设为正态分布也具有零均值和常数方差。</p>
 </blockquote>
-<p><strong>2. 单调性</strong></p>
-<p>（1）单调递增：如果$x_1,x_2∈I, x_1&lt; x_2$，都存在$f(x_1)$$&lt;$$f(x_2)$；</p>
-<p>（2）单调递减：如果$x_1,x_2∈I, x_1&lt; x_2$，都存在$f(x_1)&gt;f(x_2)$。</p>
-<p><img src="/images/math01.png" srcset="/img/loading.gif" lazyload alt="Python"></p>
-<p><strong>3. 奇偶性</strong></p>
-<p>（1）偶函数：对于定义域中的任意$x$，都存在$f(-x)$$&lt;$$f(x)$；</p>
-<p>（2）偶函数：对于定义域中的任意$x$，都存在$f(-x)&lt;-f(x)$；</p>
-<blockquote>
-<p>其中，对于两个在定义域中有定义的函数：① 两个偶函数之和、之积均为偶函数；② 两个奇函数之和为奇函数，之积为偶函数；③ 一个奇函数与一个偶函数之积为奇函数。</p>
-</blockquote>
-<p><strong>4. 周期性</strong></p>
-<p>若存在正实数$T$，对于任意$x$，恒有$f(x+T)&#x3D;f(x)$，则称$y&#x3D;f(x)$为周期函数；</p>
-<p>满足上述关系的最小正数$T$称为函数$f(x)$的周期。</p>
-<hr>
-<h3 id="三、常用函数"><a href="#三、常用函数" class="headerlink" title="三、常用函数"></a>三、常用函数</h3><p><strong>1. 幂函数：$y &#x3D; x^\alpha(\alpha 是常数)$</strong></p>
-<p><img src="/images/math02.png" srcset="/img/loading.gif" lazyload alt="Python"></p>
-<p><strong>2. 指数函数：$y&#x3D;\alpha^x(\alpha＞0,  \alpha≠1 )$</strong></p>
-<p><img src="/images/math03.png" srcset="/img/loading.gif" lazyload alt="Python"></p>
-<p><strong>3. 对数函数：$y &#x3D; log_\alpha x (\alpha＞0,  \alpha≠1 )$</strong></p>
-<p>对数具有以下运算性质：对任意的$x, y∈R^+, a ＞0,a ≠1,b∈R$;</p>
-<p>（1）$log_a x+log_a y&#x3D;log_a xy$</p>
-<p>（2）$log_a x-log_a y&#x3D;log_a \frac{x}{y}$</p>
-<p>（3）$log_a x^b&#x3D;blog_ax$</p>
-<p><img src="/images/math04.png" srcset="/img/loading.gif" lazyload alt="Python"></p>
-<p><strong>4. 三角函数：$y&#x3D;sinx$（正弦函数），$y&#x3D;cosx$（余弦函数），$y&#x3D;tanx$（正切函数）</strong></p>
-<p><img src="/images/math05.png" srcset="/img/loading.gif" lazyload alt="Python"></p>
-<p><strong>5. 反三角函数：$y &#x3D; arcsinx$，$y &#x3D; arccosx$，$y &#x3D; arctanx$</strong></p>
-<p><img src="/images/math06.png" srcset="/img/loading.gif" lazyload alt="Python"></p>
-<p><strong>6.</strong> 常数函数：$y&#x3D;C$</p>
-<p><img src="/images/math07.png" srcset="/img/loading.gif" lazyload alt="Python"></p>
-<p><strong>7.</strong> 绝对值函数：$y &#x3D; |x| &#x3D; \begin{cases} x, &amp; x≥0 \ -x,&amp; x＜0 \ \end{cases}$</p>
-<p><img src="/images/math08.png" srcset="/img/loading.gif" lazyload alt="Python"></p>
-<p><strong>8.</strong> 符号函数：$y &#x3D; sgnx&#x3D; \begin{cases} 1, &amp; x＞0 \ 0, &amp; x&#x3D;0 \ -1,&amp; x＜0 \ \end{cases}$</p>
-<p><img src="/images/math09.png" srcset="/img/loading.gif" lazyload alt="Python"></p>
-<p>“纸上得来终觉浅，觉知此事要躬行；</p>
-<p>关注我，带你深入探索人工智能的数学基础，揭示AI背后的数学奥秘。</p>
+<p>当线性回归问题中包含两个或两个以上自变量时，线性回归模型将扩展为多元线性回归模型。即$y&#x3D;\beta_0+\beta_1x_1+\beta_2x_2+\cdots+\beta_nx_n+\epsilon$</p>
+<h2 id="三、如何评估线性回归的训练过程？"><a href="#三、如何评估线性回归的训练过程？" class="headerlink" title="三、如何评估线性回归的训练过程？"></a>三、如何评估线性回归的训练过程？</h2><p>在线性回归分析中，我们的目标是通过最佳的拟合直线来预测连续的因变量。为了评估线性回归的训练过程以获得最佳拟合直线，我们采用最小二乘法（Least Squares Method）作为核心工具，以残差分析（Residual Analysis）作为指导思想，通过最小化残差平方和来估计模型参数。</p>
+<p>残差分析是线性回归模型评估中的一个重要环节，其中，残差是指实际观测值与模型预测值之间的差异。分析残差可以帮助我们理解模型是否捕捉了数据的主要趋势。通过计算实际观测值与模型预测值之间的差异（即残差），使用均方误差（MSE）、均方根误差（RMSE）、平均绝对误差（MAE）等指标来量化预测误差的大小，从而判断模型对数据的拟合程度和预测能力。</p>
+<p>最小二乘法是一种数学优化技术，对于线性回归模型，最小二乘法试图最小化所有观测值的残差平方和。最小化残差平方和的形式可以转换为以下优化问题：$min_\beta \sum^{n}<em>{i&#x3D;1}(y_i-(\beta_0+\beta_1x</em>{i1}+\cdots+\beta_kx_{ik}))$.<br>其中，$n$是样本数量，$y_i$是第$i$个观测值，$\beta_0$是截距，$\beta_1,\cdots,\beta_k$是模型系数，$x_{i1},\cdots,x_{ik}$是第$i$个观测值的自变量。</p>
+<h2 id="四、为什么用线性回归？"><a href="#四、为什么用线性回归？" class="headerlink" title="四、为什么用线性回归？"></a>四、为什么用线性回归？</h2><p>线性回归作为一种广泛应用于各行业的统计技术，通过直线或超平面的形式，直观地表达了自变量与因变量之间的线性关系。它不仅能够帮助我们理解数据特征，优化资源分配，还能在金融、医疗、教育、农业等多个领域提供决策支持，例如：</p>
+<ol>
+<li><strong>金融领域</strong>：<ul>
+<li><strong>股票市场分析</strong>：投资者使用线性回归来分析股票价格与各种宏观经济指标（如GDP增长率、通货膨胀率、利率等）之间的关系，以预测市场走势。</li>
+<li><strong>信用评分模型</strong>：银行和金融机构利用线性回归分析个人或企业的信用历史、债务水平和收入等，以预测违约风险。</li>
+</ul>
+</li>
+<li><strong>医疗健康</strong>：<ul>
+<li><strong>疾病风险评估</strong>：医生和研究人员使用线性回归来确定不同因素（如年龄、性别、BMI、血压等）与慢性疾病风险之间的关系。</li>
+<li><strong>药物剂量优化</strong>：通过分析药物剂量、患者体重和疗效之间的关系，帮助医生为病人定制药物剂量。</li>
+</ul>
+</li>
+<li><strong>房地产行业</strong>：<ul>
+<li><strong>房产估值</strong>：房地产评估师利用房屋的特征（如面积、位置、房龄、周边设施等）通过线性回归模型来估算房产的市场价值。<br>其简单易懂的模型、高效的计算过程以及强大的解释能力，使得线性回归成为数据分析和预测建模中不可或缺的工具。</li>
+</ul>
+</li>
+</ol>
 
                 
               </div>
@@ -343,15 +337,8 @@
     
       <span class="category-chain">
         
-  <a href="/categories/AI%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/" class="category-chain-item">AI数学知识</a>
+  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8/" class="category-chain-item">机器学习入门</a>
   
-  
-    <span>></span>
-    
-  <a href="/categories/AI%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/" class="category-chain-item">高等数学</a>
-  
-  
-
   
 
       </span>
@@ -367,11 +354,9 @@
       
         <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="print-no-link">#人工智能</a>
       
-        <a href="/tags/%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/" class="print-no-link">#数学知识</a>
+        <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="print-no-link">#机器学习</a>
       
-        <a href="/tags/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/" class="print-no-link">#高等数学</a>
-      
-        <a href="/tags/%E5%87%BD%E6%95%B0/" class="print-no-link">#函数</a>
+        <a href="/tags/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/" class="print-no-link">#线性回归</a>
       
     </div>
   
@@ -383,8 +368,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>AI数学知识：H01-函数</div>
-      <div>http://example.com/2024/05/19/AI数学知识：H01-函数/</div>
+      <div>机器学习入门：ML05-线性回归模型</div>
+      <div>http://example.com/2024/05/21/机器学习入门：ML05-线性回归模型/</div>
     </div>
     <div class="license-meta">
       
@@ -396,7 +381,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年5月19日</div>
+          <div>2024年5月21日</div>
         </div>
       
       
@@ -428,18 +413,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/05/20/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%EF%BC%9ADL-%E5%88%9D%E8%AF%86/" title="【深度学习入门】H01-初识">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">【深度学习入门】H01-初识</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/05/19/Python%E5%85%A5%E9%97%A8%EF%BC%9A%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%85%A8%E8%A7%A3%E6%9E%90/" title="Python基础语法全解析">
-                        <span class="hidden-mobile">Python基础语法全解析</span>
+                      <a href="/2024/05/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%EF%BC%9AML01-%E5%88%9D%E8%AF%86/" title="机器学习入门：ML01-初识">
+                        <span class="hidden-mobile">机器学习入门：ML01-初识</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
