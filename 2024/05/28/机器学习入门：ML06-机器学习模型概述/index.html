@@ -1,0 +1,889 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Fairy Girl">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="机器学习模型概述——深入理解十大常用的机器学习模型。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习入门：ML06-机器学习模型概述">
+<meta property="og:url" content="http://example.com/2024/05/28/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%EF%BC%9AML06-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A8%A1%E5%9E%8B%E6%A6%82%E8%BF%B0/index.html">
+<meta property="og:site_name" content="Fairy Girl&#39;s BLOG">
+<meta property="og:description" content="机器学习模型概述——深入理解十大常用的机器学习模型。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/front/MachineLearning.png">
+<meta property="article:published_time" content="2024-05-28T04:00:00.000Z">
+<meta property="article:modified_time" content="2024-05-28T07:38:11.749Z">
+<meta property="article:author" content="Fairy Girl">
+<meta property="article:tag" content="人工智能">
+<meta property="article:tag" content="机器学习">
+<meta property="article:tag" content="算法模型">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/images/front/MachineLearning.png">
+  
+  
+  
+  <title>机器学习入门：ML06-机器学习模型概述 - Fairy Girl&#39;s BLOG</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fairy Girl&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="机器学习入门：ML06-机器学习模型概述"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-05-28 12:00" pubdate>
+          2024年5月28日 中午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          27 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">机器学习入门：ML06-机器学习模型概述</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2024年5月28日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>大家好，今天我们来一起深入讨论2024年最常用的十大机器学习模型。这些算法不仅在理论上具有重要意义，而且在实际应用中也非常广泛。</p>
+<p><img src="/../images/%E5%90%B4%E6%81%A9%E8%BE%BE%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BA.png" srcset="/img/loading.gif" lazyload alt="吴恩达的机器学习图标"></p>
+<p>接下来，让我们一一了解它们的基本原理、特点、优缺点以及应用场景吧！</p>
+<p><strong>文章大纲</strong></p>
+<p><img src="/../images/2024%E5%B9%B4%E5%8D%81%E5%A4%A7%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A8%A1%E5%9E%8B.png" srcset="/img/loading.gif" lazyload alt="文章大纲"></p>
+<hr>
+<h2 id="一、线性回归模型"><a href="#一、线性回归模型" class="headerlink" title="一、线性回归模型"></a>一、线性回归模型</h2><p><strong>线性回归模型</strong>是机器学习中一种基本且常用的回归预测模型。它主要用于预测连续值输出，例如房价、气温、用电量等。</p>
+<p><img src="/../images/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%A1%88%E4%BE%8B.png" srcset="/img/loading.gif" lazyload alt="线性回归案例展示"></p>
+<h3 id="1-1-基本原理"><a href="#1-1-基本原理" class="headerlink" title="1.1 基本原理"></a>1.1 基本原理</h3><p><strong>线性回归模型</strong>主要是尝试找到一种特征值（自变量）和目标值（因变量）之间的线性关系。模型的数学表达式为：<br>$$y&#x3D;\beta_0+\beta_1x_1+\beta_2x_2+\cdots+\beta_nx_n+\epsilon$$.<br>其中，$y$是目标值，$x_1,x_2,\cdots,x_n$是特征值，$\beta_0$是截距项，$\beta_1,\beta_2,\cdots,\beta_n$是$x$的回归系数，$\epsilon$是误差项。</p>
+<p>📌<code>线性回归</code>模型的实现方法如下：</p>
+<ul>
+<li><strong>普通最小二乘法</strong>：最常用的线性回归估计方法，通过最小化残差平方和（损失函数）来估计回归系数。</li>
+<li><strong>梯度下降法</strong>：用于处理大规模数据集，通过迭代优化来找到损失函数的最小值。</li>
+<li><strong>正规方程</strong>：当特征数量不是很多时，可以使用正规方程直接计算回归系数。</li>
+</ul>
+<h3 id="1-2-模型的特点"><a href="#1-2-模型的特点" class="headerlink" title="1.2 模型的特点"></a>1.2 模型的特点</h3><ul>
+<li><strong>简单直观</strong>：模型结构简单，易于理解和解释。</li>
+<li><strong>易于实现</strong>：线性回归模型容易实现，许多编程库都提供了线性回归的实现。</li>
+<li><strong>计算效率高</strong>：相对于复杂的机器学习模型，线性回归的计算效率较高。</li>
+</ul>
+<h3 id="1-3-模型的优缺点"><a href="#1-3-模型的优缺点" class="headerlink" title="1.3 模型的优缺点"></a>1.3 模型的优缺点</h3><ul>
+<li><p><strong>优点</strong>：</p>
+<ul>
+<li><strong>解释性强</strong>：模型参数（回归系数）可以解释特征对目标值的影响。</li>
+<li><strong>训练速度快</strong>：线性回归模型训练速度快，适合于数据量不是很大的问题。</li>
+</ul>
+</li>
+<li><p><strong>缺点</strong>：</p>
+<ul>
+<li><strong>非线性关系</strong>：线性回归模型不能很好地处理特征与目标值之间的非线性关系。</li>
+<li><strong>异常值敏感</strong>：线性回归对异常值比较敏感，异常值可能会对模型的预测性能产生较大影响。</li>
+<li><strong>多重共线性</strong>：当特征之间存在高度相关性时，可能会影响回归系数的估计。</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-4-模型的应用场景"><a href="#1-4-模型的应用场景" class="headerlink" title="1.4 模型的应用场景"></a>1.4 模型的应用场景</h3><ul>
+<li><strong>房价预测</strong>：根据房屋的大小、位置、年龄等特征预测房价。</li>
+<li><strong>销售预测</strong>：根据历史销售数据、市场趋势等信息预测未来的销售额。</li>
+<li><strong>医疗领域</strong>：预测疾病的发展，如根据病人的年龄、体重、血压等信息预测心脏病的风险。</li>
+</ul>
+<p><strong>线性回归模型</strong>是许多机器学习任务的基础，并且在实际应用中非常有效。随着机器学习领域的发展，线性回归模型也在不断地被改进和扩展。</p>
+<h2 id="二、对数几率回归模型"><a href="#二、对数几率回归模型" class="headerlink" title="二、对数几率回归模型"></a>二、对数几率回归模型</h2><p><strong>对数几率回归</strong>（Logistic Regression）模型是机器学习中用于分类问题的一种重要算法，尤其是二分类问题。虽然它的名字中有“回归”两个字，但它实际上是用于分类的。</p>
+<p><img src="/../images/Sigmoid%E5%87%BD%E6%95%B0.png" srcset="/img/loading.gif" lazyload alt="Sigmoid函数"></p>
+<blockquote>
+<p>“对数几率回归”这个名词是根据周志华老师的《机器学习》书中对<code>Logistic Regression</code>翻译而来的。</p>
+</blockquote>
+<h3 id="2-1-基本原理"><a href="#2-1-基本原理" class="headerlink" title="2.1 基本原理"></a>2.1 基本原理</h3><p><strong>对数几率回归</strong>通过使用“单位阶跃函数”（通常是Sigmoid函数）将线性回归模型的输出映射到0和1之间，从而实现分类的目的。</p>
+<p>Sigmoid函数的数学表达式为：<br>$$\sigma(z) &#x3D; \frac{1}{1+e^{-z}}$$<br>其中，$z$ 是线性回归模型的输出，即 $z&#x3D;\beta_0+\beta_1x_1+\beta_2x_2+\cdots+\beta_nx_n+\epsilon$.</p>
+<p>📌<code>对数几率回归</code>模型的实现方法：通过最大似然估计（MLE）来训练模型参数。这个过程涉及到损失函数的最小化，即对数损失（也称为交叉熵损失）。</p>
+<h3 id="2-2-模型特点"><a href="#2-2-模型特点" class="headerlink" title="2.2 模型特点"></a>2.2 模型特点</h3><ul>
+<li><strong>概率解释</strong>：逻辑回归的输出可以解释为概率，这使得模型的解释性增强。</li>
+<li><strong>分类问题</strong>：主要用于二分类问题，但也可以扩展到多分类问题（多类逻辑回归或Softmax回归）。</li>
+</ul>
+<h3 id="2-3-模型优缺点"><a href="#2-3-模型优缺点" class="headerlink" title="2.3 模型优缺点"></a>2.3 模型优缺点</h3><ul>
+<li><p><strong>优点</strong>：</p>
+<ul>
+<li><strong>易于实现</strong>：逻辑回归模型容易实现，许多机器学习库都提供了逻辑回归的实现。</li>
+<li><strong>计算效率</strong>：相对于复杂的模型，逻辑回归的计算效率较高。</li>
+</ul>
+</li>
+<li><p><strong>缺点</strong>：</p>
+<ul>
+<li><strong>假设线性</strong>：逻辑回归假设特征与目标变量的对数几率是线性关系，这在现实世界中并不总是成立。</li>
+<li><strong>异常值敏感</strong>：与线性回归类似，逻辑回归对异常值也比较敏感。</li>
+<li><strong>分类阈值固定</strong>：默认使用0.5作为分类阈值，这可能不适用于所有问题，需要根据具体问题调整。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-4-模型应用场景"><a href="#2-4-模型应用场景" class="headerlink" title="2.4 模型应用场景"></a>2.4 模型应用场景</h3><ul>
+<li><strong>垃圾邮件检测</strong>：根据邮件内容判断是否为垃圾邮件。</li>
+<li><strong>疾病诊断</strong>：根据病人的症状和其他特征预测患病的概率。</li>
+<li><strong>信用评分</strong>：根据客户的财务信息预测违约的概率。</li>
+</ul>
+<h2 id="三、决策树模型"><a href="#三、决策树模型" class="headerlink" title="三、决策树模型"></a>三、决策树模型</h2><p><strong>决策树</strong>是一种流行的机器学习算法，用于分类和回归任务。它通过学习简单的决策规则从数据特征中推断出目标值。</p>
+<p><img src="/../images/%E5%86%B3%E7%AD%96%E6%A0%91%E6%A8%A1%E5%9E%8B.png" srcset="/img/loading.gif" lazyload alt="决策树原理图解"></p>
+<h3 id="3-1-基本原理"><a href="#3-1-基本原理" class="headerlink" title="3.1 基本原理"></a>3.1 基本原理</h3><p><strong>决策树</strong>通过递归地将数据集分割成越来越小的子集，并在每个子集上选择最合适的特征进行分割，直到满足停止条件（例如，所有样本属于同一个类别，或达到预设的最大深度）。最终，每个叶节点代表一个决策结果。</p>
+<p>📌<code>决策树</code>的构建过程如下：</p>
+<ol>
+<li><strong>特征选择</strong>：选择最合适的特征进行分割，常用的标准有信息增益、基尼不纯度等。</li>
+<li><strong>树的生成</strong>：递归地构建树，直到满足停止条件。</li>
+<li><strong>剪枝</strong>：通过剪枝来控制树的复杂度，防止过拟合。</li>
+</ol>
+<h3 id="3-2-模型特点"><a href="#3-2-模型特点" class="headerlink" title="3.2 模型特点"></a>3.2 模型特点</h3><ul>
+<li><strong>易于理解和解释</strong>：决策树的结构类似于流程图，可以直观地展示决策过程。</li>
+<li><strong>处理各种数据</strong>：可以处理数值型和类别型数据。</li>
+<li><strong>非参数模型</strong>：不需要假设数据的分布。</li>
+</ul>
+<h3 id="3-3-模型优缺点"><a href="#3-3-模型优缺点" class="headerlink" title="3.3 模型优缺点"></a>3.3 模型优缺点</h3><ul>
+<li><p><strong>优点</strong>：</p>
+<ul>
+<li><strong>特征重要性</strong>：可以评估各个特征对预测结果的重要性。</li>
+<li><strong>可视化</strong>：决策树的结构可以被可视化，有助于理解模型如何进行预测。</li>
+<li><strong>多类问题</strong>：可以用于多类分类问题。</li>
+</ul>
+</li>
+<li><p><strong>缺点</strong>：</p>
+<ul>
+<li><strong>容易过拟合</strong>：特别是在数据特征较多时，决策树可能会生成过于复杂的树，导致过拟合。</li>
+<li><strong>对噪声敏感</strong>：决策树对数据中的噪声和异常值比较敏感。</li>
+<li><strong>模型依赖于数据</strong>：如果训练数据发生变化，决策树的性能可能会有较大波动。</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-4-模型应用场景"><a href="#3-4-模型应用场景" class="headerlink" title="3.4 模型应用场景"></a>3.4 模型应用场景</h3><ul>
+<li><strong>医疗诊断</strong>：根据病人的症状和其他特征进行疾病诊断。</li>
+<li><strong>金融领域</strong>：评估贷款申请的风险或预测股票市场的走势。</li>
+<li><strong>客户细分</strong>：根据客户的特征将其分入不同的群体。</li>
+</ul>
+<h2 id="四、随机森林模型"><a href="#四、随机森林模型" class="headerlink" title="四、随机森林模型"></a>四、随机森林模型</h2><p><strong>随机森林</strong>（Random Forest）是一种集成学习方法，它通过构建多个决策树来进行分类或回归任务，以提高模型的准确性和鲁棒性。</p>
+<p><img src="/../images/%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97%E6%A8%A1%E5%9E%8B.png" srcset="/img/loading.gif" lazyload alt="随机森林原理图解"></p>
+<h3 id="4-1-基本原理"><a href="#4-1-基本原理" class="headerlink" title="4.1 基本原理"></a>4.1 基本原理</h3><p><strong>随机森林</strong>通过创建一组决策树，每个树的构建过程中引入随机性，最终的预测结果是通过所有树的预测结果进行投票（分类）或平均（回归）得到的。</p>
+<p>📌<code>随机森林</code>的构建过程如下：</p>
+<ol>
+<li><strong>自助采样</strong>：对于每棵树，通过自助采样（bootstrap sampling）从原始训练集中抽取样本，这允许同一样本在不同的树中多次出现。</li>
+<li><strong>特征随机选择</strong>：在分裂节点时，随机选择一部分特征，而不是使用所有特征。</li>
+<li><strong>构建决策树</strong>：每棵树都训练到最大深度，不进行剪枝。</li>
+<li><strong>集成结果</strong>：分类任务通过多数投票，回归任务通过平均预测结果来集成最终的预测。</li>
+</ol>
+<h3 id="4-2-模型特点"><a href="#4-2-模型特点" class="headerlink" title="4.2 模型特点"></a>4.2 模型特点</h3><ul>
+<li><strong>集成多个弱学习器</strong>：每个决策树可以视为一个弱学习器，随机森林通过集成多个弱学习器来提高整体性能。</li>
+<li><strong>训练速度快</strong>：并行化处理，可以同时训练多个树。</li>
+<li><strong>高准确性</strong>：通过集成多个树，减少了模型的方差。</li>
+</ul>
+<h3 id="4-3-模型优缺点"><a href="#4-3-模型优缺点" class="headerlink" title="4.3 模型优缺点"></a>4.3 模型优缺点</h3><ul>
+<li><p><strong>优点</strong>：</p>
+<ul>
+<li><strong>防止过拟合</strong>：由于集成了多个树，随机森林通常能够防止单个树的过拟合问题。</li>
+<li><strong>适用性广</strong>：随机森林可以用于分类和回归任务，且不需要假设数据的分布。</li>
+<li><strong>特征重要性评估</strong>：可以评估各个特征对预测结果的重要性。</li>
+</ul>
+</li>
+<li><p><strong>缺点</strong>：</p>
+<ul>
+<li><strong>模型解释性差</strong>：由于模型复杂，随机森林不如单个决策树那样易于解释。</li>
+<li><strong>训练数据要求</strong>：需要较大的训练数据集来构建有效的森林。</li>
+<li><strong>计算资源</strong>：构建大量的树可能会消耗较多的计算资源。</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-4-模型应用场景"><a href="#4-4-模型应用场景" class="headerlink" title="4.4 模型应用场景"></a>4.4 模型应用场景</h3><ul>
+<li><strong>图像分类</strong>：在图像识别和分类任务中，随机森林可以提供较高的分类准确率。</li>
+<li><strong>生物信息学</strong>：在基因表达数据的分类和回归分析中应用广泛。</li>
+<li><strong>金融风险评估</strong>：用于评估贷款申请的风险或预测市场趋势。</li>
+</ul>
+<h2 id="五、支持向量机"><a href="#五、支持向量机" class="headerlink" title="五、支持向量机"></a>五、支持向量机</h2><p><strong>支持向量机</strong>（Support Vector Machine, SVM）是一种监督学习算法，主要用于分类和回归任务，特别擅长于解决高维空间中的线性和非线性问题。</p>
+<p><img src="/../images/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA.png" srcset="/img/loading.gif" lazyload alt="支持向量机的核函数变换原理图解"></p>
+<h3 id="5-1-基本原理"><a href="#5-1-基本原理" class="headerlink" title="5.1 基本原理"></a>5.1 基本原理</h3><p><strong>SVM</strong>通过找到数据点之间的最优边界来区分不同类别。在二维空间中，这个边界可以是一条直线；在更高维空间中，它是一个超平面。SVM的目标是最大化边界的宽度，即找到最大间隔分割数据。</p>
+<p>📌<code>SVM</code>的实现流程：</p>
+<ol>
+<li><strong>选择合适的核函数</strong>：常用的核函数包括线性核、多项式核、径向基函数（RBF）核等。</li>
+<li><strong>优化问题</strong>：通过求解凸优化问题来找到最优的权重和偏置项。</li>
+<li><strong>软间隔和正则化</strong>：引入软间隔和正则化参数来控制模型的复杂度和防止过拟合。</li>
+</ol>
+<h3 id="5-2-模型特点"><a href="#5-2-模型特点" class="headerlink" title="5.2 模型特点"></a>5.2 模型特点</h3><ul>
+<li><strong>间隔最大化</strong>：SVM试图找到具有最大间隔的决策边界。</li>
+<li><strong>核函数</strong>：SVM使用核技巧来处理非线性问题，无需显式地映射到高维空间。</li>
+</ul>
+<h3 id="5-3-模型优缺点"><a href="#5-3-模型优缺点" class="headerlink" title="5.3 模型优缺点"></a>5.3 模型优缺点</h3><ul>
+<li><p><strong>优点</strong>：</p>
+<ul>
+<li><strong>高维数据处理</strong>：在高维空间中表现良好，特别是在文本和生物信息学应用中。</li>
+<li><strong>泛化能力强</strong>：通过最大化间隔，SVM具有较好的泛化能力。</li>
+<li><strong>核函数灵活性</strong>：不同的核函数可以适应不同的数据分布。</li>
+</ul>
+</li>
+<li><p><strong>缺点</strong>：</p>
+<ul>
+<li><strong>对核函数和参数选择敏感</strong>：核函数和相关参数的选择会对模型性能有显著影响。</li>
+<li><strong>大规模数据集效率</strong>：在处理大规模数据集时，SVM的训练效率可能不高。</li>
+<li><strong>对异常值敏感</strong>：SVM对异常值和噪声数据比较敏感。</li>
+</ul>
+</li>
+</ul>
+<h3 id="5-4-模型应用场景"><a href="#5-4-模型应用场景" class="headerlink" title="5.4 模型应用场景"></a>5.4 模型应用场景</h3><ul>
+<li><strong>图像识别</strong>：用于图像分类和对象识别。</li>
+<li><strong>生物信息学</strong>：用于蛋白质分类、癌症分类等生物数据的分析。</li>
+<li><strong>文本分类</strong>：用于垃圾邮件识别、情感分析等文本处理任务。</li>
+</ul>
+<p>以上就是我们这一期介绍的五大机器学习模型，其实对于模型的选择有多种因素需要考虑，通常取决于具体问题类型、数据特性、预测精度以及计算资源等因素。随着机器学习领域的不断发展，新的模型和技术也在不断涌现，为解决各种问题提供了更多可能性。</p>
+<hr>
+<p>希望这篇文章能帮助大家对机器学习模型有一个基本的了解。如果你对机器学习感兴趣，或者有任何问题，欢迎在评论区留言讨论。下期我们将继续带来另外五大机器学习模型的讲解，我们下期再见！</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8/" class="category-chain-item">机器学习入门</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="print-no-link">#人工智能</a>
+      
+        <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="print-no-link">#机器学习</a>
+      
+        <a href="/tags/%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B/" class="print-no-link">#算法模型</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>机器学习入门：ML06-机器学习模型概述</div>
+      <div>http://example.com/2024/05/28/机器学习入门：ML06-机器学习模型概述/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Fairy Girl</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年5月28日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/05/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%EF%BC%9AML05-%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B/" title="机器学习入门：ML05-线性回归模型">
+                        <span class="hidden-mobile">机器学习入门：ML05-线性回归模型</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
