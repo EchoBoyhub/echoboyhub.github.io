@@ -1,300 +1,192 @@
-
-
-<!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=auto>
-
-
-
-<head>
-  <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
-  <link rel="icon" href="/img/fluid.png">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-  <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="Fairy Girl">
-  <meta name="keywords" content="">
-  
-    <meta name="description" content="本教程专为零基础、初学者设计，旨在通过从零开始构建、训练和评估一个基础的深度学习模型，轻松步入这个充满可能的领域。">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>深度学习入门:DL02-感知机 | Fairy Girl's BLOG</title><meta name="author" content="Fairy Girl"><meta name="copyright" content="Fairy Girl"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="本教程专为零基础、初学者设计，旨在通过从零开始构建、训练和评估一个基础的深度学习模型，轻松步入这个充满可能的领域。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深度学习入门:DL02-感知机">
 <meta property="og:url" content="http://example.com/2024/05/20/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%EF%BC%9ADL05-%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/index.html">
 <meta property="og:site_name" content="Fairy Girl&#39;s BLOG">
 <meta property="og:description" content="本教程专为零基础、初学者设计，旨在通过从零开始构建、训练和评估一个基础的深度学习模型，轻松步入这个充满可能的领域。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/images/front/DeeplLearning.png">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
 <meta property="article:published_time" content="2024-05-19T16:00:00.000Z">
 <meta property="article:modified_time" content="2024-05-28T07:31:21.335Z">
 <meta property="article:author" content="Fairy Girl">
 <meta property="article:tag" content="人工智能">
 <meta property="article:tag" content="机器学习">
 <meta property="article:tag" content="初识">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/images/front/DeeplLearning.png">
-  
-  
-  
-  <title>深度学习入门:DL02-感知机 - Fairy Girl&#39;s BLOG</title>
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2024/05/20/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%EF%BC%9ADL05-%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.14.0-b3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.35/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>(()=>{
+      const saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+      
+      window.btf = {
+        saveToLocal: saveToLocal,
+        getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+          script.src = url
+          script.async = true
+          script.onerror = reject
+          script.onload = script.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            script.onload = script.onreadystatechange = null
+            resolve()
+          }
 
-  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+          Object.keys(attr).forEach(key => {
+            script.setAttribute(key, attr[key])
+          })
 
+          document.head.appendChild(script)
+        }),
 
+        getCSS: (url, id = false) => new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+          link.rel = 'stylesheet'
+          link.href = url
+          if (id) link.id = id
+          link.onerror = reject
+          link.onload = link.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            link.onload = link.onreadystatechange = null
+            resolve()
+          }
+          document.head.appendChild(link)
+        }),
 
-  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+        addGlobalFn: (key, fn, name = false, parent = window) => {
+          const pjaxEnable = false
+          if (!pjaxEnable && key.startsWith('pjax')) return
 
-  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+          const globalFn = parent.globalFn || {}
+          const keyObj = globalFn[key] || {}
+    
+          if (name && keyObj[name]) return
+    
+          name = name || Object.keys(keyObj).length
+          keyObj[name] = fn
+          globalFn[key] = keyObj
+          parent.globalFn = globalFn
+        }
+      }
+    
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
 
-  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-<!-- Do not modify the link that theme dependent icons -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-
-  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
-  
-    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
-  
-
-
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
-
-    if (CONFIG.web_analytics.follow_dnt) {
-      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
-      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
-    }
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-  
-
-
-  
-<!-- hexo injector head_end start -->
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+      
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })()</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":true,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '深度学习入门:DL02-感知机',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-05-28 15:31:21'
+}</script><!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"></head>
-
-
-<body>
-  
-
-  <header>
-    
-
-<div class="header-inner" style="height: 70vh;">
-  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand" href="/">
-      <strong>Fairy Girl&#39;s Blog</strong>
-    </a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/" target="_self">
-                <i class="iconfont icon-home-fill"></i>
-                <span>首页</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/" target="_self">
-                <i class="iconfont icon-archive-fill"></i>
-                <span>归档</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/" target="_self">
-                <i class="iconfont icon-category-fill"></i>
-                <span>分类</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/" target="_self">
-                <i class="iconfont icon-tags-fill"></i>
-                <span>标签</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/" target="_self">
-                <i class="iconfont icon-user-fill"></i>
-                <span>关于</span>
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              <i class="iconfont icon-search"></i>
-            </a>
-          </li>
-          
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
-              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
-            </a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-
-  
-
-<div id="banner" class="banner" parallax=true
-     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
-  <div class="full-bg-img">
-    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-      <div class="banner-text text-center fade-in-up">
-        <div class="h2">
-          
-            <span id="subtitle" data-typed-text="深度学习入门:DL02-感知机"></span>
-          
-        </div>
-
-        
-          
-  <div class="mt-3">
-    
-    
-      <span class="post-meta">
-        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-05-20 00:00" pubdate>
-          2024年5月20日 凌晨
-        </time>
-      </span>
-    
-  </div>
-
-  <div class="mt-1">
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-chart"></i>
-        
-          2.2k 字
-        
-      </span>
-    
-
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-clock-fill"></i>
-        
-        
-        
-          19 分钟
-        
-      </span>
-    
-
-    
-    
-  </div>
-
-
-        
-      </div>
-
-      
-    </div>
-  </div>
-</div>
-
-</div>
-
-  </header>
-
-  <main>
-    
-      
-
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-
-    </div>
-
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div id="board">
-          <article class="post-content mx-auto">
-            <h1 id="seo-header">深度学习入门:DL02-感知机</h1>
-            
-              <p id="updated-time" class="note note-info" style="">
-                
-                  
-                    本文最后更新于 2024年5月28日 下午
-                  
-                
-              </p>
-            
-            
-              <div class="markdown-body">
-                
-                <p>在AI宇宙中，<strong>感知机</strong>（Rerception）犹如一颗璀璨的恒星，照亮了机器学习和深度学习的发展之路。感知机作为人工神经网络的最小单元，不仅是人工智能发展史上一个重要的里程碑事件，其模型的原理和思想至今仍对现代人工智能具有重要的意义。</p>
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">36</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Fairy Girl's BLOG"><span class="site-name">Fairy Girl's BLOG</span></a></span><div id="menus"><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">深度学习入门:DL02-感知机</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-05-19T16:00:00.000Z" title="发表于 2024-05-20 00:00:00">2024-05-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-05-28T07:31:21.335Z" title="更新于 2024-05-28 15:31:21">2024-05-28</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8/">深度学习入门</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="深度学习入门:DL02-感知机"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>在AI宇宙中，<strong>感知机</strong>（Rerception）犹如一颗璀璨的恒星，照亮了机器学习和深度学习的发展之路。感知机作为人工神经网络的最小单元，不仅是人工智能发展史上一个重要的里程碑事件，其模型的原理和思想至今仍对现代人工智能具有重要的意义。</p>
 <p>接下来，我们就来聊一聊感知机的前世今生🤭吧！</p>
-<h2 id="一、感知机的发展"><a href="#一、感知机的发展" class="headerlink" title="一、感知机的发展"></a>一、感知机的发展</h2><p>首先，为了更好的理解感知机，我们先来看一下<strong>感知机</strong>在神经网络发展历程（如下图）中的地位。深度学习是机器学习中的一个分支，而神经网络又是促进深度学习蓬勃发展的关键技术。但神经网络的发展还是具有非常悠久历史的，且发展历程可谓一波三折。<br><img src="/images/%E6%84%9F%E7%9F%A5%E6%9C%BA_20240524160258.png" srcset="/img/loading.gif" lazyload alt="神经网络发展历程"><br>从上述发展历程中，我们得知罗森·布拉特受到”M-P模型”的影响发明了<strong>感知机</strong>，最早的人工神经网络，它是一种形式最简单的前馈神经网络，主要用于二元线性分类器。</p>
+<h2 id="一、感知机的发展"><a href="#一、感知机的发展" class="headerlink" title="一、感知机的发展"></a>一、感知机的发展</h2><p>首先，为了更好的理解感知机，我们先来看一下<strong>感知机</strong>在神经网络发展历程（如下图）中的地位。深度学习是机器学习中的一个分支，而神经网络又是促进深度学习蓬勃发展的关键技术。但神经网络的发展还是具有非常悠久历史的，且发展历程可谓一波三折。<br><img src="/images/%E6%84%9F%E7%9F%A5%E6%9C%BA_20240524160258.png" alt="神经网络发展历程"><br>从上述发展历程中，我们得知罗森·布拉特受到”M-P模型”的影响发明了<strong>感知机</strong>，最早的人工神经网络，它是一种形式最简单的前馈神经网络，主要用于二元线性分类器。</p>
 <p><strong>感知机</strong>，作为神经网络的起点，不仅开启了AI新纪元，也成为我们理解神经网络本质的重要工具，为后续开发更复杂的神经网络奠定了基础。</p>
 <hr>
-<h2 id="二、什么是感知机？"><a href="#二、什么是感知机？" class="headerlink" title="二、什么是感知机？"></a>二、什么是感知机？</h2><h3 id="2-1-感知机的工作原理"><a href="#2-1-感知机的工作原理" class="headerlink" title="2.1 感知机的工作原理"></a>2.1 感知机的工作原理</h3><p>感知机的工作原理主要是基于人脑单个神经元处理信息的过程。它是一个简单的线性分类器，其结构如下图，由输入层、计算单元和输出层三个模块组成，它的输入是实例的特征向量，输出是实例的类别（通常取+1或-1）。<br><img src="/images/%E6%84%9F%E7%9F%A5%E6%9C%BA_20240524160328.png" srcset="/img/loading.gif" lazyload alt="感知机工作原理"></p>
+<h2 id="二、什么是感知机？"><a href="#二、什么是感知机？" class="headerlink" title="二、什么是感知机？"></a>二、什么是感知机？</h2><h3 id="2-1-感知机的工作原理"><a href="#2-1-感知机的工作原理" class="headerlink" title="2.1 感知机的工作原理"></a>2.1 感知机的工作原理</h3><p>感知机的工作原理主要是基于人脑单个神经元处理信息的过程。它是一个简单的线性分类器，其结构如下图，由输入层、计算单元和输出层三个模块组成，它的输入是实例的特征向量，输出是实例的类别（通常取+1或-1）。<br><img src="/images/%E6%84%9F%E7%9F%A5%E6%9C%BA_20240524160328.png" alt="感知机工作原理"></p>
 <p><strong>知识点详解：</strong></p>
 <ol>
 <li><strong>输入层</strong>：感知机的输入层接收来自外部的输入信号，这些信号可以是特征值（例如，在逻辑”与”门的例子中，输入层接收是两个二进制值）。</li>
@@ -316,451 +208,80 @@
 <li>线性方程组：模型通过计算特征向量和权重向量的线性方程组得到决策变量 $z&#x3D;W^TX$ 或 $z&#x3D;\sum_{i&#x3D;1}^{n} w_i*x_i+b$。</li>
 <li>激活函数：感知机使用阈值激活函数来确定最终的输出结果。常用的阈值激活函数就是Heaviside阶跃函数 $f(x)&#x3D;sign(x)$，它根据决策变量 $z$ 输出类别标签。</li>
 </ol>
-<p><strong>推导过程</strong>：<br><img src="/images/%E6%84%9F%E7%9F%A5%E6%9C%BA_20240524160338.png" srcset="/img/loading.gif" lazyload alt="感知机推导1"><br><img src="/images/%E6%84%9F%E7%9F%A5%E6%9C%BA_20240524160347.png" srcset="/img/loading.gif" lazyload alt="感知机推导2"><br><img src="/images/%E6%84%9F%E7%9F%A5%E6%9C%BA_20240524160356.png" srcset="/img/loading.gif" lazyload alt="感知机推导3"></p>
+<p><strong>推导过程</strong>：<br><img src="/images/%E6%84%9F%E7%9F%A5%E6%9C%BA_20240524160338.png" alt="感知机推导1"><br><img src="/images/%E6%84%9F%E7%9F%A5%E6%9C%BA_20240524160347.png" alt="感知机推导2"><br><img src="/images/%E6%84%9F%E7%9F%A5%E6%9C%BA_20240524160356.png" alt="感知机推导3"></p>
 <h2 id="三、如何实现感知机？"><a href="#三、如何实现感知机？" class="headerlink" title="三、如何实现感知机？"></a>三、如何实现感知机？</h2><blockquote>
 <p>实战案例：从零搭建感知机模型</p>
 </blockquote>
-<h3 id="3-1-导入必要模块"><a href="#3-1-导入必要模块" class="headerlink" title="3.1 导入必要模块"></a>3.1 导入必要模块</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np  <br><span class="hljs-keyword">import</span> numpy.random <span class="hljs-keyword">as</span> nr  <br><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt  <br>  <br>plt.rcParams[<span class="hljs-string">&#x27;figure.figsize&#x27;</span>] = (<span class="hljs-number">12</span>, <span class="hljs-number">12</span>) <span class="hljs-comment">#固定图像大小  </span><br>plt.rcParams[<span class="hljs-string">&#x27;font.sans-serif&#x27;</span>]=[<span class="hljs-string">&#x27;SimHei&#x27;</span>] <span class="hljs-comment">#用来正常显示中文标签  </span><br>plt.rcParams[<span class="hljs-string">&#x27;axes.unicode_minus&#x27;</span>]=<span class="hljs-literal">False</span> <span class="hljs-comment">#用来正常显示负号</span><br></code></pre></td></tr></table></figure>
+<h3 id="3-1-导入必要模块"><a href="#3-1-导入必要模块" class="headerlink" title="3.1 导入必要模块"></a>3.1 导入必要模块</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np  </span><br><span class="line"><span class="keyword">import</span> numpy.random <span class="keyword">as</span> nr  </span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt  </span><br><span class="line">  </span><br><span class="line">plt.rcParams[<span class="string">&#x27;figure.figsize&#x27;</span>] = (<span class="number">12</span>, <span class="number">12</span>) <span class="comment">#固定图像大小  </span></span><br><span class="line">plt.rcParams[<span class="string">&#x27;font.sans-serif&#x27;</span>]=[<span class="string">&#x27;SimHei&#x27;</span>] <span class="comment">#用来正常显示中文标签  </span></span><br><span class="line">plt.rcParams[<span class="string">&#x27;axes.unicode_minus&#x27;</span>]=<span class="literal">False</span> <span class="comment">#用来正常显示负号</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="3-2-随机生成数据集"><a href="#3-2-随机生成数据集" class="headerlink" title="3.2 随机生成数据集"></a>3.2 随机生成数据集</h3><p>基于函数 $y&#x3D;0.8x+0.2$ 为分界线随机生成100个点，作为感知机实战的数据集。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-comment"># 生成随机点  </span><br>N = <span class="hljs-number">100</span>  <br>xn = nr.rand(N, <span class="hljs-number">2</span>) <span class="hljs-comment"># 第一列为横轴，第二列为纵轴  </span><br>x = np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>) <span class="hljs-comment"># 选取[0,10]上的线性分布  </span><br>  <br><span class="hljs-comment"># 选取一线性函数  </span><br><span class="hljs-comment"># a, b = nr.rand(), nr.rand()  </span><br>a, b = <span class="hljs-number">0.8</span>, <span class="hljs-number">0.2</span>  <br>f = <span class="hljs-keyword">lambda</span> x : a*x + b  <br>  <br><span class="hljs-comment">#fig = plt.figure() # 创建图层  </span><br><span class="hljs-comment">#figa = plt.gca() # get current axes 获取当前的坐标轴，处理坐标轴相关信息  </span><br>  <br>plt.plot(x, f(x), <span class="hljs-string">&#x27;tab:red&#x27;</span>)  <br>dn = np.zeros([N, <span class="hljs-number">1</span>]) <span class="hljs-comment"># 点在分割线上方为1，反之为-1  </span><br>  <br><span class="hljs-keyword">def</span> <span class="hljs-title function_">print_base</span>(<span class="hljs-params">xn, dn</span>):<br>    <span class="hljs-string">&#x27;&#x27;&#x27; 打印图像 &#x27;&#x27;&#x27;</span><br>    plt.plot(xn[:,<span class="hljs-number">0</span>], xn[:,<span class="hljs-number">1</span>],  <span class="hljs-string">&#x27;o&#x27;</span>, color=<span class="hljs-string">&#x27;tab:blue&#x27;</span>) <span class="hljs-comment"># 蓝色，圆点  </span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(N):  <br>        <span class="hljs-keyword">if</span> (f(xn[i, <span class="hljs-number">0</span>]) &gt; xn[i, <span class="hljs-number">1</span>]): <span class="hljs-comment"># 分割线下方  </span><br>            dn[i] = <span class="hljs-number">1</span>  <br>            plt.plot(xn[i, <span class="hljs-number">0</span>], xn[i, <span class="hljs-number">1</span>], <span class="hljs-string">&#x27;o&#x27;</span>, color=<span class="hljs-string">&#x27;tab:green&#x27;</span>)  <br>        <span class="hljs-keyword">else</span>:  <br>            dn[i] = -<span class="hljs-number">1</span> <span class="hljs-comment"># 分割线上方  </span><br>  <br>  <br>print_base(xn, dn)  <br>plt.legend([<span class="hljs-string">&#x27;上方&#x27;</span>, <span class="hljs-string">&#x27;分割线&#x27;</span>, <span class="hljs-string">&#x27;下方&#x27;</span>])  <br>plt.title(<span class="hljs-string">&#x27;根据分割线选择点&#x27;</span>)  <br>plt.show()<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 生成随机点  </span></span><br><span class="line">N = <span class="number">100</span>  </span><br><span class="line">xn = nr.rand(N, <span class="number">2</span>) <span class="comment"># 第一列为横轴，第二列为纵轴  </span></span><br><span class="line">x = np.linspace(<span class="number">0</span>, <span class="number">1</span>) <span class="comment"># 选取[0,10]上的线性分布  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment"># 选取一线性函数  </span></span><br><span class="line"><span class="comment"># a, b = nr.rand(), nr.rand()  </span></span><br><span class="line">a, b = <span class="number">0.8</span>, <span class="number">0.2</span>  </span><br><span class="line">f = <span class="keyword">lambda</span> x : a*x + b  </span><br><span class="line">  </span><br><span class="line"><span class="comment">#fig = plt.figure() # 创建图层  </span></span><br><span class="line"><span class="comment">#figa = plt.gca() # get current axes 获取当前的坐标轴，处理坐标轴相关信息  </span></span><br><span class="line">  </span><br><span class="line">plt.plot(x, f(x), <span class="string">&#x27;tab:red&#x27;</span>)  </span><br><span class="line">dn = np.zeros([N, <span class="number">1</span>]) <span class="comment"># 点在分割线上方为1，反之为-1  </span></span><br><span class="line">  </span><br><span class="line"><span class="keyword">def</span> <span class="title function_">print_base</span>(<span class="params">xn, dn</span>):</span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27; 打印图像 &#x27;&#x27;&#x27;</span></span><br><span class="line">    plt.plot(xn[:,<span class="number">0</span>], xn[:,<span class="number">1</span>],  <span class="string">&#x27;o&#x27;</span>, color=<span class="string">&#x27;tab:blue&#x27;</span>) <span class="comment"># 蓝色，圆点  </span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N):  </span><br><span class="line">        <span class="keyword">if</span> (f(xn[i, <span class="number">0</span>]) &gt; xn[i, <span class="number">1</span>]): <span class="comment"># 分割线下方  </span></span><br><span class="line">            dn[i] = <span class="number">1</span>  </span><br><span class="line">            plt.plot(xn[i, <span class="number">0</span>], xn[i, <span class="number">1</span>], <span class="string">&#x27;o&#x27;</span>, color=<span class="string">&#x27;tab:green&#x27;</span>)  </span><br><span class="line">        <span class="keyword">else</span>:  </span><br><span class="line">            dn[i] = -<span class="number">1</span> <span class="comment"># 分割线上方  </span></span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">print_base(xn, dn)  </span><br><span class="line">plt.legend([<span class="string">&#x27;上方&#x27;</span>, <span class="string">&#x27;分割线&#x27;</span>, <span class="string">&#x27;下方&#x27;</span>])  </span><br><span class="line">plt.title(<span class="string">&#x27;根据分割线选择点&#x27;</span>)  </span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li>Out：<br><img src="/images/%E6%84%9F%E7%9F%A5%E6%9C%BA_20240524160405.png" srcset="/img/loading.gif" lazyload alt="数据集分布展示"></li>
+<li>Out：<br><img src="/images/%E6%84%9F%E7%9F%A5%E6%9C%BA_20240524160405.png" alt="数据集分布展示"></li>
 </ul>
-<h3 id="3-3-训练模型"><a href="#3-3-训练模型" class="headerlink" title="3.3 训练模型"></a>3.3 训练模型</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">print_per</span>(<span class="hljs-params">xn, dn, w</span>):<br>    <span class="hljs-string">&#x27;&#x27;&#x27; 打印图像 &#x27;&#x27;&#x27;</span><br>    <span class="hljs-keyword">if</span> (w[<span class="hljs-number">2</span>] == <span class="hljs-number">0</span>):<span class="hljs-keyword">return</span><br>    y = <span class="hljs-keyword">lambda</span> x: -w[<span class="hljs-number">0</span>]/w[<span class="hljs-number">2</span>] - w[<span class="hljs-number">1</span>]/w[<span class="hljs-number">2</span>]*x<br>    x = np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>)<br>    plt.plot(x, y(x), <span class="hljs-string">&#x27;tab:blue&#x27;</span>)<br>    print_base(xn, dn)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">perceptron</span>(<span class="hljs-params">xn, dn, max_iter=<span class="hljs-number">10000</span>, w=np.zeros(<span class="hljs-params"><span class="hljs-number">3</span></span>)</span>):  <br>    <span class="hljs-string">&#x27;&#x27;&#x27;  </span><br><span class="hljs-string">    二维分类问题</span><br><span class="hljs-string">    :xn: 数据点，Nx2矩阵</span><br><span class="hljs-string">    :dn: 分类标准，Nx1矩阵</span><br><span class="hljs-string">    :max_iter: 最大迭代次数</span><br><span class="hljs-string">    :w: 初始化参数矩阵</span><br><span class="hljs-string">    :return: 迭代结果，最优分类曲线  </span><br><span class="hljs-string">    &#x27;&#x27;&#x27;</span>    <br>    f = <span class="hljs-keyword">lambda</span> x: np.sign(w[<span class="hljs-number">0</span>] + w[<span class="hljs-number">1</span>] * x[<span class="hljs-number">0</span>] + w[<span class="hljs-number">2</span>] * x[<span class="hljs-number">1</span>]) <span class="hljs-comment">#当前点x在f的上方则返回正数  </span><br>    now = <span class="hljs-number">1</span>  <br>    plt.figure(figsize=(<span class="hljs-number">10</span>, <span class="hljs-number">60</span>))  <br>    chk = [<span class="hljs-number">10</span>, <span class="hljs-number">100</span>, <span class="hljs-number">500</span>, <span class="hljs-number">1000</span>, <span class="hljs-number">5000</span>, <span class="hljs-number">9999</span>]  <br>    <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(max_iter):  <br>        i = nr.randint(N)  <br>        <span class="hljs-keyword">if</span> (_ <span class="hljs-keyword">in</span> chk):  <br>            plt.subplot(<span class="hljs-number">6</span>, <span class="hljs-number">1</span>, now)  <br>            plt.title(<span class="hljs-string">&#x27;当前迭代次数&#x27;</span>+<span class="hljs-built_in">str</span>(_))  <br>            now += <span class="hljs-number">1</span>  <br>            print_per(xn, dn, w)  <br>        <span class="hljs-keyword">if</span> (dn[i] != f(xn[i,:])): <span class="hljs-comment"># 如果分类错误，则进行修正曲线  </span><br>            w[<span class="hljs-number">0</span>] += dn[i]  <br>            w[<span class="hljs-number">1</span>] += dn[i] * xn[i,<span class="hljs-number">0</span>]  <br>            w[<span class="hljs-number">2</span>] += dn[i] * xn[i,<span class="hljs-number">1</span>]  <br>    plt.show()  <br>    <span class="hljs-keyword">return</span> w  <br>  <br>w = perceptron(xn, dn)<br></code></pre></td></tr></table></figure>
+<h3 id="3-3-训练模型"><a href="#3-3-训练模型" class="headerlink" title="3.3 训练模型"></a>3.3 训练模型</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">print_per</span>(<span class="params">xn, dn, w</span>):</span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27; 打印图像 &#x27;&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">if</span> (w[<span class="number">2</span>] == <span class="number">0</span>):<span class="keyword">return</span></span><br><span class="line">    y = <span class="keyword">lambda</span> x: -w[<span class="number">0</span>]/w[<span class="number">2</span>] - w[<span class="number">1</span>]/w[<span class="number">2</span>]*x</span><br><span class="line">    x = np.linspace(<span class="number">0</span>, <span class="number">1</span>)</span><br><span class="line">    plt.plot(x, y(x), <span class="string">&#x27;tab:blue&#x27;</span>)</span><br><span class="line">    print_base(xn, dn)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">perceptron</span>(<span class="params">xn, dn, max_iter=<span class="number">10000</span>, w=np.zeros(<span class="params"><span class="number">3</span></span>)</span>):  </span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27;  </span></span><br><span class="line"><span class="string">    二维分类问题</span></span><br><span class="line"><span class="string">    :xn: 数据点，Nx2矩阵</span></span><br><span class="line"><span class="string">    :dn: 分类标准，Nx1矩阵</span></span><br><span class="line"><span class="string">    :max_iter: 最大迭代次数</span></span><br><span class="line"><span class="string">    :w: 初始化参数矩阵</span></span><br><span class="line"><span class="string">    :return: 迭代结果，最优分类曲线  </span></span><br><span class="line"><span class="string">    &#x27;&#x27;&#x27;</span>    </span><br><span class="line">    f = <span class="keyword">lambda</span> x: np.sign(w[<span class="number">0</span>] + w[<span class="number">1</span>] * x[<span class="number">0</span>] + w[<span class="number">2</span>] * x[<span class="number">1</span>]) <span class="comment">#当前点x在f的上方则返回正数  </span></span><br><span class="line">    now = <span class="number">1</span>  </span><br><span class="line">    plt.figure(figsize=(<span class="number">10</span>, <span class="number">60</span>))  </span><br><span class="line">    chk = [<span class="number">10</span>, <span class="number">100</span>, <span class="number">500</span>, <span class="number">1000</span>, <span class="number">5000</span>, <span class="number">9999</span>]  </span><br><span class="line">    <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(max_iter):  </span><br><span class="line">        i = nr.randint(N)  </span><br><span class="line">        <span class="keyword">if</span> (_ <span class="keyword">in</span> chk):  </span><br><span class="line">            plt.subplot(<span class="number">6</span>, <span class="number">1</span>, now)  </span><br><span class="line">            plt.title(<span class="string">&#x27;当前迭代次数&#x27;</span>+<span class="built_in">str</span>(_))  </span><br><span class="line">            now += <span class="number">1</span>  </span><br><span class="line">            print_per(xn, dn, w)  </span><br><span class="line">        <span class="keyword">if</span> (dn[i] != f(xn[i,:])): <span class="comment"># 如果分类错误，则进行修正曲线  </span></span><br><span class="line">            w[<span class="number">0</span>] += dn[i]  </span><br><span class="line">            w[<span class="number">1</span>] += dn[i] * xn[i,<span class="number">0</span>]  </span><br><span class="line">            w[<span class="number">2</span>] += dn[i] * xn[i,<span class="number">1</span>]  </span><br><span class="line">    plt.show()  </span><br><span class="line">    <span class="keyword">return</span> w  </span><br><span class="line">  </span><br><span class="line">w = perceptron(xn, dn)</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li>Out：<br><img src="/images/%E6%84%9F%E7%9F%A5%E6%9C%BA_20240524160416.png" srcset="/img/loading.gif" lazyload alt="模型训练图像展示"></li>
+<li>Out：<br><img src="/images/%E6%84%9F%E7%9F%A5%E6%9C%BA_20240524160416.png" alt="模型训练图像展示"></li>
 </ul>
-<h3 id="3-4-评估模型"><a href="#3-4-评估模型" class="headerlink" title="3.4 评估模型"></a>3.4 评估模型</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs Python">print_base(xn, dn)<br><br>y = <span class="hljs-keyword">lambda</span> x: -w[<span class="hljs-number">0</span>]/w[<span class="hljs-number">2</span>] - w[<span class="hljs-number">1</span>]/w[<span class="hljs-number">2</span>]*x<br><br>plt.plot(x,y(x),<span class="hljs-string">&#x27;b--&#x27;</span>,label=<span class="hljs-string">&#x27;感知器拟合的分界线&#x27;</span>)<br>plt.plot(x,f(x),<span class="hljs-string">&#x27;r&#x27;</span>,label=<span class="hljs-string">&#x27;原始分界线&#x27;</span>)<br>plt.title(<span class="hljs-string">&#x27;原始分界线和感知器拟合的分界线对比&#x27;</span>)<br>plt.legend()<br>plt.show()<br></code></pre></td></tr></table></figure>
+<h3 id="3-4-评估模型"><a href="#3-4-评估模型" class="headerlink" title="3.4 评估模型"></a>3.4 评估模型</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">print_base(xn, dn)</span><br><span class="line"></span><br><span class="line">y = <span class="keyword">lambda</span> x: -w[<span class="number">0</span>]/w[<span class="number">2</span>] - w[<span class="number">1</span>]/w[<span class="number">2</span>]*x</span><br><span class="line"></span><br><span class="line">plt.plot(x,y(x),<span class="string">&#x27;b--&#x27;</span>,label=<span class="string">&#x27;感知器拟合的分界线&#x27;</span>)</span><br><span class="line">plt.plot(x,f(x),<span class="string">&#x27;r&#x27;</span>,label=<span class="string">&#x27;原始分界线&#x27;</span>)</span><br><span class="line">plt.title(<span class="string">&#x27;原始分界线和感知器拟合的分界线对比&#x27;</span>)</span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li>Out：<br><img src="/images/%E6%84%9F%E7%9F%A5%E6%9C%BA_20240524160424.png" srcset="/img/loading.gif" lazyload alt="模型预测结果展示"></li>
+<li>Out：<br><img src="/images/%E6%84%9F%E7%9F%A5%E6%9C%BA_20240524160424.png" alt="模型预测结果展示"></li>
 </ul>
 <p>上述实战项目，是通过<code>numpy</code>随机生成的一个分类数据集，快速实现从零开始的感知机模型的搭建。</p>
 <hr>
 <p>感知机是一个简单而强大神经网络，它为后续更复杂的神经网络模型奠定了基础。尽管感知机只能解决线性可分问题，但它的原理和学习算法对深度学习和机器学习领域产生了深远的影响。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Fairy Girl</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2024/05/20/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%EF%BC%9ADL05-%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/">http://example.com/2024/05/20/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%EF%BC%9ADL05-%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Fairy Girl's BLOG</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a><a class="post-meta__tags" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a><a class="post-meta__tags" href="/tags/%E5%88%9D%E8%AF%86/">初识</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/05/20/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%EF%BC%9ADL04-%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/" title="深度学习入门:DL02-感知机"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">深度学习入门:DL02-感知机</div></div></a></div><div class="next-post pull-right"><a href="/2024/05/19/AI-%E5%BE%AE%E7%A7%AF%E5%88%86%E7%9F%A5%E8%AF%86%EF%BC%9AX01-%E5%87%BD%E6%95%B0/" title="AI数学知识：X08-迹运算"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">AI数学知识：X08-迹运算</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/04/30/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%EF%BC%9AML02-%E6%95%B0%E6%8D%AE/" title="机器学习入门：ML01-初识"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-30</div><div class="title">机器学习入门：ML01-初识</div></div></a></div><div><a href="/2024/04/24/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%EF%BC%9AML01-%E5%88%9D%E8%AF%86/" title="机器学习入门：ML01-初识"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-24</div><div class="title">机器学习入门：ML01-初识</div></div></a></div><div><a href="/2024/05/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%EF%BC%9AML05-%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B/" title="机器学习入门：ML05-线性回归模型"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-21</div><div class="title">机器学习入门：ML05-线性回归模型</div></div></a></div><div><a href="/2024/05/20/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%EF%BC%9ADL01-%E5%88%9D%E8%AF%86/" title="深度学习入门:DL01-初识"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-20</div><div class="title">深度学习入门:DL01-初识</div></div></a></div><div><a href="/2024/05/20/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%EF%BC%9ADL02-%E6%84%9F%E7%9F%A5%E6%9C%BA/" title="深度学习入门:DL02-感知机"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-20</div><div class="title">深度学习入门:DL02-感知机</div></div></a></div><div><a href="/2024/05/20/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%EF%BC%9ADL03-%E8%AF%AF%E5%B7%AE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E7%AE%97%E6%B3%95/" title="深度学习入门:DL03-误差方向传播算法"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-20</div><div class="title">深度学习入门:DL03-误差方向传播算法</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Fairy Girl</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">36</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%84%9F%E7%9F%A5%E6%9C%BA%E7%9A%84%E5%8F%91%E5%B1%95"><span class="toc-number">1.</span> <span class="toc-text">一、感知机的发展</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AF%E6%84%9F%E7%9F%A5%E6%9C%BA%EF%BC%9F"><span class="toc-number">2.</span> <span class="toc-text">二、什么是感知机？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E6%84%9F%E7%9F%A5%E6%9C%BA%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 感知机的工作原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E6%84%9F%E7%9F%A5%E6%9C%BA%E7%9A%84%E6%95%B0%E5%AD%A6%E6%A8%A1%E5%9E%8B"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 感知机的数学模型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E6%84%9F%E7%9F%A5%E6%9C%BA%EF%BC%9F"><span class="toc-number">3.</span> <span class="toc-text">三、如何实现感知机？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E5%AF%BC%E5%85%A5%E5%BF%85%E8%A6%81%E6%A8%A1%E5%9D%97"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 导入必要模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E9%9A%8F%E6%9C%BA%E7%94%9F%E6%88%90%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 随机生成数据集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B"><span class="toc-number">3.3.</span> <span class="toc-text">3.3 训练模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-%E8%AF%84%E4%BC%B0%E6%A8%A1%E5%9E%8B"><span class="toc-number">3.4.</span> <span class="toc-text">3.4 评估模型</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/05/30/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%EF%BC%9ADL06-%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/" title="深度学习入门:DL06-优化算法">深度学习入门:DL06-优化算法</a><time datetime="2024-05-29T16:00:00.000Z" title="发表于 2024-05-30 00:00:00">2024-05-30</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/05/29/AI-%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E7%9F%A5%E8%AF%86%EF%BC%9AX09-%E7%BA%BF%E6%80%A7%E7%A9%BA%E9%97%B4%E5%92%8C%E7%BA%BF%E6%80%A7%E5%8F%98%E6%8D%A2/" title="AI数学知识：X09-线性空间和线性变换">AI数学知识：X09-线性空间和线性变换</a><time datetime="2024-05-28T16:00:00.000Z" title="发表于 2024-05-29 00:00:00">2024-05-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/05/28/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%EF%BC%9AML06-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A8%A1%E5%9E%8B%E6%A6%82%E8%BF%B0/" title="机器学习入门：ML06-机器学习模型概述">机器学习入门：ML06-机器学习模型概述</a><time datetime="2024-05-28T04:00:00.000Z" title="发表于 2024-05-28 12:00:00">2024-05-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/05/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%EF%BC%9AML05-%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B/" title="机器学习入门：ML05-线性回归模型">机器学习入门：ML05-线性回归模型</a><time datetime="2024-05-20T16:00:00.000Z" title="发表于 2024-05-21 00:00:00">2024-05-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/05/20/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%EF%BC%9ADL01-%E5%88%9D%E8%AF%86/" title="深度学习入门:DL01-初识">深度学习入门:DL01-初识</a><time datetime="2024-05-19T16:00:00.000Z" title="发表于 2024-05-20 00:00:00">2024-05-20</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Fairy Girl</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.14.0-b3"></script><script src="/js/main.js?v=4.14.0-b3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.35/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = (ele) => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
 
-                
-              </div>
-            
-            <hr/>
-            <div>
-              <div class="post-metas my-3">
-  
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
+    Array.from(ele).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
 
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8/" class="category-chain-item">深度学习入门</a>
-  
-  
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
 
-      </span>
-    
-  
-</span>
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
 
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="print-no-link">#人工智能</a>
-      
-        <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="print-no-link">#机器学习</a>
-      
-        <a href="/tags/%E5%88%9D%E8%AF%86/" class="print-no-link">#初识</a>
-      
-    </div>
-  
-</div>
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
 
-
-              
-  
-
-  <div class="license-box my-3">
-    <div class="license-title">
-      <div>深度学习入门:DL02-感知机</div>
-      <div>http://example.com/2024/05/20/深度学习入门：DL05-损失函数/</div>
-    </div>
-    <div class="license-meta">
-      
-        <div class="license-meta-item">
-          <div>作者</div>
-          <div>Fairy Girl</div>
-        </div>
-      
-      
-        <div class="license-meta-item license-meta-date">
-          <div>发布于</div>
-          <div>2024年5月20日</div>
-        </div>
-      
-      
-      
-        <div class="license-meta-item">
-          <div>许可协议</div>
-          <div>
-            
-              
-              
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
-                    <i class="iconfont icon-by"></i>
-                  </span>
-                </a>
-              
-            
-          </div>
-        </div>
-      
-    </div>
-    <div class="license-icon iconfont"></div>
-  </div>
-
-
-
-              
-                <div class="post-prevnext my-3">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2024/05/20/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%EF%BC%9ADL04-%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/" title="深度学习入门:DL02-感知机">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">深度学习入门:DL02-感知机</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2024/05/19/AI-%E5%BE%AE%E7%A7%AF%E5%88%86%E7%9F%A5%E8%AF%86%EF%BC%9AX01-%E5%87%BD%E6%95%B0/" title="AI数学知识：X08-迹运算">
-                        <span class="hidden-mobile">AI数学知识：X08-迹运算</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-          </article>
-        </div>
-      </div>
-    </div>
-
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-  <aside class="sidebar" style="margin-left: -1rem">
-    <div id="toc">
-  <p class="toc-header">
-    <i class="iconfont icon-list"></i>
-    <span>目录</span>
-  </p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
-
-
-
-  </aside>
-
-
-    </div>
-  </div>
-</div>
-
-
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-  
-  
-
-
-
-
-
-
-
-
-
-    
-
-    
-      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-    
-
-    
-  </main>
-
-  <footer>
-    <div class="footer-inner">
-  
-    <div class="footer-content">
-       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
-    </div>
-  
-  
-  
-  
-</div>
-
-  </footer>
-
-  <!-- Scripts -->
-  
-  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
     })
-  </script>
+  }
 
-
-<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
-<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-
-  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var subtitle = document.getElementById('subtitle');
-      if (!subtitle || !typing) {
-        return;
-      }
-      var text = subtitle.getAttribute('data-typed-text');
-      
-        typing(text);
-      
-    })(window, document);
-  </script>
-
-
-
-
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
-
-
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
-    var toc = jQuery('#toc');
-    if (toc.length === 0 || !window.tocbot) { return; }
-    var boardCtn = jQuery('#board-ctn');
-    var boardTop = boardCtn.offset().top;
-
-    window.tocbot.init(Object.assign({
-      tocSelector     : '#toc-body',
-      contentSelector : '.markdown-body',
-      linkClass       : 'tocbot-link',
-      activeLinkClass : 'tocbot-active-link',
-      listClass       : 'tocbot-list',
-      isCollapsedClass: 'tocbot-is-collapsed',
-      collapsibleClass: 'tocbot-is-collapsible',
-      scrollSmooth    : true,
-      includeTitleTags: true,
-      headingsOffset  : -boardTop,
-    }, CONFIG.toc));
-    if (toc.find('.toc-list-item').length > 0) {
-      toc.css('visibility', 'visible');
-    }
-
-    Fluid.events.registerRefreshCallback(function() {
-      if ('tocbot' in window) {
-        tocbot.refresh();
-        var toc = jQuery('#toc');
-        if (toc.length === 0 || !tocbot) {
-          return;
-        }
-        if (toc.find('.toc-list-item').length > 0) {
-          toc.css('visibility', 'visible');
-        }
-      }
-    });
-  });
-</script>
-
-
-  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
-
-  <script>Fluid.plugins.codeWidget();</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
-    window.anchors.options = {
-      placement: CONFIG.anchorjs.placement,
-      visible  : CONFIG.anchorjs.visible
-    };
-    if (CONFIG.anchorjs.icon) {
-      window.anchors.options.icon = CONFIG.anchorjs.icon;
-    }
-    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-    var res = [];
-    for (var item of el) {
-      res.push('.markdown-body > ' + item.trim());
-    }
-    if (CONFIG.anchorjs.placement === 'left') {
-      window.anchors.options.class = 'anchorjs-link-left';
-    }
-    window.anchors.add(res.join(', '));
-
-    Fluid.events.registerRefreshCallback(function() {
-      if ('anchors' in window) {
-        anchors.removeAll();
-        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-        var res = [];
-        for (var item of el) {
-          res.push('.markdown-body > ' + item.trim());
-        }
-        if (CONFIG.anchorjs.placement === 'left') {
-          anchors.options.class = 'anchorjs-link-left';
-        }
-        anchors.add(res.join(', '));
-      }
-    });
-  });
-</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
-    Fluid.plugins.fancyBox();
-  });
-</script>
-
-
-  <script>Fluid.plugins.imageCaption();</script>
-
-  
-      <script>
-        if (!window.MathJax) {
-          window.MathJax = {
-            tex    : {
-              inlineMath: { '[+]': [['$', '$']] }
-            },
-            loader : {
-              load: ['ui/lazy']
-            },
-            options: {
-              renderActions: {
-                insertedScript: [200, () => {
-                  document.querySelectorAll('mjx-container').forEach(node => {
-                    let target = node.parentNode;
-                    if (target.nodeName.toLowerCase() === 'li') {
-                      target.parentNode.classList.add('has-jax');
-                    }
-                  });
-                }, '', false]
-              }
-            }
-          };
-        } else {
-          MathJax.startup.document.state(0);
-          MathJax.texReset();
-          MathJax.typeset();
-          MathJax.typesetPromise();
-        }
-
-        Fluid.events.registerRefreshCallback(function() {
-          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
-            MathJax.startup.document.state(0);
-            MathJax.texReset();
-            MathJax.typeset();
-            MathJax.typesetPromise();
-          }
-        });
-      </script>
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
     
+    codeMermaidEle.forEach(ele => {
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.innerHTML = `<pre class="mermaid-src" hidden>${ele.textContent}</pre>`
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
 
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+  const loadMermaid = () => {
+    if (false) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
 
-  <script  src="/js/local-search.js" ></script>
-
-
-
-
-
-<!-- 主题的启动项，将它保持在最底部 -->
-<!-- the boot of the theme, keep it at the bottom -->
-<script  src="/js/boot.js" ></script>
-
-
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js').then(runMermaidFn)
+  }
   
-
-  <noscript>
-    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
-  </noscript>
-</body>
-</html>
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
