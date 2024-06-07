@@ -1,0 +1,290 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Fairy Girl's BLOG</title><meta name="author" content="Fairy Girl"><meta name="copyright" content="Fairy Girl"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta property="og:type" content="website">
+<meta property="og:title" content="Fairy Girl&#39;s BLOG">
+<meta property="og:url" content="http://example.com/page/5/index.html">
+<meta property="og:site_name" content="Fairy Girl&#39;s BLOG">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/avatar.png">
+<meta property="article:author" content="Fairy Girl">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/avatar.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/page/5/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.14.0-b3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.35/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>(()=>{
+      const saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+      
+      window.btf = {
+        saveToLocal: saveToLocal,
+        getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+          script.src = url
+          script.async = true
+          script.onerror = reject
+          script.onload = script.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            script.onload = script.onreadystatechange = null
+            resolve()
+          }
+
+          Object.keys(attr).forEach(key => {
+            script.setAttribute(key, attr[key])
+          })
+
+          document.head.appendChild(script)
+        }),
+
+        getCSS: (url, id = false) => new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+          link.rel = 'stylesheet'
+          link.href = url
+          if (id) link.id = id
+          link.onerror = reject
+          link.onload = link.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            link.onload = link.onreadystatechange = null
+            resolve()
+          }
+          document.head.appendChild(link)
+        }),
+
+        addGlobalFn: (key, fn, name = false, parent = window) => {
+          const pjaxEnable = false
+          if (!pjaxEnable && key.startsWith('pjax')) return
+
+          const globalFn = parent.globalFn || {}
+          const keyObj = globalFn[key] || {}
+    
+          if (name && keyObj[name]) return
+    
+          name = name || Object.keys(keyObj).length
+          keyObj[name] = fn
+          globalFn[key] = keyObj
+          parent.globalFn = globalFn
+        }
+      }
+    
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+      
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })()</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":true,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Fairy Girl\'s BLOG',
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2024-06-07 16:01:45'
+}</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">45</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><hr class="custom-hr"/></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background-image: url('/img/background.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Fairy Girl's BLOG"><span class="site-name">Fairy Girl's BLOG</span></a></span><div id="menus"><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="site-info"><h1 id="site-title">Fairy Girl's BLOG</h1></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/05/19/Python%E5%85%A5%E9%97%A8%EF%BC%9AP06-%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93/" title="Python入门：P01-第三方库/框架">Python入门：P01-第三方库/框架</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-05-18T16:00:00.000Z" title="发表于 2024-05-19 00:00:00">2024-05-19</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/">Python</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/Python/">Python</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/">基础语法</a></span></div><div class="content">前言Pytho作为一种多用途的编程语言，其强大的功能很大程度上得益于其丰富的第三方库和框架。这些工具不仅提升了开发效率，也使得Python在各个领域都能发挥出色的作用。
+今天我们就来聊一聊Python编程入门中这不可或缺的一部分——第三方库和框架，并介绍它与标准库的区别以及如何使用pip工具来安装和管理。
+一、什么是第三方库&#x2F;框架？Python第三方库和框架是由Python社区提供的额外代码库，它们扩展了Python的标准库，为开发者提供了更多的功能和工具。这些库和框架覆盖了从Web开发到数据科学、机器学习、图像处理等各个领域。
+常见的第三方库&#x2F;框架：
+
+Web 开发
+
+Django: 一个高级的 Python Web 框架，鼓励快速开发和干净、实用的设计。Flask: 一个轻量级的 Web 应用框架，易于扩展。FastAPI: 一个现代、快速（高性能）的 Web 框架，用于构建 API。数据科学和机器学习
+NumPy: 支持大量的维度数组与矩阵运算，此外也针对数组运算提供大量的数学函数库。Pandas: 提供高性能、易用的数据结构和数据分析工具。Scikit-le ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/05/19/Python%E5%85%A5%E9%97%A8%EF%BC%9AP07-%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90/" title="Python入门：P07-学习资源">Python入门：P07-学习资源</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-05-18T16:00:00.000Z" title="发表于 2024-05-19 00:00:00">2024-05-19</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/">Python</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/Python/">Python</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/">基础语法</a></span></div><div class="content">前言大家好，截止到今天，我们的Python入门系列文章也已接近尾声，通过之前的文章，相信大家都对Python编程有了一个宏观的认识。知道了Python的编程语法、面向对象编程、异常处理以及标准库和第三方库的使用。
+今天，我们就来聊一聊如何在Python编程方面不断学习和进阶。无论你是刚入门的新手，还是已经有一定基础的开发者，这篇文章都会为你提供一些实用的资源和建议。
+一、Python学习资源推荐
+官方文档：Python的官方文档是最权威的学习资源，包括语言参考和库参考。
+在线教程：
+Python.org 提供了初学者教程和深入文档。
+Codecademy、Coursera、edX 提供互动式编程课程。
+
+
+学习书单：
+《Python编程：从入门到实践》
+《笨办法学Python3》
+《利用Python进行数据分析》
+《Python王者归来》
+《看漫画学Python》
+《Python高性能编程》
+
+
+视频教程：YouTube、Bilibili等平台上的Python教学视频。
+编程挑战网站：如LeetCode、HackerRank、Codewars提供编程练习和挑战。
+
+二、如何阅读Pyth ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/05/07/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%EF%BC%9AML03-%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/" title="机器学习入门：ML03-特征工程">机器学习入门：ML03-特征工程</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-05-06T16:00:00.000Z" title="发表于 2024-05-07 00:00:00">2024-05-07</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8/">机器学习入门</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/">特征工程</a></span></div><div class="content">大家好，欢迎来到我的频道！
+首先，问大家一个问题，你是否想过“机器是如何理解复杂的现实世界，并做出一系列决策的？”
+今天，我们就来聊一聊机器学习中非常重要的环节——特征工程。
+文章大纲：
+一、什么是特征工程特征工程是从原始数据中提取有价值的信息，并将其转换为适合机器学习模型的格式的过程。这个过程包括数据清洗、特征选择、特征提取和特征转换等步骤，目的是最大化地从原始数据中提取有价值的特征，以供算法和模型使用。
+
+
+二、特征工程的那些事儿2.1 特征选择2.2 特征提取与转换2.3 特征融合与降维
+三、为什么要做特征工程
+四、实战案例（含详细代码）
+结语总而言之，言而总之。特征工程是一项复杂而重要的任务，需要综合考虑数据类型、模型需求和业务场景等因素。我们需要在实际的项目中通过不断尝试和优化，可以逐步提高特征工程的效果，进而提升机器学习模型的性能。
+</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/04/30/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%EF%BC%9AML02-%E6%95%B0%E6%8D%AE/" title="机器学习入门：ML01-初识">机器学习入门：ML01-初识</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-04-29T16:00:00.000Z" title="发表于 2024-04-30 00:00:00">2024-04-30</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8/">机器学习入门</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E5%88%9D%E8%AF%86/">初识</a></span></div><div class="content">在机器学习的世界里，数据就是一切并非夸张之言。
+我们在大脑中想象一下，假如你面前有一张白纸，而你想要画出一幅美丽的风景画。如果你身边没有画笔、颜料或灵感，那么你这张白纸就永远是一张白纸。
+数据之所以重要是因为数据中包含了现实世界中问题和答案之间的复杂关系。而机器学习能够通过分析和学习这些数据，发现其中的规律，进而对未知的问题做出预测和分析。
+接下来，我们将深入探讨一下，数据在机器学习中的作用以及如何理解和处理数据。
+文章大纲：
+一、如何理解数据首先，机器学习的研究对象就是数据（Data）。机器学习从数据出发，提取数据的特征、抽象数据的模型、发现数据的知识，最后又回到数据中，对其进行分析和预测。正所谓：“从数据中来，到数据中去”！
+然后，对于数据的形式其实是多样化的，数据作为模型训练和评估的原始材料可以是结构化的表格、数据库等，也可以是非结构化的文字、图像、视频等，甚至可以是不同数据形式的的组合。
+最后，要讲一下数据的质量问题。通常我们拿到的数据都是参差不齐的，我们需要投入大量的时间和精力在数据处理上，以确保数据的准确性、完整性和代表性。虽然很多人都不屑于在数据处理上花费太多精力，但是一 ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2024/04/24/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%EF%BC%9AML01-%E5%88%9D%E8%AF%86/" title="机器学习入门：ML01-初识"><img class="post-bg" src="/images/front/MachineLearning.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="机器学习入门：ML01-初识"></a></div><div class="recent-post-info"><a class="article-title" href="/2024/04/24/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%EF%BC%9AML01-%E5%88%9D%E8%AF%86/" title="机器学习入门：ML01-初识">机器学习入门：ML01-初识</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-04-23T16:00:00.000Z" title="发表于 2024-04-24 00:00:00">2024-04-24</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8/">机器学习入门</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E5%88%9D%E8%AF%86/">初识</a></span></div><div class="content">前言想象一下，你拥有一只非常可爱的小狗，它的名字叫小布 。有一天，你买了一个新的玩具，是一个非常好玩的球。
+如果你想教小布认识它的新玩具，这是你就会拿起球，对着小布比划：小布，这是你的新玩具，然后把球扔出去，并让小布去追回来。如此循环往复几次，小布不仅学会了接球，还可以自己和球玩耍。我们教小布认识玩具的过程，其实和机器学习原理是一样一样的😉。我们通过训练让小布认识玩具，小布则通过观察、尝试和反馈逐渐理解新玩具是什么。并且能够认识和玩耍新玩具。在这个过程中，小布的大脑就相当于一个机器学习模型—不断地接收信息、处理数据，并从中学习知识。
+一、什么是机器学习机器学习（Machint Learning，ML）是一门研究“如何让计算机像人类一样学习和行动”的学科，通过利用观察和反馈的这种与现实世界互动的形式向计算机提供数据和信息，并以自主的方式改善其本身的性能。
+
+机器学习是一门研究“如何通过计算的手段，利用经验来改善系统自身性能的学科”。            ——《机器学习》（西瓜书，周志华著）
+
+1.1 机器学习的特点
+机器学习是以计算机和互联网为平台，建立在计算机和互联网上的学科；
+机 ...</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/4/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/#content-inner">4</a><span class="page-number current">5</span></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Fairy Girl</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">45</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/NPMsp3vlwPSB5EJACbKdaA"><i class="fa fa-comments"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">Fairy Girl博客上线啦！！！<br>本博客旨在记录个人在人工智能、深度学习、机器学习以及Python编程等领域的知识学习笔记。内容包含基础概念、编程技巧、算法实现、最新研究进展以及实际应用案例。<br><br>📌关注 Fairy Girl ，掌握最新AI资讯。<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/NPMsp3vlwPSB5EJACbKdaA"><img border="0" alt="Fairy Girl" src="/img/wx-fairygirl.png" width="235" height="72"></a></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/06/05/AI-%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E7%9F%A5%E8%AF%86%EF%BC%9AX13-%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3/" title="AI数学知识：X13-奇异值分解">AI数学知识：X13-奇异值分解</a><time datetime="2024-06-04T16:00:00.000Z" title="发表于 2024-06-05 00:00:00">2024-06-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/06/05/AI-%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E7%9F%A5%E8%AF%86%EF%BC%9AX12-%E7%89%B9%E5%BE%81%E5%88%86%E8%A7%A3/" title="AI数学知识：X12-特征分解">AI数学知识：X12-特征分解</a><time datetime="2024-06-04T16:00:00.000Z" title="发表于 2024-06-05 00:00:00">2024-06-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/05/30/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%EF%BC%9ADL06-%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/" title="深度学习入门:DL06-优化算法">深度学习入门:DL06-优化算法</a><time datetime="2024-05-29T16:00:00.000Z" title="发表于 2024-05-30 00:00:00">2024-05-30</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/05/30/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%EF%BC%9ADL07-%E6%AD%A3%E5%88%99%E5%8C%96%E6%8A%80%E6%9C%AF/" title="深度学习入门:DL07-正则化技术">深度学习入门:DL07-正则化技术</a><time datetime="2024-05-29T16:00:00.000Z" title="发表于 2024-05-30 00:00:00">2024-05-30</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/05/29/AI-%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E7%9F%A5%E8%AF%86%EF%BC%9AX09-%E7%BA%BF%E6%80%A7%E7%A9%BA%E9%97%B4%E5%92%8C%E7%BA%BF%E6%80%A7%E5%8F%98%E6%8D%A2/" title="AI数学知识：X09-线性空间和线性变换">AI数学知识：X09-线性空间和线性变换</a><time datetime="2024-05-28T16:00:00.000Z" title="发表于 2024-05-29 00:00:00">2024-05-29</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            
+            </div>
+            <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AI%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/"><span class="card-category-list-name">AI数学知识</span><span class="card-category-list-count">23</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AI%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/"><span class="card-category-list-name">线性代数</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AI%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/"><span class="card-category-list-name">高等数学</span><span class="card-category-list-count">21</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8/"><span class="card-category-list-name">机器学习入门</span><span class="card-category-list-count">6</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8/"><span class="card-category-list-name">深度学习入门</span><span class="card-category-list-count">7</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"><span class="card-category-list-name">编程语言</span><span class="card-category-list-count">9</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/"><span class="card-category-list-name">Python</span><span class="card-category-list-count">9</span></a></li></ul></li>
+            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" style="font-size: 1.5em; color: #99a9bf">人工智能</a> <a href="/tags/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/" style="font-size: 1.1em; color: #999">特征工程</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 1.33em; color: #99a2af">机器学习</a> <a href="/tags/%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B/" style="font-size: 1.16em; color: #999b9e">算法模型</a> <a href="/tags/%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3/" style="font-size: 1.1em; color: #999">奇异值分解</a> <a href="/tags/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/" style="font-size: 1.16em; color: #999b9e">优化算法</a> <a href="/tags/%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" style="font-size: 1.27em; color: #99a0a9">基础语法</a> <a href="/tags/%E7%89%B9%E5%BE%81%E5%80%BC%E5%88%86%E8%A7%A3/" style="font-size: 1.1em; color: #999">特征值分解</a> <a href="/tags/%E5%88%9D%E8%AF%86/" style="font-size: 1.21em; color: #999ea4">初识</a> <a href="/tags/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/" style="font-size: 1.39em; color: #99a4b4">高等数学</a> <a href="/tags/%E5%87%BD%E6%95%B0/" style="font-size: 1.39em; color: #99a4b4">函数</a> <a href="/tags/%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/" style="font-size: 1.44em; color: #99a7ba">数学知识</a> <a href="/tags/%E7%9F%A9%E9%98%B5%E5%88%86%E8%A7%A3/" style="font-size: 1.1em; color: #999">矩阵分解</a> <a href="/tags/Python/" style="font-size: 1.27em; color: #99a0a9">Python</a> <a href="/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/" style="font-size: 1.16em; color: #999b9e">线性代数</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/06/"><span class="card-archive-list-date">六月 2024</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/05/"><span class="card-archive-list-date">五月 2024</span><span class="card-archive-list-count">41</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/04/"><span class="card-archive-list-date">四月 2024</span><span class="card-archive-list-count">2</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">45</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2024-06-07T08:01:45.900Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Fairy Girl</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.14.0-b3"></script><script src="/js/main.js?v=4.14.0-b3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.35/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = (ele) => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from(ele).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+    
+    codeMermaidEle.forEach(ele => {
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.innerHTML = `<pre class="mermaid-src" hidden>${ele.textContent}</pre>`
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (false) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js').then(runMermaidFn)
+  }
+  
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
