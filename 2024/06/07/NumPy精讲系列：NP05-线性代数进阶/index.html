@@ -1,0 +1,359 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>NumPy精讲系列：NP04-线性代数进阶操作 | Fairy Girl's BLOG</title><meta name="author" content="Fairy Girl"><meta name="copyright" content="Fairy Girl"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="本文主要介绍了Python的基础语法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NumPy精讲系列：NP04-线性代数进阶操作">
+<meta property="og:url" content="http://example.com/2024/06/07/NumPy%E7%B2%BE%E8%AE%B2%E7%B3%BB%E5%88%97%EF%BC%9ANP05-%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E8%BF%9B%E9%98%B6/index.html">
+<meta property="og:site_name" content="Fairy Girl&#39;s BLOG">
+<meta property="og:description" content="本文主要介绍了Python的基础语法。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/front/Python.png">
+<meta property="article:published_time" content="2024-06-06T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-06-20T11:41:02.634Z">
+<meta property="article:author" content="Fairy Girl">
+<meta property="article:tag" content="线性代数">
+<meta property="article:tag" content="编程语言">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="NumPy">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/front/Python.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2024/06/07/NumPy%E7%B2%BE%E8%AE%B2%E7%B3%BB%E5%88%97%EF%BC%9ANP05-%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E8%BF%9B%E9%98%B6/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.14.0-b3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.35/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>(()=>{
+      const saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+      
+      window.btf = {
+        saveToLocal: saveToLocal,
+        getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+          script.src = url
+          script.async = true
+          script.onerror = reject
+          script.onload = script.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            script.onload = script.onreadystatechange = null
+            resolve()
+          }
+
+          Object.keys(attr).forEach(key => {
+            script.setAttribute(key, attr[key])
+          })
+
+          document.head.appendChild(script)
+        }),
+
+        getCSS: (url, id = false) => new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+          link.rel = 'stylesheet'
+          link.href = url
+          if (id) link.id = id
+          link.onerror = reject
+          link.onload = link.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            link.onload = link.onreadystatechange = null
+            resolve()
+          }
+          document.head.appendChild(link)
+        }),
+
+        addGlobalFn: (key, fn, name = false, parent = window) => {
+          const pjaxEnable = false
+          if (!pjaxEnable && key.startsWith('pjax')) return
+
+          const globalFn = parent.globalFn || {}
+          const keyObj = globalFn[key] || {}
+    
+          if (name && keyObj[name]) return
+    
+          name = name || Object.keys(keyObj).length
+          keyObj[name] = fn
+          globalFn[key] = keyObj
+          parent.globalFn = globalFn
+        }
+      }
+    
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+      
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })()</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":true,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'NumPy精讲系列：NP04-线性代数进阶操作',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-06-20 19:41:02'
+}</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">53</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">58</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/images/front/Python.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Fairy Girl's BLOG"><span class="site-name">Fairy Girl's BLOG</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">NumPy精讲系列：NP04-线性代数进阶操作</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-06-06T16:00:00.000Z" title="发表于 2024-06-07 00:00:00">2024-06-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-06-20T11:41:02.634Z" title="更新于 2024-06-20 19:41:02">2024-06-20</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/">Python</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="NumPy精讲系列：NP04-线性代数进阶操作"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在数据科学和机器学习领域，线性代数是不可或缺的数学基础。Python的Numpy库提供了丰富的线性代数功能，从基础的矩阵运算到高级的矩阵分解技术，Numpy都能轻松应对。</p>
+<p>本文将带你深入了解Numpy在线性代数中的进阶操作。</p>
+<h2 id="一、特征值和特征向量"><a href="#一、特征值和特征向量" class="headerlink" title="一、特征值和特征向量"></a>一、特征值和特征向量</h2><p>特征值和特征向量在线性代数中常用于描述线性变换的性质。即对于一个给定的方阵$A$, 如果存在一个非零向量$x$, 使得$A$乘以$x$等于$x$乘以某个常数$\lambda$, 那么<strong>这个常数$\lambda$就称为矩阵$A$的一个特征值</strong>。用数学公式表示就是：<br>$$Ax&#x3D;\lambda x$$<br>其中，$x$是特征向量，$\lambda$是特征值。</p>
+<p><strong>特征值和特征向量的计算步骤：</strong></p>
+<ol>
+<li>确定特征方程：对于方阵 $A$ ，首先需要计算其特征值多项式，即 $A$ 的行列式与 $\lambda$ 乘以单位矩阵 $I$ 相减的结果：$det(A-\lambda I)&#x3D;0 $</li>
+<li>求解特征值：解上述特征方程，可以得到 $A$ 的特征值  $\lambda$ 。</li>
+<li>求解特征向量：对于每一个特征值 $\lambda$，将其代入以下方程中求解特征向量 $\textbf{v}$：$(A-\lambda I) \textbf(v) &#x3D; 0$</li>
+</ol>
+<p><strong>在Numpy中计算特征值和特征向量：</strong><br>Numpy提供了一个非常方便的函数 <code>numpy.linalg.eig</code> 来计算矩阵的特征值和特征向量。以下是使用Numpy进行计算的示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义一个方阵A</span></span><br><span class="line">A = np.array([[<span class="number">4</span>, <span class="number">2</span>], [<span class="number">1</span>, <span class="number">3</span>]])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算特征值和特征向量</span></span><br><span class="line">eigenvalues, eigenvectors = np.linalg.eig(A)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印结果</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;特征值:&quot;</span>, eigenvalues)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;特征向量:\n&quot;</span>, eigenvectors)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>结果输出：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">特征值: [<span class="number">5.</span> <span class="number">2.</span>]</span><br><span class="line">特征向量:</span><br><span class="line">        [[ <span class="number">0.89442719</span> -<span class="number">0.70710678</span>]</span><br><span class="line">         [ <span class="number">0.4472136</span>   <span class="number">0.70710678</span>]]</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>这段代码首先定义了一个2x2的方阵A，然后使用 <code>np.linalg.eig</code> 函数计算其特征值和特征向量。函数返回两个数组：<code>eigenvalues</code> 包含所有特征值，<code>eigenvectors</code> 的每一列是一个特征向量，对应于 <code>eigenvalues</code> 中的相应特征值。</p>
+<blockquote>
+<p>需要注意的是，特征值和特征向量的计算可能涉及到复数，即使输入的矩阵是实数矩阵。此外，特征向量通常不是唯一的，可以通过乘以一个非零标量来得到等价的特征向量。</p>
+</blockquote>
+<h2 id="二、迹和范数"><a href="#二、迹和范数" class="headerlink" title="二、迹和范数"></a>二、迹和范数</h2><p>在数学和工程学中，迹（Trace）和范数（Norm）是矩阵理论中的两个重要概念，它们在不同的应用领域中有着广泛的用途。</p>
+<h3 id="2-1-迹运算"><a href="#2-1-迹运算" class="headerlink" title="2.1 迹运算"></a>2.1 迹运算</h3><p>迹是方阵对角线元素的总和。对于一个 $n \times n$ 的方阵 $\textbf{A}$ ，其迹表示为 $Tr(A)$ 或 $A_{ii}$，迹是一个标量值，对于矩阵 $A$，其迹定义为：<br>$$Tr(Tr(A))&#x3D;\sum^{n}<em>{i&#x3D;1} a</em>{ii}$$<br>其中，$a_{ii}$ 是矩阵 $Tr(A)$ 中第 $i$ 行，第 $i$ 列的元素。</p>
+<p>在Numpy中，可以使用<code>np.trace()</code>函数来计算矩阵的迹：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">A = np.array([[<span class="number">1</span>, <span class="number">2</span>], [<span class="number">3</span>, <span class="number">4</span>]])</span><br><span class="line">trace_A = np.trace(A)  <span class="comment"># 结果为 5</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-范数运算"><a href="#2-2-范数运算" class="headerlink" title="2.2 范数运算"></a>2.2 范数运算</h3><p>范数是一种度量向量大小或矩阵“长度”的方法。在不同应用场景中，范数的定义可能不同。以下是一些常见的范数类型：</p>
+<ol>
+<li>L1范数（曼哈顿距离）：对于向量 $\textbf{v}$，其L1范数定义为所有元素绝对值的和。</li>
+<li>L2范数（欧几里得范数）：对于向量 $\textbf{v}$，其L2范数是所有元素平方和的平方根。</li>
+<li>无穷范数（最大绝对值）：对于向量 $\textbf{v}$，其无穷范数是所有元素绝对值的最大值。</li>
+<li>Frobenius范数: 对于矩阵 $A$，其Frobenius范数是所有元素平方和的平方根。</li>
+<li>核范数: 核范数通常用于矩阵，定义为矩阵奇异值的和。</li>
+</ol>
+<p>在Numpy中，可以使用<code>np.linalg.norm()</code>函数来计算向量或矩阵的范数。以下是一些示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算向量的L1范数</span></span><br><span class="line">v = np.array([<span class="number">1</span>, -<span class="number">2</span>, <span class="number">3</span>])</span><br><span class="line">norm_L1 = np.linalg.norm(v, <span class="built_in">ord</span>=<span class="number">1</span>)  <span class="comment"># 结果为 6</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算向量的L2范数</span></span><br><span class="line">norm_L2 = np.linalg.norm(v, <span class="built_in">ord</span>=<span class="number">2</span>)  <span class="comment"># 结果为 sqrt(14)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算向量的无穷范数</span></span><br><span class="line">norm_inf = np.linalg.norm(v, <span class="built_in">ord</span>=np.inf)  <span class="comment"># 结果为 3</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算矩阵的Frobenius范数</span></span><br><span class="line">B = np.array([[<span class="number">1</span>, <span class="number">2</span>], [<span class="number">3</span>, <span class="number">4</span>]])</span><br><span class="line">norm_Frobenius = np.linalg.norm(B, <span class="string">&#x27;fro&#x27;</span>)  <span class="comment"># 结果为 sqrt(20)</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="三、矩阵分解"><a href="#三、矩阵分解" class="headerlink" title="三、矩阵分解"></a>三、矩阵分解</h2><p>矩阵分解是将一个矩阵表示为两个或更多更简单矩阵的乘积的方法。矩阵分解在数学、物理学、工程学、计算机科学和统计学中有广泛的应用。以下是一些常见的矩阵分解技术：</p>
+<h3 id="3-1-特征值分解（EVD）"><a href="#3-1-特征值分解（EVD）" class="headerlink" title="3.1 特征值分解（EVD）"></a>3.1 特征值分解（EVD）</h3><p>特征值分解（Eigenvalue Decomposition）是线性代数中的一种重要技术，它将一个方阵 $A$ 分解为与其特征值和特征向量相关的矩阵。</p>
+<p><strong>特征值分解的步骤：</strong></p>
+<ol>
+<li>计算特征值：首先需要找到矩阵 A 的特征值，这通常通过求解特征多项式 $det(A- \lambda I)&#x3D;0$ 来完成，其中 I 是单位矩阵。</li>
+<li>计算特征向量：对于每个特征值 $\lambda$ ，需要解线性方程组 $(A-\lambda I) \textbf{v}&#x3D;0$ 以找到对应的特征向量。</li>
+<li>分解结果：如果矩阵 $A$ 有 $n$ 个线性无关的特征向量，那么可以将它们作为矩阵 $V$ 的列，将特征值放在对角矩阵 的对角线上，从而得到特征分解：$A&#x3D;V\Lambda V^{-1}$，其中 $V$ 是由 $A$ 的特征向量组成的矩阵，$\Lambda$ 是一个对角矩阵，其对角线上的元素是 $A$ 的特征值</li>
+</ol>
+<p><strong>在Numpy中进行特征值分解：</strong><br>Numpy提供了 <code>np.linalg.eig()</code> 函数来计算矩阵的特征值和特征向量。以下是使用Numpy进行特征值分解的示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义一个方阵A</span></span><br><span class="line">A = np.array([[<span class="number">4</span>, <span class="number">2</span>], [<span class="number">1</span>, <span class="number">3</span>]])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算特征值和特征向量</span></span><br><span class="line">eigenvalues, eigenvectors = np.linalg.eig(A)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印结果</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;特征值:&quot;</span>, eigenvalues)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;特征向量:\n&quot;</span>, eigenvectors)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证特征值分解</span></span><br><span class="line">A_reconstructed = np.dot(eigenvectors, np.dot(np.diag(eigenvalues), eigenvectors.T))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;通过特征值分解重构的矩阵A:\n&quot;</span>, A_reconstructed)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>结果输出：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">特征值: [<span class="number">5.</span> <span class="number">2.</span>]</span><br><span class="line">特征向量:</span><br><span class="line"> [[ <span class="number">0.89442719</span> -<span class="number">0.70710678</span>]</span><br><span class="line"> [ <span class="number">0.4472136</span>   <span class="number">0.70710678</span>]]</span><br><span class="line">通过特征值分解重构的矩阵A:</span><br><span class="line"> [[<span class="number">5.</span> <span class="number">1.</span>]</span><br><span class="line"> [<span class="number">1.</span> <span class="number">2.</span>]]</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="3-2-奇异值分解（SVD）"><a href="#3-2-奇异值分解（SVD）" class="headerlink" title="3.2 奇异值分解（SVD）"></a>3.2 奇异值分解（SVD）</h3><p>奇异值分解（Singular Value Decomposition，简称SVD）是线性代数中一种重要的矩阵分解方法，它可以将任何 $m×n$ 的复数或实数矩阵 $A$ 分解为三个特定的矩阵乘积：</p>
+<ol>
+<li>正交矩阵 $U$ ：一个 $m \times n$ 的正交矩阵。</li>
+<li>奇异值对角矩阵 $\sum$：一个 $m \times n$ 的对角矩阵，对角线上的非负实数称为奇异值，并且按降序排列。</li>
+<li>正交矩阵 $V$ 的转置：一个 $m \times n$ 的正交矩阵 $V$ 的转置矩阵 $V^T$。</li>
+</ol>
+<p><strong>奇异值分解的数学表达式为</strong>：$$A&#x3D;U \sum V^T$$<br>其中，$U$ 的列是 $A$ 的右奇异向量，$\sum$ 的对角元素是 $A$ 的奇异值，$V$ 的列是 $A$ 的左奇异向量。</p>
+<p><strong>在Numpy中进行SVD</strong>：<br>Numpy提供了 <code>np.linalg.svd()</code> 函数来执行SVD。以下是使用Numpy进行SVD的示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">A = np.random.randn(<span class="number">9</span>, <span class="number">6</span>)</span><br><span class="line">U, s, Vt = np.linalg.svd(A)</span><br><span class="line">Smat=np.zeros((<span class="number">9</span>,<span class="number">6</span>))</span><br><span class="line">Smat[:<span class="number">6</span>,:<span class="number">6</span>]= np.diag(s)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印结果</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;正交矩阵U:\n&quot;</span>, U)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;奇异值对角矩阵Σ\n&#x27;</span>,Smat)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;正交矩阵V的转置V^T:\n&quot;</span>, Vt)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证奇异值分解：对比两个矩阵的各个元素，若一致则返回True</span></span><br><span class="line">A_reconstructed=np.allclose(A, np.dot(U, np.dot(Smat, Vt))) </span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;通过SVD分解重构的矩阵A:\n&quot;</span>, A_reconstructed)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>结果输出：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">正交矩阵U:</span><br><span class="line"> [[ <span class="number">0.13143443</span> -<span class="number">0.22414718</span>  <span class="number">0.19090446</span>  <span class="number">0.60379806</span>  <span class="number">0.56825337</span> -<span class="number">0.17595719</span></span><br><span class="line">  -<span class="number">0.33960566</span>  <span class="number">0.04872405</span>  <span class="number">0.24471936</span>]</span><br><span class="line"> [-<span class="number">0.06534486</span> -<span class="number">0.11352898</span>  <span class="number">0.04999286</span>  <span class="number">0.48539832</span> -<span class="number">0.66356097</span>  <span class="number">0.25719386</span></span><br><span class="line">  -<span class="number">0.04644596</span> -<span class="number">0.26351792</span>  <span class="number">0.40825194</span>]</span><br><span class="line"> [ <span class="number">0.35192398</span> -<span class="number">0.35096627</span> -<span class="number">0.50475647</span>  <span class="number">0.11857992</span> -<span class="number">0.08563934</span>  <span class="number">0.0667861</span></span><br><span class="line">  -<span class="number">0.31046046</span> -<span class="number">0.30335642</span> -<span class="number">0.53284763</span>]</span><br><span class="line"> [ <span class="number">0.03439831</span> -<span class="number">0.31422329</span>  <span class="number">0.31387546</span> -<span class="number">0.45929705</span> -<span class="number">0.27294</span>    -<span class="number">0.18334487</span></span><br><span class="line">  -<span class="number">0.65856652</span>  <span class="number">0.17452488</span>  <span class="number">0.13538284</span>]</span><br><span class="line"> [-<span class="number">0.24816864</span>  <span class="number">0.04826303</span> -<span class="number">0.36893663</span>  <span class="number">0.15965033</span> -<span class="number">0.03100859</span>  <span class="number">0.41559654</span></span><br><span class="line">  -<span class="number">0.23783911</span>  <span class="number">0.73691017</span> -<span class="number">0.03456124</span>]</span><br><span class="line"> [ <span class="number">0.04021583</span>  <span class="number">0.79781391</span>  <span class="number">0.16255273</span>  <span class="number">0.13593134</span> -<span class="number">0.05330682</span>  <span class="number">0.03743963</span></span><br><span class="line">  -<span class="number">0.47816306</span> -<span class="number">0.17529528</span> -<span class="number">0.23100486</span>]</span><br><span class="line"> [-<span class="number">0.47541148</span> -<span class="number">0.04297435</span> -<span class="number">0.03904394</span>  <span class="number">0.29441006</span> -<span class="number">0.26485564</span> -<span class="number">0.69471404</span></span><br><span class="line">   <span class="number">0.04340031</span>  <span class="number">0.13847937</span> -<span class="number">0.33181196</span>]</span><br><span class="line"> [ <span class="number">0.7502326</span>   <span class="number">0.16501472</span>  <span class="number">0.00516049</span>  <span class="number">0.12577103</span> -<span class="number">0.27661985</span> -<span class="number">0.29164175</span></span><br><span class="line">   <span class="number">0.19780764</span>  <span class="number">0.43640184</span>  <span class="number">0.05411405</span>]</span><br><span class="line"> [-<span class="number">0.03675993</span>  <span class="number">0.2168931</span>  -<span class="number">0.66608604</span> -<span class="number">0.16834551</span>  <span class="number">0.06689103</span> -<span class="number">0.35072773</span></span><br><span class="line">  -<span class="number">0.16185301</span> -<span class="number">0.14937229</span>  <span class="number">0.55100131</span>]]</span><br><span class="line">奇异值对角矩阵Σ</span><br><span class="line"> [[<span class="number">4.17953412</span> <span class="number">0.</span>         <span class="number">0.</span>         <span class="number">0.</span>         <span class="number">0.</span>         <span class="number">0.</span>        ]</span><br><span class="line"> [<span class="number">0.</span>         <span class="number">3.9451731</span>  <span class="number">0.</span>         <span class="number">0.</span>         <span class="number">0.</span>         <span class="number">0.</span>        ]</span><br><span class="line"> [<span class="number">0.</span>         <span class="number">0.</span>         <span class="number">3.01565303</span> <span class="number">0.</span>         <span class="number">0.</span>         <span class="number">0.</span>        ]</span><br><span class="line"> [<span class="number">0.</span>         <span class="number">0.</span>         <span class="number">0.</span>         <span class="number">2.34867628</span> <span class="number">0.</span>         <span class="number">0.</span>        ]</span><br><span class="line"> [<span class="number">0.</span>         <span class="number">0.</span>         <span class="number">0.</span>         <span class="number">0.</span>         <span class="number">2.13850123</span> <span class="number">0.</span>        ]</span><br><span class="line">...</span><br><span class="line"> [ <span class="number">0.10939267</span> -<span class="number">0.5792554</span>  -<span class="number">0.65343381</span>  <span class="number">0.36673949</span>  <span class="number">0.09009941</span>  <span class="number">0.28793215</span>]</span><br><span class="line"> [-<span class="number">0.53433028</span> -<span class="number">0.32860313</span>  <span class="number">0.57571749</span>  <span class="number">0.35827328</span>  <span class="number">0.18957669</span>  <span class="number">0.33280841</span>]]</span><br><span class="line">通过SVD分解重构的矩阵A:</span><br><span class="line"> <span class="literal">True</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="3-3-QR分解"><a href="#3-3-QR分解" class="headerlink" title="3.3 QR分解"></a>3.3 QR分解</h3><p>QR分解将一个给定将矩阵 $A$ 分解为一个正交矩阵 $Q$ 和一个上三角矩阵 $R$ 的乘积，数学表达式为：$$A&#x3D;QR$$</p>
+<p><strong>在Numpy中进行QR分解</strong>：<br>Numpy提供了 <code>np.linalg.qr()</code> 函数来执行QR分解。以下是使用Numpy进行QR分解的示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义一个矩阵A</span></span><br><span class="line">A = np.array([[<span class="number">12</span>, -<span class="number">51</span>, <span class="number">4</span>], [<span class="number">6</span>, <span class="number">167</span>, -<span class="number">68</span>], [-<span class="number">4</span>, <span class="number">24</span>, -<span class="number">41</span>]])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 进行QR分解</span></span><br><span class="line">Q, R = np.linalg.qr(A, mode=<span class="string">&#x27;complete&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印结果</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;正交矩阵Q:\n&quot;</span>, Q)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;上三角矩阵R:\n&quot;</span>, R)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证QR分解</span></span><br><span class="line">A_reconstructed = np.dot(Q, R)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;通过QR分解重构的矩阵A:\n&quot;</span>, A_reconstructed)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>结果输出：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">正交矩阵Q:</span><br><span class="line"> [[-<span class="number">0.85714286</span>  <span class="number">0.39428571</span>  <span class="number">0.33142857</span>]</span><br><span class="line"> [-<span class="number">0.42857143</span> -<span class="number">0.90285714</span> -<span class="number">0.03428571</span>]</span><br><span class="line"> [ <span class="number">0.28571429</span> -<span class="number">0.17142857</span>  <span class="number">0.94285714</span>]]</span><br><span class="line">上三角矩阵R:</span><br><span class="line"> [[ -<span class="number">14.</span>  -<span class="number">21.</span>   <span class="number">14.</span>]</span><br><span class="line"> [   <span class="number">0.</span> -<span class="number">175.</span>   <span class="number">70.</span>]</span><br><span class="line"> [   <span class="number">0.</span>    <span class="number">0.</span>  -<span class="number">35.</span>]]</span><br><span class="line">通过QR分解重构的矩阵A:</span><br><span class="line"> [[ <span class="number">12.</span> -<span class="number">51.</span>   <span class="number">4.</span>]</span><br><span class="line"> [  <span class="number">6.</span> <span class="number">167.</span> -<span class="number">68.</span>]</span><br><span class="line"> [ -<span class="number">4.</span>  <span class="number">24.</span> -<span class="number">41.</span>]]</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="3-4-LU分解"><a href="#3-4-LU分解" class="headerlink" title="3.4 LU分解"></a>3.4 LU分解</h3><p>LU分解将一个给定的方阵 $A$ 分解为一个下三角矩阵 $L$ 和一个上三角矩阵 $U$ 的乘积，数学表达式为：$$A&#x3D;LU$$</p>
+<p><strong>在Scipy中进行LU分解</strong>：</p>
+<blockquote>
+<p>由于Numpy中没有LU分解的方法，而Scipy中有LU分解，故以Scipy进行LU分解示例<br>Scipy提供了 <code>scipy.linalg.lu()</code> 来分别进行LU分解。以下是使用Scipy进行LU分解的示例：</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> scipy.linalg <span class="keyword">import</span> lu</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义一个方阵A</span></span><br><span class="line">A = np.array([[<span class="number">2</span>, <span class="number">3</span>], [<span class="number">1</span>, <span class="number">6</span>]])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 进行LU分解</span></span><br><span class="line">P, L, U = lu(A)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印结果</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;置换矩阵P:\n&quot;</span>, P)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;下三角矩阵L:\n&quot;</span>, L)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;上三角矩阵U:\n&quot;</span>, U)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证LU分解</span></span><br><span class="line">A_reconstructed = np.dot(L, U)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;通过LU分解重构的矩阵A:\n&quot;</span>, A_reconstructed)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>结果输出：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">置换矩阵P:</span><br><span class="line"> [[<span class="number">1.</span> <span class="number">0.</span>]</span><br><span class="line"> [<span class="number">0.</span> <span class="number">1.</span>]]</span><br><span class="line">下三角矩阵L:</span><br><span class="line"> [[<span class="number">1.</span>  <span class="number">0.</span> ]</span><br><span class="line"> [<span class="number">0.5</span> <span class="number">1.</span> ]]</span><br><span class="line">上三角矩阵U:</span><br><span class="line"> [[<span class="number">2.</span>  <span class="number">3.</span> ]</span><br><span class="line"> [<span class="number">0.</span>  <span class="number">4.5</span>]]</span><br><span class="line">通过LU分解重构的矩阵A:</span><br><span class="line"> [[<span class="number">2.</span> <span class="number">3.</span>]</span><br><span class="line"> [<span class="number">1.</span> <span class="number">6.</span>]]</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>Numpy的线性代数功能是数据科学家和工程师的强大工具。无论是进行基础的矩阵运算，还是应用高级的矩阵分解技术，Numpy都能提供稳定和高效的解决方案。掌握这些进阶操作，将为你在数据分析和机器学习项目中提供强有力的支持。</p>
+<p>欢迎关注我们的公众号，获取更多关于数据科学和机器学习的深入内容和实用技巧。让我们一起探索数据的奥秘，挖掘知识的宝藏！</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Fairy Girl</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2024/06/07/NumPy%E7%B2%BE%E8%AE%B2%E7%B3%BB%E5%88%97%EF%BC%9ANP05-%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E8%BF%9B%E9%98%B6/">http://example.com/2024/06/07/NumPy%E7%B2%BE%E8%AE%B2%E7%B3%BB%E5%88%97%EF%BC%9ANP05-%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E8%BF%9B%E9%98%B6/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Fairy Girl's BLOG</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/">线性代数</a><a class="post-meta__tags" href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a><a class="post-meta__tags" href="/tags/Python/">Python</a><a class="post-meta__tags" href="/tags/NumPy/">NumPy</a></div><div class="post_share"><div class="social-share" data-image="/images/front/Python.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/06/07/NumPy%E7%B2%BE%E8%AE%B2%E7%B3%BB%E5%88%97%EF%BC%9ANP04-%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E5%9F%BA%E7%A1%80/" title="NumPy精讲系列：NP04-线性代数基础操作"><img class="cover" src="/images/front/Python.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">NumPy精讲系列：NP04-线性代数基础操作</div></div></a></div><div class="next-post pull-right"><a href="/2024/06/07/NumPy%E7%B2%BE%E8%AE%B2%E7%B3%BB%E5%88%97%EF%BC%9ANP06-%E5%B9%BF%E6%92%AD%E4%B8%8E%E9%87%8D%E7%BB%84/" title="NumPy精讲系列：NP06-广播机制和重组"><img class="cover" src="/images/front/Python.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">NumPy精讲系列：NP06-广播机制和重组</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/06/07/NumPy%E7%B2%BE%E8%AE%B2%E7%B3%BB%E5%88%97%EF%BC%9ANP04-%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E5%9F%BA%E7%A1%80/" title="NumPy精讲系列：NP04-线性代数基础操作"><img class="cover" src="/images/front/Python.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-07</div><div class="title">NumPy精讲系列：NP04-线性代数基础操作</div></div></a></div><div><a href="/2024/06/07/NumPy%E7%B2%BE%E8%AE%B2%E7%B3%BB%E5%88%97%EF%BC%9ANP06-%E5%B9%BF%E6%92%AD%E4%B8%8E%E9%87%8D%E7%BB%84/" title="NumPy精讲系列：NP06-广播机制和重组"><img class="cover" src="/images/front/Python.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-07</div><div class="title">NumPy精讲系列：NP06-广播机制和重组</div></div></a></div><div><a href="/2024/06/07/NumPy%E7%B2%BE%E8%AE%B2%E7%B3%BB%E5%88%97%EF%BC%9ANP07-Numpy%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86/" title="NumPy精讲系列：NP07-NumPy数据预处理"><img class="cover" src="/images/front/Python.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-07</div><div class="title">NumPy精讲系列：NP07-NumPy数据预处理</div></div></a></div><div><a href="/2024/06/03/NumPy%E7%B2%BE%E8%AE%B2%E7%B3%BB%E5%88%97%EF%BC%9ANP01-Numpy%E5%88%9D%E5%A7%8B/" title="NumPy精讲系列：NP01-Numpy初识"><img class="cover" src="/images/front/Python.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-03</div><div class="title">NumPy精讲系列：NP01-Numpy初识</div></div></a></div><div><a href="/2024/06/03/NumPy%E7%B2%BE%E8%AE%B2%E7%B3%BB%E5%88%97%EF%BC%9ANP02-%E6%95%B0%E5%AD%A6%E8%BF%90%E7%AE%97/" title="NumPy精讲系列：NP02-数学运算"><img class="cover" src="/images/front/Python.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-03</div><div class="title">NumPy精讲系列：NP02-数学运算</div></div></a></div><div><a href="/2024/06/07/NumPy%E7%B2%BE%E8%AE%B2%E7%B3%BB%E5%88%97%EF%BC%9ANP03-%E9%9A%8F%E6%9C%BA%E6%95%B0%E7%94%9F%E6%88%90/" title="NumPy精讲系列：NP03-随机数生成"><img class="cover" src="/images/front/Python.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-07</div><div class="title">NumPy精讲系列：NP03-随机数生成</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Fairy Girl</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">53</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">58</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/NPMsp3vlwPSB5EJACbKdaA"><i class="fa fa-comments"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">Fairy Girl 博客上线啦！！！<br>本博客旨在记录个人在人工智能、深度学习、机器学习以及Python编程等领域的知识学习笔记。内容包含基础概念、编程技巧、算法实现、最新研究进展以及实际应用案例。<br><br>📌关注 Fairy Girl ，掌握最新AI资讯。<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/NPMsp3vlwPSB5EJACbKdaA"><img border="0" alt="Fairy Girl" src="/img/wx-fairygirl.png" width="235" height="72"></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E7%89%B9%E5%BE%81%E5%80%BC%E5%92%8C%E7%89%B9%E5%BE%81%E5%90%91%E9%87%8F"><span class="toc-number">2.</span> <span class="toc-text">一、特征值和特征向量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E8%BF%B9%E5%92%8C%E8%8C%83%E6%95%B0"><span class="toc-number">3.</span> <span class="toc-text">二、迹和范数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E8%BF%B9%E8%BF%90%E7%AE%97"><span class="toc-number">3.1.</span> <span class="toc-text">2.1 迹运算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E8%8C%83%E6%95%B0%E8%BF%90%E7%AE%97"><span class="toc-number">3.2.</span> <span class="toc-text">2.2 范数运算</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E7%9F%A9%E9%98%B5%E5%88%86%E8%A7%A3"><span class="toc-number">4.</span> <span class="toc-text">三、矩阵分解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E7%89%B9%E5%BE%81%E5%80%BC%E5%88%86%E8%A7%A3%EF%BC%88EVD%EF%BC%89"><span class="toc-number">4.1.</span> <span class="toc-text">3.1 特征值分解（EVD）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3%EF%BC%88SVD%EF%BC%89"><span class="toc-number">4.2.</span> <span class="toc-text">3.2 奇异值分解（SVD）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-QR%E5%88%86%E8%A7%A3"><span class="toc-number">4.3.</span> <span class="toc-text">3.3 QR分解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-LU%E5%88%86%E8%A7%A3"><span class="toc-number">4.4.</span> <span class="toc-text">3.4 LU分解</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-number">5.</span> <span class="toc-text">结语</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/06/11/AI-%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%EF%BC%9APS00-%E6%A6%82%E8%BF%B0/" title="AI数学知识：PS00-概述"><img src="/images/front/Math.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="AI数学知识：PS00-概述"/></a><div class="content"><a class="title" href="/2024/06/11/AI-%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%EF%BC%9APS00-%E6%A6%82%E8%BF%B0/" title="AI数学知识：PS00-概述">AI数学知识：PS00-概述</a><time datetime="2024-06-10T16:00:00.000Z" title="发表于 2024-06-11 00:00:00">2024-06-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/06/11/AI-%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%EF%BC%9APS01-%E9%9A%8F%E6%9C%BA%E4%BA%8B%E4%BB%B6%E3%80%81%E6%A6%82%E7%8E%87%E3%80%81%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F/" title="AI数学知识：PS01-随机事件和概率"><img src="/images/front/Math.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="AI数学知识：PS01-随机事件和概率"/></a><div class="content"><a class="title" href="/2024/06/11/AI-%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%EF%BC%9APS01-%E9%9A%8F%E6%9C%BA%E4%BA%8B%E4%BB%B6%E3%80%81%E6%A6%82%E7%8E%87%E3%80%81%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F/" title="AI数学知识：PS01-随机事件和概率">AI数学知识：PS01-随机事件和概率</a><time datetime="2024-06-10T16:00:00.000Z" title="发表于 2024-06-11 00:00:00">2024-06-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/06/11/AI-%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%EF%BC%9APS02-%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B%E5%92%8C%E6%A6%82%E7%8E%87%E7%B1%BB%E5%9E%8B/" title="AI数学知识：PS02-概率模型和概率类型"><img src="/images/front/Math.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="AI数学知识：PS02-概率模型和概率类型"/></a><div class="content"><a class="title" href="/2024/06/11/AI-%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%EF%BC%9APS02-%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B%E5%92%8C%E6%A6%82%E7%8E%87%E7%B1%BB%E5%9E%8B/" title="AI数学知识：PS02-概率模型和概率类型">AI数学知识：PS02-概率模型和概率类型</a><time datetime="2024-06-10T16:00:00.000Z" title="发表于 2024-06-11 00:00:00">2024-06-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/06/11/AI-%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%EF%BC%9APS03-%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F/" title="AI数学知识：PS02-概率模型和概率类型"><img src="/images/front/Math.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="AI数学知识：PS02-概率模型和概率类型"/></a><div class="content"><a class="title" href="/2024/06/11/AI-%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%EF%BC%9APS03-%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F/" title="AI数学知识：PS02-概率模型和概率类型">AI数学知识：PS02-概率模型和概率类型</a><time datetime="2024-06-10T16:00:00.000Z" title="发表于 2024-06-11 00:00:00">2024-06-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/06/11/AI-%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%EF%BC%9APS05-%E5%B8%B8%E8%A7%81%E8%BF%9E%E7%BB%AD%E5%9E%8B%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%88%86%E5%B8%83/" title="AI数学知识：PS04-常见的分布函数"><img src="/images/front/Math.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="AI数学知识：PS04-常见的分布函数"/></a><div class="content"><a class="title" href="/2024/06/11/AI-%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%EF%BC%9APS05-%E5%B8%B8%E8%A7%81%E8%BF%9E%E7%BB%AD%E5%9E%8B%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%88%86%E5%B8%83/" title="AI数学知识：PS04-常见的分布函数">AI数学知识：PS04-常见的分布函数</a><time datetime="2024-06-10T16:00:00.000Z" title="发表于 2024-06-11 00:00:00">2024-06-11</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Fairy Girl</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.14.0-b3"></script><script src="/js/main.js?v=4.14.0-b3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.35/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'ams'
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+      
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  const runMermaid = (ele) => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from(ele).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+    
+    codeMermaidEle.forEach(ele => {
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.innerHTML = `<pre class="mermaid-src" hidden>${ele.textContent}</pre>`
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (false) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js').then(runMermaidFn)
+  }
+  
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

@@ -1,0 +1,456 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>机器学习入门：ML10-性能度量指标 | Fairy Girl's BLOG</title><meta name="author" content="Fairy Girl"><meta name="copyright" content="Fairy Girl"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="本文主要介绍了2024年十大常用的机器学习模型的基本原理、特点、优缺点以及应用场景。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习入门：ML10-性能度量指标">
+<meta property="og:url" content="http://example.com/2024/01/30/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%EF%BC%9AML10-%E6%80%A7%E8%83%BD%E5%BA%A6%E9%87%8F%E6%8C%87%E6%A0%87/index.html">
+<meta property="og:site_name" content="Fairy Girl&#39;s BLOG">
+<meta property="og:description" content="本文主要介绍了2024年十大常用的机器学习模型的基本原理、特点、优缺点以及应用场景。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/front/MachineLearning.png">
+<meta property="article:published_time" content="2024-01-29T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-06-25T07:54:47.342Z">
+<meta property="article:author" content="Fairy Girl">
+<meta property="article:tag" content="人工智能">
+<meta property="article:tag" content="机器学习">
+<meta property="article:tag" content="误差与拟合">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/front/MachineLearning.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2024/01/30/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%EF%BC%9AML10-%E6%80%A7%E8%83%BD%E5%BA%A6%E9%87%8F%E6%8C%87%E6%A0%87/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.14.0-b3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.35/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>(()=>{
+      const saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+      
+      window.btf = {
+        saveToLocal: saveToLocal,
+        getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+          script.src = url
+          script.async = true
+          script.onerror = reject
+          script.onload = script.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            script.onload = script.onreadystatechange = null
+            resolve()
+          }
+
+          Object.keys(attr).forEach(key => {
+            script.setAttribute(key, attr[key])
+          })
+
+          document.head.appendChild(script)
+        }),
+
+        getCSS: (url, id = false) => new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+          link.rel = 'stylesheet'
+          link.href = url
+          if (id) link.id = id
+          link.onerror = reject
+          link.onload = link.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            link.onload = link.onreadystatechange = null
+            resolve()
+          }
+          document.head.appendChild(link)
+        }),
+
+        addGlobalFn: (key, fn, name = false, parent = window) => {
+          const pjaxEnable = false
+          if (!pjaxEnable && key.startsWith('pjax')) return
+
+          const globalFn = parent.globalFn || {}
+          const keyObj = globalFn[key] || {}
+    
+          if (name && keyObj[name]) return
+    
+          name = name || Object.keys(keyObj).length
+          keyObj[name] = fn
+          globalFn[key] = keyObj
+          parent.globalFn = globalFn
+        }
+      }
+    
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+      
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })()</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":true,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '机器学习入门：ML10-性能度量指标',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-06-25 15:54:47'
+}</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">53</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">58</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/images/front/MachineLearning.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Fairy Girl's BLOG"><span class="site-name">Fairy Girl's BLOG</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">机器学习入门：ML10-性能度量指标</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-01-29T16:00:00.000Z" title="发表于 2024-01-30 00:00:00">2024-01-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-06-25T07:54:47.342Z" title="更新于 2024-06-25 15:54:47">2024-06-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8/">机器学习入门</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="机器学习入门：ML10-性能度量指标"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在机器学习开发流程中，我们应该如何评估模型的性能呢?如何判断训练的模型已经达到我们的任务要求了呢？</p>
+<p>性能度量——就是用来解决这些问题的答案。</p>
+<p>今天，我们就来学习一下机器学习性能度量的概念以及常用的性能度量指标。</p>
+<h2 id="一、什么是性能度量？"><a href="#一、什么是性能度量？" class="headerlink" title="一、什么是性能度量？"></a>一、什么是性能度量？</h2><p>性能度量就像是给我们训练的模型进行打分，帮助我们了解模型学习的效果如何？</p>
+<blockquote>
+<p>就像是学校通常会在学期结束时安排期末考试，以评估学生这学期的整体表现。通过对期末考试的”分数”（例如，90分），老师可以直观地了解到学生在该学期的学习成果。</p>
+</blockquote>
+<p>在机器学习中，我们同样需要这样的”分数（性能度量）”来评估模型的学习能力和效果。</p>
+<p>性能度量是一组定量的指标，用于评估和比较机器学习模型或系统的性能。在机器学习中，性能度量指标能帮助我们理解模型在特定任务上的表现，包括准确性、健壮性以及效率等其他相关特性。</p>
+<h2 id="二、分类任务的六大指标"><a href="#二、分类任务的六大指标" class="headerlink" title="二、分类任务的六大指标"></a>二、分类任务的六大指标</h2><p>本期我们将介绍一下分类任务中常用的六大性能度量指标。</p>
+<h3 id="2-1-准确率（Accuracy）"><a href="#2-1-准确率（Accuracy）" class="headerlink" title="2.1 准确率（Accuracy）"></a>2.1 准确率（Accuracy）</h3><p>准确率是评估分类任务模型性能中最基本的指标。</p>
+<ul>
+<li>定义：准确率是正确预测的样本数占总样本数的比例。</li>
+<li>计算公式：$$Accuracy &#x3D; \frac{TP+TN}{Total Samples}$$       式中，TP是真正例（True Positives）的数量，TN是真负例（True Negatives）的数量，Total Samples是所有样本的总数。</li>
+<li>优点：<ul>
+<li>通用性：适用于大多数二分类或多分类问题。</li>
+<li>简单直观：容易理解和计算；</li>
+<li>快速评估：可以迅速给出模型的整体性能概览；</li>
+</ul>
+</li>
+<li>局限性：<ul>
+<li>类别不平衡：在类别分布不均匀的数据集中，准确率可能会误导模型性能的真实情况。<blockquote>
+<p>解决方法：当数据集类别不平衡时，可以考虑使用加权准确率或其他指标如F1分数、AUC等。</p>
+</blockquote>
+</li>
+<li>不区分错误类型：准确率不能区分假阳性（False Positives）和假阴性（False Negatives）。</li>
+<li>单一指标：作为单一指标，不能提供关于模型在不同类别上表现得细节。<blockquote>
+<p>解决方法：结合其他性能度量指标，如精确度、召回率和混淆矩阵，以获得模型性能的全面了解。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>应用场景：<ul>
+<li>当类别分布相对均衡时，准确率是一个合适得性能度量；</li>
+<li>在初步评估模型时，准确率可以快速给出模型性能得反馈。<blockquote>
+<p>准确率是一个有用的指标，但应谨慎使用，并结合其他指标来评估模型的全面性能。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-2-精确率（Precision）"><a href="#2-2-精确率（Precision）" class="headerlink" title="2.2 精确率（Precision）"></a>2.2 精确率（Precision）</h3><p>精确度是一个重要的性能度量指标，特别是在正类样本较少或误报的代价很高的二分类问题中。</p>
+<ul>
+<li>定义：精准度衡量的是模型预测为正类的样本中实际为正类的比例。</li>
+<li>计算公式：$$Precision &#x3D; \frac{TP}{TP+FP}$$      式中，TP是真正例的数量，FP是假正例（False Positives）的数量。</li>
+<li>优点：<ul>
+<li>重要性：在某些应用中，如医疗诊断中减少误诊FP，非常重要；</li>
+<li>关注正类：精准率特别关注模型对正类样本的预测准确性。</li>
+</ul>
+</li>
+<li>局限性：<ul>
+<li>忽略负类：只关注正类，对负类的预测准确性不作考量；</li>
+<li>类别不平衡：在类别分布不均匀的数据集中，精准率可能会误导模型性能的真实情况。</li>
+<li>单一指标：作为单一指标，不能提供关于模型在不同类别上表现得细节。</li>
+</ul>
+</li>
+<li>应用场景：<ul>
+<li>当正类样本较少，或者减少误报非常重要时。</li>
+<li>在需要高置信度预测的领域，如法律、金融等。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-3-召回率（Recall）"><a href="#2-3-召回率（Recall）" class="headerlink" title="2.3 召回率（Recall）"></a>2.3 召回率（Recall）</h3><p>召回率（Recall），有时也称为真正例率（True Positive Rate, TPR）或灵敏度（Sensitivity），是评估分类任务模型的一个关键指标，尤其是在需要尽可能多地识别出正类样本的场景中。</p>
+<ul>
+<li>定义：召回率衡量的是所有实际为正类的样本中，被模型正确预测为正类的比例。</li>
+<li>计算公式：$$Recall &#x3D; \frac{TP}{TP+FN}$$        式中，TP是真正例的数量，FN是假负例（False Negatives）的数量。</li>
+<li>优点：<ul>
+<li>完整性: 确保所有可能的正类样本都被检测到。</li>
+<li>重要性: 在某些领域（如医疗检测），漏诊的代价非常高，召回率尤其重要。</li>
+</ul>
+</li>
+<li>局限性：<ul>
+<li>假阳性: 可能会增加假阳性的数量，导致需要更多的后续验证。</li>
+<li>忽略负类: 只关注正类样本，对负类的预测准确性不作考量。</li>
+<li>单一指标：作为单一指标，不能提供关于模型在不同类别上表现得细节。</li>
+</ul>
+</li>
+<li>应用场景：<ul>
+<li>当需要尽可能多地识别出所有正类样本时，如疾病筛查、欺诈检测等。</li>
+<li>在漏检的代价非常高，而误检的代价相对较低的场景中。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-4-F1分数（F1-Score）"><a href="#2-4-F1分数（F1-Score）" class="headerlink" title="2.4 F1分数（F1 Score）"></a>2.4 F1分数（F1 Score）</h3><p>F1分数（F1 Score）是机器学习中用于评估二分类模型性能的一个指标，它是精确度（Precision）和召回率（Recall）的调和平均数。</p>
+<ul>
+<li>定义：F1分数是精确度和召回率的调和平均数，用于平衡两者之间的关系。</li>
+<li>计算公式：$$F1 Score &#x3D; 2 \times (\frac{Precision \times Recall}{Precision + Recall})$$      式中，Precision是精确度，Recall是召回率。</li>
+<li>优点:<ul>
+<li>平衡性: 同时考虑了精确度和召回率，适用于两者都很重要的情况。</li>
+<li>单一指标: 提供了一个单一的指标来衡量模型的整体性能。</li>
+<li>对极端值敏感: 当精确度和召回率相差很大时，F1分数能够反映出模型性能的不足。</li>
+</ul>
+</li>
+<li>局限性:<ul>
+<li>单一阈值: F1分数是基于特定阈值得到的，可能无法反映模型在不同阈值下的性能。</li>
+<li>不适用于多标签分类: F1分数主要用于二分类问题，对于多标签分类问题需要使用其他指标。<blockquote>
+<p>使用微平均（micro-average）或宏平均（macro-average）F1分数来处理多类别问题。</p>
+</blockquote>
+</li>
+<li>对类别不平衡敏感: 在类别分布不均匀的数据集中，F1分数可能无法准确反映模型性能。</li>
+</ul>
+</li>
+<li>应用场景:<ul>
+<li>当精确度和召回率同等重要时，如信息检索、医学诊断等。</li>
+<li>在需要一个综合指标来快速评估模型性能的场景中。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-5-混淆矩阵（Confusion-Matrix）"><a href="#2-5-混淆矩阵（Confusion-Matrix）" class="headerlink" title="2.5 混淆矩阵（Confusion Matrix）"></a>2.5 混淆矩阵（Confusion Matrix）</h3><p>混淆矩阵（Confusion Matrix）是一个强大、直观的诊断工具，可以帮助我们理解模型的预测结果。</p>
+<ul>
+<li>定义: 混淆矩阵是一个表格，用于展示模型预测的类别与实际类别之间的关系。</li>
+<li>数学表达式（混淆矩阵通常以4个基本元素来表示）：$$Confusion Matrix&#x3D;\begin{bmatrix} TP &amp; FP  \ FN &amp; TN  \ \end{bmatrix}$$       式中，真正例（TP）: 模型预测为正类，实际上也是正类；假正例（FP）: 模型预测为正类，但实际上是负类；真负例（TN）: 模型预测为负类，实际上也是负类；假负例（FN）: 模型预测为负类，但实际上是正类。</li>
+<li>优点:<ul>
+<li>直观性: 提供了一个清晰的视图来理解模型在哪些类别上表现良好，在哪些类别上存在问题。</li>
+<li>多维度评估: 允许计算多种性能度量指标，如准确率、精确度、召回率和F1分数。</li>
+<li>诊断性: 帮助诊断模型的错误类型，比如是否倾向于将某个类别错误分类为另一个类别。</li>
+</ul>
+</li>
+<li>局限性:<ul>
+<li>维度限制: 对于多于两个类别的问题，混淆矩阵可能会变得复杂且难以解释。</li>
+<li>不平衡数据: 在类别不平衡的数据集中，混淆矩阵可能无法准确反映模型的整体性能。</li>
+<li>单一阈值: 混淆矩阵是基于特定阈值得到的，可能需要考虑不同阈值下的混淆矩阵。</li>
+</ul>
+</li>
+<li>应用场景:<ul>
+<li>在需要全面了解模型性能时，尤其是在初步模型评估阶段。</li>
+<li>当需要诊断模型在特定类别上的表现时。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-6-ROC曲线和AUC"><a href="#2-6-ROC曲线和AUC" class="headerlink" title="2.6 ROC曲线和AUC"></a>2.6 ROC曲线和AUC</h3><p><strong>ROC曲线</strong></p>
+<ul>
+<li>定义: ROC曲线是一个图形表示，展示了不同阈值下模型的真正例率（True Positive Rate, TPR）与假正例率（False Positive Rate, FPR）之间的关系。<blockquote>
+<p>ROC曲线适用于需要评估模型在不同阈值下性能的场景，特别适用于二分类问题，尤其是当类别分布不均或需要选择最佳阈值时。</p>
+</blockquote>
+</li>
+<li>计算方式：<ul>
+<li>真正例率（TPR）, 也称为召回率或灵敏度$$TPR &#x3D; \frac{TP}{TP+FN}$$</li>
+<li>假正例率（FPR）$$FPR &#x3D; \frac{FP}{FP+TN}$$</li>
+<li>ROC曲线是通过改变分类阈值，记录下每个阈值对应的TPR和FPR，然后在坐标图上绘制这些点，连接起来形成一条曲线。</li>
+</ul>
+</li>
+<li>优点<ul>
+<li>阈值无关: ROC曲线不依赖于特定的阈值选择，提供了模型在不同阈值下的性能概览。</li>
+<li>直观性: 通过图形化展示，可以直观地比较不同模型的性能。</li>
+<li>适用于不平衡数据: 即使在正负样本分布不均的情况下，ROC曲线也能有效地评估模型性能。</li>
+</ul>
+</li>
+<li>局限性<ul>
+<li>不适用于多分类问题: ROC曲线主要用于二分类问题，对于多分类问题需要其他方法。</li>
+<li>对所有类别的区分能力不敏感: 它只考虑了正类和负类的区分，可能忽略了类别之间的区分。</li>
+</ul>
+</li>
+</ul>
+<p><strong>AUC</strong></p>
+<ul>
+<li>定义：AUC是ROC曲线下的面积，它衡量的是模型区分两个类别的能力。AUC值介于0和1之间，较高的AUC值表示模型具有较好的分类性能。<blockquote>
+<p>AUC适用于需要评估模型整体区分能力的场景，特别是在正负样本分布不均或需要选择最佳阈值时。</p>
+</blockquote>
+</li>
+<li>计算方式：AUC的计算并不是直接测量ROC曲线下的面积，而是通过数值积分或梯形逼近等数值方法来估计。在实践中，通常使用软件库中的函数来计算AUC。</li>
+<li>优点<ul>
+<li>全面性: AUC考虑了所有可能的分类阈值，提供了模型性能的一个全面度量。</li>
+<li>阈值无关性: AUC不依赖于特定的阈值选择，使得模型评估更加客观。</li>
+<li>比较性: AUC提供了一个标准化的指标，使得不同模型之间的性能比较变得容易。</li>
+</ul>
+</li>
+<li>局限性<ul>
+<li>对完美分类器不敏感: 当所有样本都可以被完美分类时，AUC可能无法区分非常接近完美的模型。</li>
+<li>对不平衡数据敏感: 在极度不平衡的数据集中，AUC可能不是最佳指标，因为它可能会受到多数类的影响。</li>
+<li>单一指标: 作为单一指标，AUC可能无法完全反映模型在特定阈值下的实际应用性能。</li>
+</ul>
+</li>
+</ul>
+<h2 id="三、如何选择合适的评估指标？"><a href="#三、如何选择合适的评估指标？" class="headerlink" title="三、如何选择合适的评估指标？"></a>三、如何选择合适的评估指标？</h2><p>选择评估指标，就像选择工具一样，要根据你的任务需求和数据特点来决定。比如：</p>
+<p>如果你的目标是减少错误预测，可能会更关注准确率。<br>如果你的任务对漏检很敏感，召回率可能更重要。<br>如果你希望平衡预测的准确性和全面性，F1分数会是一个很好的选择。</p>
+<h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>机器学习模型评估是一个复杂但至关重要的过程。希望这篇文章能够帮助你理解不同的评估指标，并在实践中选择合适的指标来评估你的模型。记住，评估指标只是工具，真正的目标是解决问题和创造价值。</p>
+<hr>
+<p>以上就是关于机器学习模型性能度量的相关知识点和分类任务中常用的性能度量的指标，下一期我们将带来回归任务的性能度量指标。记得关注我们，下期再见！</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Fairy Girl</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2024/01/30/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%EF%BC%9AML10-%E6%80%A7%E8%83%BD%E5%BA%A6%E9%87%8F%E6%8C%87%E6%A0%87/">http://example.com/2024/01/30/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%EF%BC%9AML10-%E6%80%A7%E8%83%BD%E5%BA%A6%E9%87%8F%E6%8C%87%E6%A0%87/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Fairy Girl's BLOG</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a><a class="post-meta__tags" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a><a class="post-meta__tags" href="/tags/%E8%AF%AF%E5%B7%AE%E4%B8%8E%E6%8B%9F%E5%90%88/">误差与拟合</a></div><div class="post_share"><div class="social-share" data-image="/images/front/MachineLearning.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/01/30/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%EF%BC%9AML09-%E8%AF%84%E4%BC%B0%E6%96%B9%E6%B3%95/" title="机器学习入门：ML09-评估方法"><img class="cover" src="/images/front/MachineLearning.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">机器学习入门：ML09-评估方法</div></div></a></div><div class="next-post pull-right"><a href="/2024/01/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%EF%BC%9AML07-2024%E5%B9%B4%E5%8D%81%E5%A4%A7%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A8%A1%E5%9E%8B%EF%BC%88%E4%B8%8B%EF%BC%89/" title="机器学习入门：ML07-2024年十大机器学习模型（下）"><img class="cover" src="/images/front/MachineLearning.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">机器学习入门：ML07-2024年十大机器学习模型（下）</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/01/30/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%EF%BC%9AML08-%E8%AF%AF%E5%B7%AE%E4%B8%8E%E6%8B%9F%E5%90%88/" title="机器学习入门：ML08-误差与拟合"><img class="cover" src="/images/front/MachineLearning.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-30</div><div class="title">机器学习入门：ML08-误差与拟合</div></div></a></div><div><a href="/2024/01/30/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%EF%BC%9AML09-%E8%AF%84%E4%BC%B0%E6%96%B9%E6%B3%95/" title="机器学习入门：ML09-评估方法"><img class="cover" src="/images/front/MachineLearning.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-30</div><div class="title">机器学习入门：ML09-评估方法</div></div></a></div><div><a href="/2024/01/01/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%EF%BC%9AML01-%E5%88%9D%E8%AF%86/" title="机器学习入门：ML01-初识"><img class="cover" src="/images/front/MachineLearning.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-01</div><div class="title">机器学习入门：ML01-初识</div></div></a></div><div><a href="/2024/01/05/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%EF%BC%9AML02-%E6%95%B0%E6%8D%AE/" title="机器学习入门：ML02-数据"><img class="cover" src="/images/front/MachineLearning.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-05</div><div class="title">机器学习入门：ML02-数据</div></div></a></div><div><a href="/2024/01/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%EF%BC%9AML03-%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/" title="机器学习入门：ML03-特征工程"><img class="cover" src="/images/front/MachineLearning.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-10</div><div class="title">机器学习入门：ML03-特征工程</div></div></a></div><div><a href="/2024/01/15/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%EF%BC%9AML04-%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0/" title="机器学习入门：ML04-模型评估"><img class="cover" src="/images/front/MachineLearning.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-15</div><div class="title">机器学习入门：ML04-模型评估</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Fairy Girl</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">53</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">58</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/NPMsp3vlwPSB5EJACbKdaA"><i class="fa fa-comments"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">Fairy Girl 博客上线啦！！！<br>本博客旨在记录个人在人工智能、深度学习、机器学习以及Python编程等领域的知识学习笔记。内容包含基础概念、编程技巧、算法实现、最新研究进展以及实际应用案例。<br><br>📌关注 Fairy Girl ，掌握最新AI资讯。<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/NPMsp3vlwPSB5EJACbKdaA"><img border="0" alt="Fairy Girl" src="/img/wx-fairygirl.png" width="235" height="72"></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AF%E6%80%A7%E8%83%BD%E5%BA%A6%E9%87%8F%EF%BC%9F"><span class="toc-number"></span> <span class="toc-text">一、什么是性能度量？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%88%86%E7%B1%BB%E4%BB%BB%E5%8A%A1%E7%9A%84%E5%85%AD%E5%A4%A7%E6%8C%87%E6%A0%87"><span class="toc-number"></span> <span class="toc-text">二、分类任务的六大指标</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E5%87%86%E7%A1%AE%E7%8E%87%EF%BC%88Accuracy%EF%BC%89"><span class="toc-number">1.</span> <span class="toc-text">2.1 准确率（Accuracy）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E7%B2%BE%E7%A1%AE%E7%8E%87%EF%BC%88Precision%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">2.2 精确率（Precision）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E5%8F%AC%E5%9B%9E%E7%8E%87%EF%BC%88Recall%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">2.3 召回率（Recall）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-F1%E5%88%86%E6%95%B0%EF%BC%88F1-Score%EF%BC%89"><span class="toc-number">4.</span> <span class="toc-text">2.4 F1分数（F1 Score）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-%E6%B7%B7%E6%B7%86%E7%9F%A9%E9%98%B5%EF%BC%88Confusion-Matrix%EF%BC%89"><span class="toc-number">5.</span> <span class="toc-text">2.5 混淆矩阵（Confusion Matrix）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-6-ROC%E6%9B%B2%E7%BA%BF%E5%92%8CAUC"><span class="toc-number">6.</span> <span class="toc-text">2.6 ROC曲线和AUC</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9%E5%90%88%E9%80%82%E7%9A%84%E8%AF%84%E4%BC%B0%E6%8C%87%E6%A0%87%EF%BC%9F"><span class="toc-number"></span> <span class="toc-text">三、如何选择合适的评估指标？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-number">1.</span> <span class="toc-text">结语</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/06/11/AI-%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%EF%BC%9APS00-%E6%A6%82%E8%BF%B0/" title="AI数学知识：PS00-概述"><img src="/images/front/Math.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="AI数学知识：PS00-概述"/></a><div class="content"><a class="title" href="/2024/06/11/AI-%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%EF%BC%9APS00-%E6%A6%82%E8%BF%B0/" title="AI数学知识：PS00-概述">AI数学知识：PS00-概述</a><time datetime="2024-06-10T16:00:00.000Z" title="发表于 2024-06-11 00:00:00">2024-06-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/06/11/AI-%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%EF%BC%9APS01-%E9%9A%8F%E6%9C%BA%E4%BA%8B%E4%BB%B6%E3%80%81%E6%A6%82%E7%8E%87%E3%80%81%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F/" title="AI数学知识：PS01-随机事件和概率"><img src="/images/front/Math.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="AI数学知识：PS01-随机事件和概率"/></a><div class="content"><a class="title" href="/2024/06/11/AI-%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%EF%BC%9APS01-%E9%9A%8F%E6%9C%BA%E4%BA%8B%E4%BB%B6%E3%80%81%E6%A6%82%E7%8E%87%E3%80%81%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F/" title="AI数学知识：PS01-随机事件和概率">AI数学知识：PS01-随机事件和概率</a><time datetime="2024-06-10T16:00:00.000Z" title="发表于 2024-06-11 00:00:00">2024-06-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/06/11/AI-%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%EF%BC%9APS02-%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B%E5%92%8C%E6%A6%82%E7%8E%87%E7%B1%BB%E5%9E%8B/" title="AI数学知识：PS02-概率模型和概率类型"><img src="/images/front/Math.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="AI数学知识：PS02-概率模型和概率类型"/></a><div class="content"><a class="title" href="/2024/06/11/AI-%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%EF%BC%9APS02-%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B%E5%92%8C%E6%A6%82%E7%8E%87%E7%B1%BB%E5%9E%8B/" title="AI数学知识：PS02-概率模型和概率类型">AI数学知识：PS02-概率模型和概率类型</a><time datetime="2024-06-10T16:00:00.000Z" title="发表于 2024-06-11 00:00:00">2024-06-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/06/11/AI-%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%EF%BC%9APS03-%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F/" title="AI数学知识：PS02-概率模型和概率类型"><img src="/images/front/Math.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="AI数学知识：PS02-概率模型和概率类型"/></a><div class="content"><a class="title" href="/2024/06/11/AI-%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%EF%BC%9APS03-%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F/" title="AI数学知识：PS02-概率模型和概率类型">AI数学知识：PS02-概率模型和概率类型</a><time datetime="2024-06-10T16:00:00.000Z" title="发表于 2024-06-11 00:00:00">2024-06-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/06/11/AI-%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%EF%BC%9APS05-%E5%B8%B8%E8%A7%81%E8%BF%9E%E7%BB%AD%E5%9E%8B%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%88%86%E5%B8%83/" title="AI数学知识：PS04-常见的分布函数"><img src="/images/front/Math.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="AI数学知识：PS04-常见的分布函数"/></a><div class="content"><a class="title" href="/2024/06/11/AI-%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%EF%BC%9APS05-%E5%B8%B8%E8%A7%81%E8%BF%9E%E7%BB%AD%E5%9E%8B%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%88%86%E5%B8%83/" title="AI数学知识：PS04-常见的分布函数">AI数学知识：PS04-常见的分布函数</a><time datetime="2024-06-10T16:00:00.000Z" title="发表于 2024-06-11 00:00:00">2024-06-11</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Fairy Girl</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.14.0-b3"></script><script src="/js/main.js?v=4.14.0-b3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.35/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'ams'
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+      
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  const runMermaid = (ele) => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from(ele).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+    
+    codeMermaidEle.forEach(ele => {
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.innerHTML = `<pre class="mermaid-src" hidden>${ele.textContent}</pre>`
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (false) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js').then(runMermaidFn)
+  }
+  
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

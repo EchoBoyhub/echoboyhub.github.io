@@ -1,0 +1,375 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>AI数学知识：PS04-常见的分布函数 | Fairy Girl's BLOG</title><meta name="author" content="Fairy Girl"><meta name="copyright" content="Fairy Girl"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="本文介绍了线性代数中的一些基本的数据类型。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AI数学知识：PS04-常见的分布函数">
+<meta property="og:url" content="http://example.com/2024/06/11/AI-%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%EF%BC%9APS05-%E5%B8%B8%E8%A7%81%E8%BF%9E%E7%BB%AD%E5%9E%8B%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%88%86%E5%B8%83/index.html">
+<meta property="og:site_name" content="Fairy Girl&#39;s BLOG">
+<meta property="og:description" content="本文介绍了线性代数中的一些基本的数据类型。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/front/Math.png">
+<meta property="article:published_time" content="2024-06-10T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-06-29T05:12:19.804Z">
+<meta property="article:author" content="Fairy Girl">
+<meta property="article:tag" content="人工智能">
+<meta property="article:tag" content="数学知识">
+<meta property="article:tag" content="随机事件">
+<meta property="article:tag" content="概率">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/front/Math.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2024/06/11/AI-%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%EF%BC%9APS05-%E5%B8%B8%E8%A7%81%E8%BF%9E%E7%BB%AD%E5%9E%8B%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%88%86%E5%B8%83/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.14.0-b3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.35/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>(()=>{
+      const saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+      
+      window.btf = {
+        saveToLocal: saveToLocal,
+        getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+          script.src = url
+          script.async = true
+          script.onerror = reject
+          script.onload = script.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            script.onload = script.onreadystatechange = null
+            resolve()
+          }
+
+          Object.keys(attr).forEach(key => {
+            script.setAttribute(key, attr[key])
+          })
+
+          document.head.appendChild(script)
+        }),
+
+        getCSS: (url, id = false) => new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+          link.rel = 'stylesheet'
+          link.href = url
+          if (id) link.id = id
+          link.onerror = reject
+          link.onload = link.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            link.onload = link.onreadystatechange = null
+            resolve()
+          }
+          document.head.appendChild(link)
+        }),
+
+        addGlobalFn: (key, fn, name = false, parent = window) => {
+          const pjaxEnable = false
+          if (!pjaxEnable && key.startsWith('pjax')) return
+
+          const globalFn = parent.globalFn || {}
+          const keyObj = globalFn[key] || {}
+    
+          if (name && keyObj[name]) return
+    
+          name = name || Object.keys(keyObj).length
+          keyObj[name] = fn
+          globalFn[key] = keyObj
+          parent.globalFn = globalFn
+        }
+      }
+    
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+      
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })()</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":true,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'AI数学知识：PS04-常见的分布函数',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-06-29 13:12:19'
+}</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">53</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">58</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/images/front/Math.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Fairy Girl's BLOG"><span class="site-name">Fairy Girl's BLOG</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">AI数学知识：PS04-常见的分布函数</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-06-10T16:00:00.000Z" title="发表于 2024-06-11 00:00:00">2024-06-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-06-29T05:12:19.804Z" title="更新于 2024-06-29 13:12:19">2024-06-29</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/AI%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/">AI数学知识</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/AI%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/">概率论与数理统计</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="AI数学知识：PS04-常见的分布函数"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>哈喽~大家好，欢迎来到 Fairy Girl 的频道！</p>
+<p>在上期文章中，我们讲解了离散型随机变量的四种概率分布函数，今天，我们又带了连续型随机变量的六大概率分布函数，接下来，就让我们再一次来感受这些概率分布函数在描述随机现象中的应用和重要性。</p>
+<h1 id="二、连续型随机变量的分布"><a href="#二、连续型随机变量的分布" class="headerlink" title="二、连续型随机变量的分布"></a>二、连续型随机变量的分布</h1><h2 id="2-1-均匀分布：概率的平等舞台"><a href="#2-1-均匀分布：概率的平等舞台" class="headerlink" title="2.1 均匀分布：概率的平等舞台"></a>2.1 均匀分布：概率的平等舞台</h2><p>假设一个盒子里有无数个小球，你闭上眼睛随机抽取一个，每个小球被抽中的概率完全相同。这就是均匀分布的现实写照。</p>
+<p>均匀分布，也称矩形分布，是一种连续型概率分布，其中随机变量在某个固定的区间内取值的概率密度是恒定的。这种分布的特点就是简单对称，常用于模拟在某个范围内等概率随机选择的情况。</p>
+<p><strong>均匀分布的概率密度函数：</strong> $$f(x) &#x3D; \begin{cases}<br>\frac{1}{b-a}, &amp; a≤x≤b \<br>0, &amp; otherwise \ \end{cases}$$</p>
+<ul>
+<li>$a$ 是分布的下限；</li>
+<li>$b$ 是分布的上限；</li>
+<li>$f(x)$ 是区间 $[a,b]$ 内的概率密度。</li>
+</ul>
+<hr>
+<p><strong>均匀分布的累积分布函数：</strong> </p>
+<p>均匀分布的累积分布函数 $F(x)$ 表示随机变量 $X$ 小于或等于某个值 $x$ 的概率，数学表达式：<br>$$F(x) &#x3D; D(x) &#x3D; \begin{cases} 0, &amp; x&lt;a \<br>\frac{x-a}{b-a}, &amp; a≤x&lt;b \<br>1, &amp; x≥3 \<br>\end{cases}$$</p>
+<hr>
+<p><strong>在人工智能中的应用</strong> </p>
+<p>均匀分布在人工智能领域的应用展示了其在需要等概率假设或简化计算时的实用性。例如，在参数初始化、随机抽样或数据增强等场景中，提供等概率的随机性；</p>
+<p>在图像识别中通过均匀分布随机调整图像大小以增强模型的泛化能力。通过合理地应用均匀分布，我们可以在多种场景中实现有效的随机性和公平性。</p>
+<h2 id="2-2-正态分布：自然的钟形曲线"><a href="#2-2-正态分布：自然的钟形曲线" class="headerlink" title="2.2 正态分布：自然的钟形曲线"></a>2.2 正态分布：自然的钟形曲线</h2><p>正态分布，又称高斯分布，以其优雅的钟形曲线而闻名。它在自然科学和社会科学中无处不在，从人的身高到智商，都能找到它的身影。</p>
+<p><strong>正态分布的概率密度函数：</strong> $$f(x) &#x3D; \frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}$$</p>
+<ul>
+<li>$x$ 是随机变量；</li>
+<li>$\mu$ 是分布的均值（期望值）；</li>
+<li>$\sigma$ 是分布的标准差，表示数据分布的离散程度， $\sigma^2$ 方差。</li>
+</ul>
+<p><strong>正态分布的特性：</strong></p>
+<ol>
+<li>对称性：正态分布是关于其均值 $\mu$ 对称的；</li>
+<li>无界性：正态分布的尾部延伸至 $\pm \infty$，但随着 $x$ 偏离 $\mu$，概率密度迅速减小。</li>
+<li>钟形曲线：正态分布的图形呈现为钟形，这是其最著名的特征。</li>
+</ol>
+<blockquote>
+<p>68-95-99.7规则（经验法则）:<br>正态分布的一个重要经验法则是68-95-99.7规则，它说明：</p>
+<ul>
+<li>大约68%的数据值落在均值 $\pm \sigma$ 范围内；</li>
+<li>大约95%的数据值落在均值 $\pm 2\sigma$ 范围内；</li>
+<li>几乎所有（约99.7%）的数据值落在均值 $\pm 3\sigma$ 范围内；<br>这个规则有助于快速估计数据的分布范围，尽管它仅适用于正态分布。</li>
+</ul>
+</blockquote>
+<hr>
+<p><strong>在人工智能中的应用</strong> </p>
+<p>正态分布在人工智能中被广泛应用于假设检验、参数估计和模型初始化，例如在线性回归模型中假设误差项服从正态分布来进行有效的参数预测和估计。在贝叶斯神经网络中，正态分布常用作参数的先验分布，并结合数据进行概率推断。</p>
+<p>而在数据处理中，可以利用正态分布的特性，识别出那些远离数据均值的异常点。正态分布不仅作为许多算法的理论基础，而且在实际问题中也提供了强大的建模和分析手段。</p>
+<h2 id="2-3-卡方分布：统计检验的基石"><a href="#2-3-卡方分布：统计检验的基石" class="headerlink" title="2.3 卡方分布：统计检验的基石"></a>2.3 卡方分布：统计检验的基石</h2><p>卡方分布，通常称为 $x^2$ 分布，是一种在统计学中非常重要的连续概率分布，特别是在假设检验和置信区间的计算中。它与正态分布的样本方差紧密相关，并且在拟合优度检验和主成分分析中也有应用。</p>
+<p><strong>卡方分布的概率密度函数：</strong> $$f(x;k) &#x3D; \frac{1}{2^{\frac{k}{2}}\Gamma(\frac{k}{2})}x^{\frac{k}{2}-1}e^{-\frac{x}{2}}$$</p>
+<ul>
+<li>$x≥0$，因为卡方分布是定义在非负实数上的；</li>
+<li>$k$ 是自由度，是一个正整数；</li>
+<li>$\Gamma$ 是伽马函数。</li>
+</ul>
+<blockquote>
+<p>与正态分布的关系：如果 $Z$ 是标准正态分布的随机变量（即均值为0，方差为1），那么 $Z^2$ 服从自由度为1的卡方分布。此外，如果 $Z_1,Z_2,\cdots,Z_K$ 是 $k$ 个独立的标准正态分布随机变量，那么它们的平方和 $Z_1^2,Z_2^2,\cdots,Z_K^2$ 服从自由度为 $k$ 的卡方分布。</p>
+</blockquote>
+<hr>
+<p><strong>在人工智能中的应用</strong> </p>
+<p>卡方分布在人工智能领域主要应用于统计假设检验，特别是在拟合优度检验、独立性检验和方差齐性检验中。例如，在自然语言处理中，卡方检验可以用来评估某个词或短语在文档集合中的分布是否与随机分布有显著差异。</p>
+<p>在计算机视觉中，卡方分布可以用于特征选择，通过检验特征与类别标签的独立性来评估特征的重要性。卡方分布在人工智能领域提供了一种强有力的统计工具，帮助研究者和开发者进行有效的数据分析和模型验证。通过合理地应用卡方分布，可以增强模型的可靠性和解释性。</p>
+<h2 id="2-4-指数分布：时间的无记忆性"><a href="#2-4-指数分布：时间的无记忆性" class="headerlink" title="2.4 指数分布：时间的无记忆性"></a>2.4 指数分布：时间的无记忆性</h2><p>指数分布通常用于描述两个随机事件发生的时间间隔。它具有独特的无记忆性：无论已经等待了多长时间，未来某个时间段内事件发生的概率不依赖于已经等待的时间。这种特性使得指数分布在排队理论、生存分析等领域中非常重要。</p>
+<p><strong>指数分布的概率密度函数：</strong> $$f(x;\lambda) &#x3D; \lambda e^{-\lambdax}$$</p>
+<ul>
+<li>$x≥0$，因为时间间隔不能是负数；</li>
+<li>$\lambda &gt; 0$ 是分布的参数，也称为速率参数，表示单位时间内事件平均发生的次数；</li>
+</ul>
+<blockquote>
+<p>无记忆性（Memorylessness）：指数分布具有无记忆性，这可以在数学上表示为：$P{ X&gt;s+t | X&gt;s}&#x3D;P(X&gt;t)$ 对于所有的 $s,t ≥0$。这意味着，如果我们知道已经等待了 $s$ 时间，那么未来在等待 $t$ 时间的概率不受影响。</p>
+</blockquote>
+<hr>
+<p><strong>在人工智能中的应用</strong> </p>
+<p>指数分布在人工智能领域中的应用主要是因为它在描述时间间隔和持续时间方面的特性，尤其是在处理具有无记忆性（memoryless property）的随机事件时。例如，在网络流量分析中，指数分布可以模拟数据包到达的时间间隔。在金融领域，指数分布可以用于模拟股票价格回归到均值的时间。</p>
+<p>指数分布在人工智能领域提供了一种有效用于模拟和分析与时间相关的随机现象的工具。通过合理地应用指数分布，可以增强模型对时间动态的理解和预测能力。</p>
+<h2 id="2-5-伽马分布：指数分布的扩展"><a href="#2-5-伽马分布：指数分布的扩展" class="headerlink" title="2.5 伽马分布：指数分布的扩展"></a>2.5 伽马分布：指数分布的扩展</h2><p>伽马分布是指数分布的扩展，由形状参数 k 和尺度参数 θ 确定。通常用于描述等待时间直到连续发生 $k$ 个独立且相同分布的指数随机事件的时间，特别是在处理具有不同速率的多个事件时。</p>
+<p><strong>伽马分布的概率密度函数：</strong> $$f(x;k,\theta) &#x3D; \frac{x^{k-1}e^{-\frac{x}{\theta}}}{\theta^k\Gamma(k)}$$</p>
+<ul>
+<li>$x≥0$，因为等待时间不能是负数；</li>
+<li>$k&gt;0$ 是形状参数（shape parameter），通常称为伽马分布的阶数（order）；</li>
+<li>$\theta&gt;0$ 是尺度参数（scale parameter），有时也称为速率参数（rate parameter）；</li>
+<li>$\Gamma (k)$ 是伽马函数，用于确保概率密度函数的积分为1。</li>
+</ul>
+<blockquote>
+<p>无记忆性：伽马分布本身不具备指数分布的无记忆性（memorylessness），因为伽马分布可以看作是 $k$ 个独立指数分布随机变量之和，而这些指数分布的参数可以相同或不同。</p>
+</blockquote>
+<hr>
+<p><strong>在人工智能中的应用</strong> </p>
+<p>伽马分布在人工智能领域主要用于模拟和分析具有不同变化形态的随机过程。通过合理地应用伽马分布，可以增强模型对复杂时间动态的理解和预测能力。例如，在评估系统或组件的可靠性时，伽马分布可以用来模拟其寿命分布。在生物信息学中，伽马分布可以用于模拟基因表达数据的分布。伽马分布在人工智能领域之所以重要，是因为它具有灵活性和在处理具有指数家族分布特性的随机变量时的适用性。</p>
+<h2 id="2-6-贝塔分布：定义在区间-0-1-的灵活分布"><a href="#2-6-贝塔分布：定义在区间-0-1-的灵活分布" class="headerlink" title="2.6 贝塔分布：定义在区间 [0, 1] 的灵活分布"></a>2.6 贝塔分布：定义在区间 [0, 1] 的灵活分布</h2><p>贝塔分布是一种定义在区间 [0, 1] 上的连续概率分布，由两个正参数 α 和 β 控制形状。它的灵活性使其在概率论和统计学中非常有用，尤其是在贝叶斯统计中作为先验分布。</p>
+<p><strong>贝塔分布的概率密度函数：</strong> $$f(x;\alpha,\beta) &#x3D; \frac{x^{\alpha-1}(1-x)^{\beta-1}}{B(\alpha,\beta)}$$</p>
+<ul>
+<li>$x$ 的取值范围是 $[0,1]$；</li>
+<li>$\alpha &gt; 0,\beta &gt; 0$ 是形状参数；</li>
+<li>$B(\alpha,\beta)$ 是贝塔函数，用于确保概率密度函数的积分为1。</li>
+</ul>
+<hr>
+<p><strong>在人工智能中的应用</strong> </p>
+<p>贝塔分布在人工智能领域主要用于建模和分析定义在特定区间内的随机变量。通过合理地应用贝塔分布，可以增强模型对比例数据和受约束随机变量的理解和预测能力。</p>
+<p>在贝叶斯分类任务中，贝塔分布可以作为先验分布，帮助估计类别的概率。在推荐系统中，贝塔分布可以用于建模用户评分的概率分布，从而改善推荐质量。在自然语言处理中，贝塔分布可以用于建模词频分布或文档-词项矩阵中的项。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>通过这篇文章，我们只是揭开了随机变量概率分布的冰山一角。在人工智能的世界里，这些分布的应用是无穷的。我们鼓励每一位AI探索者，继续发现和创新，利用这些数学工具，解锁数据的无限可能。</p>
+<hr>
+<p>欢迎关注我们的公众号，与我们一起探索更多数学和人工智能的奥秘！</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Fairy Girl</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2024/06/11/AI-%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%EF%BC%9APS05-%E5%B8%B8%E8%A7%81%E8%BF%9E%E7%BB%AD%E5%9E%8B%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%88%86%E5%B8%83/">http://example.com/2024/06/11/AI-%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%EF%BC%9APS05-%E5%B8%B8%E8%A7%81%E8%BF%9E%E7%BB%AD%E5%9E%8B%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%88%86%E5%B8%83/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Fairy Girl's BLOG</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a><a class="post-meta__tags" href="/tags/%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/">数学知识</a><a class="post-meta__tags" href="/tags/%E9%9A%8F%E6%9C%BA%E4%BA%8B%E4%BB%B6/">随机事件</a><a class="post-meta__tags" href="/tags/%E6%A6%82%E7%8E%87/">概率</a></div><div class="post_share"><div class="social-share" data-image="/images/front/Math.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/06/11/AI-%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%EF%BC%9APS03-%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F/" title="AI数学知识：PS02-概率模型和概率类型"><img class="cover" src="/images/front/Math.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">AI数学知识：PS02-概率模型和概率类型</div></div></a></div><div class="next-post pull-right"><a href="/2024/06/11/AI-%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%EF%BC%9APS04-%E5%B8%B8%E8%A7%81%E5%88%86%E5%B8%83/" title="AI数学知识：PS04-常见的分布函数"><img class="cover" src="/images/front/Math.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">AI数学知识：PS04-常见的分布函数</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/06/11/AI-%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%EF%BC%9APS01-%E9%9A%8F%E6%9C%BA%E4%BA%8B%E4%BB%B6%E3%80%81%E6%A6%82%E7%8E%87%E3%80%81%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F/" title="AI数学知识：PS01-随机事件和概率"><img class="cover" src="/images/front/Math.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-11</div><div class="title">AI数学知识：PS01-随机事件和概率</div></div></a></div><div><a href="/2024/06/11/AI-%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%EF%BC%9APS02-%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B%E5%92%8C%E6%A6%82%E7%8E%87%E7%B1%BB%E5%9E%8B/" title="AI数学知识：PS02-概率模型和概率类型"><img class="cover" src="/images/front/Math.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-11</div><div class="title">AI数学知识：PS02-概率模型和概率类型</div></div></a></div><div><a href="/2024/06/11/AI-%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%EF%BC%9APS03-%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F/" title="AI数学知识：PS02-概率模型和概率类型"><img class="cover" src="/images/front/Math.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-11</div><div class="title">AI数学知识：PS02-概率模型和概率类型</div></div></a></div><div><a href="/2024/06/11/AI-%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%EF%BC%9APS04-%E5%B8%B8%E8%A7%81%E5%88%86%E5%B8%83/" title="AI数学知识：PS04-常见的分布函数"><img class="cover" src="/images/front/Math.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-11</div><div class="title">AI数学知识：PS04-常见的分布函数</div></div></a></div><div><a href="/2024/06/11/AI-%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%EF%BC%9APS06-%E5%B8%B8%E8%A7%81%E8%BF%9E%E7%BB%AD%E5%9E%8B%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%88%86%E5%B8%83/" title="AI数学知识：PS06-连续型随机变量"><img class="cover" src="/images/front/Math.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-11</div><div class="title">AI数学知识：PS06-连续型随机变量</div></div></a></div><div><a href="/2024/06/11/AI-%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%EF%BC%9APS00-%E6%A6%82%E8%BF%B0/" title="AI数学知识：PS00-概述"><img class="cover" src="/images/front/Math.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-11</div><div class="title">AI数学知识：PS00-概述</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Fairy Girl</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">53</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">58</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/NPMsp3vlwPSB5EJACbKdaA"><i class="fa fa-comments"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">Fairy Girl 博客上线啦！！！<br>本博客旨在记录个人在人工智能、深度学习、机器学习以及Python编程等领域的知识学习笔记。内容包含基础概念、编程技巧、算法实现、最新研究进展以及实际应用案例。<br><br>📌关注 Fairy Girl ，掌握最新AI资讯。<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/NPMsp3vlwPSB5EJACbKdaA"><img border="0" alt="Fairy Girl" src="/img/wx-fairygirl.png" width="235" height="72"></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E8%BF%9E%E7%BB%AD%E5%9E%8B%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E7%9A%84%E5%88%86%E5%B8%83"><span class="toc-number">1.</span> <span class="toc-text">二、连续型随机变量的分布</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E5%9D%87%E5%8C%80%E5%88%86%E5%B8%83%EF%BC%9A%E6%A6%82%E7%8E%87%E7%9A%84%E5%B9%B3%E7%AD%89%E8%88%9E%E5%8F%B0"><span class="toc-number">1.1.</span> <span class="toc-text">2.1 均匀分布：概率的平等舞台</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%EF%BC%9A%E8%87%AA%E7%84%B6%E7%9A%84%E9%92%9F%E5%BD%A2%E6%9B%B2%E7%BA%BF"><span class="toc-number">1.2.</span> <span class="toc-text">2.2 正态分布：自然的钟形曲线</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E5%8D%A1%E6%96%B9%E5%88%86%E5%B8%83%EF%BC%9A%E7%BB%9F%E8%AE%A1%E6%A3%80%E9%AA%8C%E7%9A%84%E5%9F%BA%E7%9F%B3"><span class="toc-number">1.3.</span> <span class="toc-text">2.3 卡方分布：统计检验的基石</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-%E6%8C%87%E6%95%B0%E5%88%86%E5%B8%83%EF%BC%9A%E6%97%B6%E9%97%B4%E7%9A%84%E6%97%A0%E8%AE%B0%E5%BF%86%E6%80%A7"><span class="toc-number">1.4.</span> <span class="toc-text">2.4 指数分布：时间的无记忆性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-5-%E4%BC%BD%E9%A9%AC%E5%88%86%E5%B8%83%EF%BC%9A%E6%8C%87%E6%95%B0%E5%88%86%E5%B8%83%E7%9A%84%E6%89%A9%E5%B1%95"><span class="toc-number">1.5.</span> <span class="toc-text">2.5 伽马分布：指数分布的扩展</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-6-%E8%B4%9D%E5%A1%94%E5%88%86%E5%B8%83%EF%BC%9A%E5%AE%9A%E4%B9%89%E5%9C%A8%E5%8C%BA%E9%97%B4-0-1-%E7%9A%84%E7%81%B5%E6%B4%BB%E5%88%86%E5%B8%83"><span class="toc-number">1.6.</span> <span class="toc-text">2.6 贝塔分布：定义在区间 [0, 1] 的灵活分布</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.7.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/06/11/AI-%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%EF%BC%9APS00-%E6%A6%82%E8%BF%B0/" title="AI数学知识：PS00-概述"><img src="/images/front/Math.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="AI数学知识：PS00-概述"/></a><div class="content"><a class="title" href="/2024/06/11/AI-%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%EF%BC%9APS00-%E6%A6%82%E8%BF%B0/" title="AI数学知识：PS00-概述">AI数学知识：PS00-概述</a><time datetime="2024-06-10T16:00:00.000Z" title="发表于 2024-06-11 00:00:00">2024-06-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/06/11/AI-%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%EF%BC%9APS01-%E9%9A%8F%E6%9C%BA%E4%BA%8B%E4%BB%B6%E3%80%81%E6%A6%82%E7%8E%87%E3%80%81%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F/" title="AI数学知识：PS01-随机事件和概率"><img src="/images/front/Math.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="AI数学知识：PS01-随机事件和概率"/></a><div class="content"><a class="title" href="/2024/06/11/AI-%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%EF%BC%9APS01-%E9%9A%8F%E6%9C%BA%E4%BA%8B%E4%BB%B6%E3%80%81%E6%A6%82%E7%8E%87%E3%80%81%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F/" title="AI数学知识：PS01-随机事件和概率">AI数学知识：PS01-随机事件和概率</a><time datetime="2024-06-10T16:00:00.000Z" title="发表于 2024-06-11 00:00:00">2024-06-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/06/11/AI-%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%EF%BC%9APS02-%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B%E5%92%8C%E6%A6%82%E7%8E%87%E7%B1%BB%E5%9E%8B/" title="AI数学知识：PS02-概率模型和概率类型"><img src="/images/front/Math.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="AI数学知识：PS02-概率模型和概率类型"/></a><div class="content"><a class="title" href="/2024/06/11/AI-%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%EF%BC%9APS02-%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B%E5%92%8C%E6%A6%82%E7%8E%87%E7%B1%BB%E5%9E%8B/" title="AI数学知识：PS02-概率模型和概率类型">AI数学知识：PS02-概率模型和概率类型</a><time datetime="2024-06-10T16:00:00.000Z" title="发表于 2024-06-11 00:00:00">2024-06-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/06/11/AI-%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%EF%BC%9APS03-%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F/" title="AI数学知识：PS02-概率模型和概率类型"><img src="/images/front/Math.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="AI数学知识：PS02-概率模型和概率类型"/></a><div class="content"><a class="title" href="/2024/06/11/AI-%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%EF%BC%9APS03-%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F/" title="AI数学知识：PS02-概率模型和概率类型">AI数学知识：PS02-概率模型和概率类型</a><time datetime="2024-06-10T16:00:00.000Z" title="发表于 2024-06-11 00:00:00">2024-06-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/06/11/AI-%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%EF%BC%9APS05-%E5%B8%B8%E8%A7%81%E8%BF%9E%E7%BB%AD%E5%9E%8B%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%88%86%E5%B8%83/" title="AI数学知识：PS04-常见的分布函数"><img src="/images/front/Math.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="AI数学知识：PS04-常见的分布函数"/></a><div class="content"><a class="title" href="/2024/06/11/AI-%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%EF%BC%9APS05-%E5%B8%B8%E8%A7%81%E8%BF%9E%E7%BB%AD%E5%9E%8B%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%88%86%E5%B8%83/" title="AI数学知识：PS04-常见的分布函数">AI数学知识：PS04-常见的分布函数</a><time datetime="2024-06-10T16:00:00.000Z" title="发表于 2024-06-11 00:00:00">2024-06-11</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Fairy Girl</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.14.0-b3"></script><script src="/js/main.js?v=4.14.0-b3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.35/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'ams'
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+      
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  const runMermaid = (ele) => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from(ele).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+    
+    codeMermaidEle.forEach(ele => {
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.innerHTML = `<pre class="mermaid-src" hidden>${ele.textContent}</pre>`
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (false) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js').then(runMermaidFn)
+  }
+  
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
