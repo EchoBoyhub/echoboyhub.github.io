@@ -4,18 +4,23 @@
   <meta charset="utf-8">
   
   
-  <title>Hello World | Hexo</title>
+  <title>预告 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+  <meta name="description" content="Hessian矩阵在二阶优化问题中的作用。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://example.com/2025/01/07/hello-world/index.html">
+<meta property="og:title" content="预告">
+<meta property="og:url" content="http://example.com/2024/12/17/CC11-Hessian%E7%9F%A9%E9%98%B5/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="Hessian矩阵在二阶优化问题中的作用。">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2025-01-07T03:07:26.655Z">
-<meta property="article:modified_time" content="2025-01-07T03:07:26.655Z">
+<meta property="article:published_time" content="2024-12-16T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-12-17T09:11:41.599Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="微积分">
+<meta property="article:tag" content="机器学习">
+<meta property="article:tag" content="马同学">
+<meta property="article:tag" content="Hessian矩阵">
+<meta property="article:tag" content="二阶优化">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -71,12 +76,16 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-CC11-Hessian矩阵" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2025/01/07/hello-world/" class="article-date">
-  <time class="dt-published" datetime="2025-01-07T03:07:26.655Z" itemprop="datePublished">2025-01-07</time>
+    <a href="/2024/12/17/CC11-Hessian%E7%9F%A9%E9%98%B5/" class="article-date">
+  <time class="dt-published" datetime="2024-12-16T16:00:00.000Z" itemprop="datePublished">2024-12-17</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%BE%AE%E7%A7%AF%E5%88%86/">微积分</a>►<a class="article-category-link" href="/categories/%E5%BE%AE%E7%A7%AF%E5%88%86/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -85,7 +94,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      Hello World
+      预告
     </h1>
   
 
@@ -93,37 +102,77 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+        <h1 id="什么是Hessian矩阵？"><a href="#什么是Hessian矩阵？" class="headerlink" title="什么是Hessian矩阵？"></a>什么是Hessian矩阵？</h1><p>Hessian矩阵，又称为海森矩阵或黑塞矩阵，是由多元函数的二阶偏导数构成的方阵。它主要用于描述函数在某一点附近的局部曲率，即函数在该点附近的变化趋势。这一概念最早由德国数学家Ludwig Otto Hesse提出，是数学、特别是多元函数微分学中的重要工具。</p>
+<p>对于一个二元函数 $f(x, y)$，其Hessian矩阵 $H$ 可以表示为：</p>
+<script type="math/tex; mode=display">
+H(f) = \begin{bmatrix}
+\frac{\partial^2 f}{\partial x^2} & \frac{\partial^2 f}{\partial x \partial y} \\
+\frac{\partial^2 f}{\partial y \partial x} & \frac{\partial^2 f}{\partial y^2}
+\end{bmatrix}</script><p>对于一个 $n$ 元函数 $f(x_1, x_2, \ldots, x_n)$，其Hessian矩阵是一个 $n \times n$ 的矩阵，其中第 $i$ 行第 $j$ 列的元素是 $f$ 关于 $x_i$ 和 $x_j$ 的二阶偏导数：</p>
+<script type="math/tex; mode=display">
+H(f) = \begin{bmatrix}
+\frac{\partial^2 f}{\partial x_1^2} & \frac{\partial^2 f}{\partial x_1 \partial x_2} & \cdots & \frac{\partial^2 f}{\partial x_1 \partial x_n} \\
+\frac{\partial^2 f}{\partial x_2 \partial x_1} & \frac{\partial^2 f}{\partial x_2^2} & \cdots & \frac{\partial^2 f}{\partial x_2 \partial x_n} \\
+\vdots & \vdots & \ddots & \vdots \\
+\frac{\partial^2 f}{\partial x_n \partial x_1} & \frac{\partial^2 f}{\partial x_n \partial x_2} & \cdots & \frac{\partial^2 f}{\partial x_n^2}
+\end{bmatrix}</script><p>Hessian矩阵在优化问题中非常重要，因为它可以用来判断函数在某一点是否为极值点。具体来说：</p>
+<ol>
+<li>如果Hessian矩阵是正定的，那么函数在该点有局部最小值。</li>
+<li>如果Hessian矩阵是负定的，那么函数在该点有局部最大值。</li>
+<li>如果Hessian矩阵是不定的，那么函数在该点可能是一个鞍点。</li>
+</ol>
+<p>此外，Hessian矩阵还用于牛顿法等优化算法中，帮助找到函数的极值点。</p>
+<h1 id="Hessian矩阵的通俗解释"><a href="#Hessian矩阵的通俗解释" class="headerlink" title="Hessian矩阵的通俗解释"></a>Hessian矩阵的通俗解释</h1><p>好的，让我们用一个更通俗易懂的方式来理解Hessian矩阵。</p>
+<p>想象一下，你有一个三维空间中的山丘，这个山丘的形状由一个函数 $f(x, y)$ 来描述，其中 $x$ 和 $y$ 是水平方向的坐标，而 $f(x, y)$ 是山丘的高度。</p>
+<p>现在，你想知道这个山丘在某个特定点的地形特征，比如它是不是最高峰或者最低谷。为了做到这一点，你可以观察这个点附近的斜率（一阶导数）和曲率（二阶导数）。Hessian矩阵就是帮助我们量化这种曲率的工具。</p>
+<h3 id="1-一阶导数：斜率"><a href="#1-一阶导数：斜率" class="headerlink" title="1. 一阶导数：斜率"></a>1. 一阶导数：斜率</h3><p>一阶导数告诉我们山丘在任何方向上的斜率。如果斜率为正，意味着沿着那个方向走，山丘会上升；如果斜率为负，意味着会下降。</p>
+<h3 id="2-二阶导数：曲率"><a href="#2-二阶导数：曲率" class="headerlink" title="2. 二阶导数：曲率"></a>2. 二阶导数：曲率</h3><p>二阶导数告诉我们山丘的曲率，也就是斜率变化的快慢。如果二阶导数为正，意味着山丘在那个方向上是向上弯曲的（凹形）；如果为负，意味着是向下弯曲的（凸形）。</p>
+<h3 id="3-Hessian矩阵：曲率的矩阵"><a href="#3-Hessian矩阵：曲率的矩阵" class="headerlink" title="3. Hessian矩阵：曲率的矩阵"></a>3. Hessian矩阵：曲率的矩阵</h3><p>Hessian矩阵就是将所有这些二阶导数（曲率）放在一起，形成一个矩阵。对于一个二元函数，这个矩阵看起来像这样：</p>
+<script type="math/tex; mode=display">
+H(f) = \begin{bmatrix}
+xx\text{方向的曲率} & xy\text{方向的曲率} \\
+yx\text{方向的曲率} & yy\text{方向的曲率}
+\end{bmatrix}</script><ul>
+<li><strong>$xx$ 方向的曲率</strong>：告诉你在 $x$ 方向上，山丘的曲率如何变化。</li>
+<li><strong>$yy$ 方向的曲率</strong>：告诉你在 $y$ 方向上，山丘的曲率如何变化。</li>
+<li><strong>$xy$ 和 $yx$ 方向的曲率</strong>：告诉你在 $x$ 和 $y$ 方向上，山丘的曲率是如何相互影响的。</li>
+</ul>
+<h3 id="4-判断极值点"><a href="#4-判断极值点" class="headerlink" title="4. 判断极值点"></a>4. 判断极值点</h3><p>通过分析Hessian矩阵，我们可以判断山丘上的点是山峰、山谷还是鞍点：</p>
+<ul>
+<li>如果Hessian矩阵是正定的（所有特征值都为正），那么这个点是局部最低点（山谷）。</li>
+<li>如果Hessian矩阵是负定的（所有特征值都为负），那么这个点是局部最高点（山峰）。</li>
+<li>如果Hessian矩阵是不定的（有正有负的特征值），那么这个点是鞍点。</li>
+</ul>
+<p>这样，Hessian矩阵就帮助我们理解了函数在特定点的局部行为，就像我们通过观察山丘的地形来了解它的特征一样。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/07/hello-world/" data-id="cm5lwfkmf0000t4bq899k9q5w" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2024/12/17/CC11-Hessian%E7%9F%A9%E9%98%B5/" data-id="cm5m32i68000p6obq7je6c1kz" data-title="预告" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hessian%E7%9F%A9%E9%98%B5/" rel="tag">Hessian矩阵</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BA%8C%E9%98%B6%E4%BC%98%E5%8C%96/" rel="tag">二阶优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BE%AE%E7%A7%AF%E5%88%86/" rel="tag">微积分</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%A9%AC%E5%90%8C%E5%AD%A6/" rel="tag">马同学</a></li></ul>
+
     </footer>
   </div>
   
     
 <nav id="article-nav">
   
+    <a href="/2025/01/07/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Hello World
+        
+      </div>
+    </a>
   
-    <a href="/2024/12/17/CC11-Hessian%E7%9F%A9%E9%98%B5/" id="article-nav-older" class="article-nav-link-wrap">
+  
+    <a href="/2024/10/29/CC12-%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">预告</div>
+      <div class="article-nav-title">傅里叶变换：如何用一个公式读懂宇宙的语言？</div>
     </a>
   
 </nav>

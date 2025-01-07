@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/page/2/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-CC03-导数" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/10/08/CC03-%E5%AF%BC%E6%95%B0/" class="article-date">
+  <time class="dt-published" datetime="2024-10-07T16:00:00.000Z" itemprop="datePublished">2024-10-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%BE%AE%E7%A7%AF%E5%88%86/">微积分</a>►<a class="article-category-link" href="/categories/%E5%BE%AE%E7%A7%AF%E5%88%86/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/10/08/CC03-%E5%AF%BC%E6%95%B0/">预告</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>想象一下，你正在驾驶一辆汽车，仪表盘上的速度计正在显示着你当前的车速（即，瞬时速度）。</p>
+<p>那么，你知道瞬时速度是怎么计算的吗？</p>
+<p>我们都知道平均速度的表示方法：$v<em>{速度} = \frac{S</em>{路程}}{T_{时间}}$，但是如何表示瞬时速度呢？</p>
+<p>首先，计算瞬时经过的路程：$\Delta S = S(t_0+\Delta t)-S(t_0)$</p>
+<p>然后，计算瞬时经过路程的平均速度：$\bar{v}=\frac{\Delta S}{\Delta t}=\frac{S(t_0+\Delta t)-S(t_0)}{\Delta t}$</p>
+<p>最后，假设$\Delta t \to 0$时，瞬时经过路程的平均速度也就是瞬时速度了，则瞬时速度$v(t<em>0)$计算公式：$v(t_0)=\lim\limits</em>{\Delta t \to 0} \bar{v}=\lim\limits<em>{\Delta t \to 0} \frac{\Delta S}{\Delta t}$$=\lim\limits</em>{\Delta t \to 0} \frac{S(t_0+\Delta t)-S(t_0)}{\Delta t}$</p>
+<p>综上所述，如果平均变化率的极限存在$\lim\limits<em>{\Delta x \to 0} \frac{\Delta y}{\Delta x}$$=\lim\limits</em>{\Delta x \to 0} \frac{f(x_0+\Delta x)-f(x_0)}{\Delta x}$，则称此极限为函数$y=f(x)$在点$x_0$处的导数$f’(x_0)$。</p>
+<h2 id="导数的定义"><a href="#导数的定义" class="headerlink" title="导数的定义"></a>导数的定义</h2><p>设函数 $y=f(x)$ 在 $x_0$ 的某个邻域内有定义，当自变量 $x$ 在 $x_0$ 处取得增量 $\Delta x$（$x_0+\Delta x$ 点仍在该邻域内）时，相应地，因变量 $y$ 取得增量 $\Delta y$$=f(x_0+Δx)-f(x_0)$。</p>
+<p>如果 $\Delta y$ 与 $\Delta x$ 之比当 $\Delta x \to 0$ 时的极限存在，那么称函数 $y=f(x)$ 在 $x_0$ 点处<strong>可导</strong>，并称这个极限为函数 $y=f(x)$ 在 $x_0$ 点处的<strong>导数</strong>，记为$f’(x_0)$，</p>
+<script type="math/tex; mode=display">f'(x_0)=\lim\limits_{\Delta x \to 0} \frac{\Delta y}{\Delta x}</script><script type="math/tex; mode=display">=\lim\limits_{x \to x_0} \frac{f(x_0+\Delta x)-f(x_0)}{\Delta x}</script><p>也可记作$y’|<em>{x=x_0}$，$\frac{dy}{dx}|</em>{x=x<em>0}$ 或 $\frac{df(x)}{dx}|</em>{x=x_0}$。</p>
+<h3 id="几何意义"><a href="#几何意义" class="headerlink" title="几何意义"></a>几何意义</h3><p>导数的几何意义是函数图像在点 $x$ 处的切线斜率。切线是局部上最接近函数图像的直线，而导数就是这条切线的斜率。</p>
+<h3 id="物理意义"><a href="#物理意义" class="headerlink" title="物理意义"></a>物理意义</h3><p>在物理学中，导数常用来描述瞬时变化率。例如，速度是位移对时间的导数，加速度是速度对时间的导数。</p>
+<h2 id="导数与机器学习"><a href="#导数与机器学习" class="headerlink" title="导数与机器学习"></a>导数与机器学习</h2><ol>
+<li><strong>优化算法</strong></li>
+</ol>
+<p>机器学习的核心任务之一是优化算法，即寻找一组参数使得模型在训练数据上的性能达到最优。这通常通过定义一个损失函数来衡量模型的预测误差，并使用优化算法来不断调整参数，使得损失函数值逐渐减小。</p>
+<p>在这一过程中，导数发挥了至关重要的作用。我们通过计算损失函数关于模型参数的导数（即梯度）来确定参数更新的方向。例如，在梯度下降算法中，我们沿着损失函数值下降最快的方向（即负梯度方向）来更新参数，从而逐步减小损失函数值。这种基于导数信息的优化方法使得机器学习模型能够高效地找到最优解。</p>
+<ol>
+<li><strong>损失函数的选择与计算</strong></li>
+</ol>
+<p>损失函数是机器学习中用于衡量模型预测误差的函数。不同的损失函数对应着不同的误差度量方式，如均方误差、交叉熵误差等。而在实际应用中，我们通常选择那些易于计算导数的损失函数，以便在优化过程中能够高效地计算梯度信息。</p>
+<p>例如，在线性回归问题中，我们通常使用均方误差作为损失函数。均方误差函数关于模型参数的导数易于计算，且具有良好的数学性质（如凸性等），这使得梯度下降算法能够快速地收敛到最优解。而在分类问题中，交叉熵误差则是一个常用的损失函数。通过计算交叉熵误差关于模型参数的导数，我们可以得到每个类别的预测概率与真实标签之间的差异程度，从而指导模型进行参数更新。</p>
+<ol>
+<li><strong>神经网络的反向传播</strong></li>
+</ol>
+<p>神经网络是机器学习中最具代表性的模型之一。其训练过程本质上是一个优化问题，即通过不断调整网络中的参数来最小化损失函数值。而这一过程的核心就是反向传播算法。</p>
+<p>反向传播算法的基础是链式法则，它允许我们有效计算复杂函数的导数。通过链式法则，我们可以将复杂的神经网络分解为简单函数的组合，逐步计算每个部分的导数，从而高效计算整个网络的梯度。这些梯度信息将用于指导网络参数的更新方向，使得网络能够逐渐逼近最优解。</p>
+<p>本文旨在探讨导数在机器学习中的应用，并介绍了其在优化算法、损失函数计算、神经网络训练等方面的具体作用。希望读者能够从中获得启发，对微积分和机器学习有更深入的理解。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/10/08/CC03-%E5%AF%BC%E6%95%B0/" data-id="cm5m32i5z00066obqb8gr4xfv" data-title="预告" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AF%BC%E6%95%B0/" rel="tag">导数</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BE%AE%E7%A7%AF%E5%88%86/" rel="tag">微积分</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95/" rel="tag">梯度下降法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%A9%AC%E5%90%8C%E5%AD%A6/" rel="tag">马同学</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-CC02-连续函数" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/10/05/CC02-%E8%BF%9E%E7%BB%AD%E5%87%BD%E6%95%B0/" class="article-date">
+  <time class="dt-published" datetime="2024-10-04T16:00:00.000Z" itemprop="datePublished">2024-10-05</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%BE%AE%E7%A7%AF%E5%88%86/">微积分</a>►<a class="article-category-link" href="/categories/%E5%BE%AE%E7%A7%AF%E5%88%86/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/10/05/CC02-%E8%BF%9E%E7%BB%AD%E5%87%BD%E6%95%B0/">预告</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>想象一下，如果你在绘制一条曲线，而这条曲线在某一点突然跳跃或断裂，那会是多么的突兀和不自然。<br>![[Pasted image 20241024205527.png]]<br>在微积分中，我们希望函数的图像就像一条平滑的绸带，无论我们如何放大，都不会看到任何的断裂或跳跃。这就是连续性的魅力所在。</p>
+<p>今天，我们就来深入探讨一下，连续性在微积分中的重要性，以及它是如何影响我们对数学和世界的理解的。</p>
+<h2 id="连续性的定义"><a href="#连续性的定义" class="headerlink" title="连续性的定义"></a>连续性的定义</h2><p>连续性在我们的日常生活中无处不在，它体现在许多细微之处。描述了事物在变化过程中的平滑过渡，没有间断或跳跃。</p>
+<p>例如，温度计上显示的温度是连续变化的，不会出现突变；音乐播放时，音量的渐强或渐弱也是连续过渡的。</p>
+<p>所以，连续性的定义也是简单而优雅：如果一个函数在某点的极限值等于该点的函数值，那么我们就说这个函数在这一点是连续的。</p>
+<blockquote>
+<p>这意味着，无论你多么接近这个点，函数的值都会无限接近于这一点的函数值。</p>
+</blockquote>
+<p><strong>用数学语言表达就是：</strong><br>设函数 $y=f(x)$ 在 $x_0$ 点的某一邻域内有定义，令：</p>
+<script type="math/tex; mode=display">\Delta x = x-x_0 \ ,</script><script type="math/tex; mode=display">\Delta y = f(x_0+\Delta x)-f(x_0)</script><p>如果 $\lim<em>{\Delta x \to 0} \Delta y =$$\lim</em>{\Delta x \to 0} [f(x_0-\Delta x)-f(x_0)]=0$，那么称函数 $f(x)$ 在 $x_0$ 点连续。</p>
+<blockquote>
+<p>另一种定义：设函数 $y=f(x)$ 在 $x<em>0$ 点的某一邻域内有定义，若 $\lim</em>{ x \to x_0} [f(x)=f(x_0)$，就称函数 $f(x)$ 在 $x_0$ 点连续。</p>
+</blockquote>
+<p>而连续函数的定义：在区间上每一点都连续的函数，叫作在该区间上的<strong>连续函数</strong>，或者说函数在该区间连续。</p>
+<h3 id="连续函数的性质"><a href="#连续函数的性质" class="headerlink" title="连续函数的性质"></a>连续函数的性质</h3><ol>
+<li>和差性质：如果 $f(x)$ 和 $g(x)$ 在 $c$ 点连续，那么 $f(x)+g(x)$ 和 $f(x)-g(x)$ 也在 $c$ 点连续。</li>
+<li>乘积性质：如果 $f(x)$ 和 $g(x)$ 在 $c$ 点连续，那么 $f(x)\cdot g(x)$ 也在 $c$ 点连续。</li>
+<li>商的性质；如果 $f(x)$ 和 $g(x)$ 在 $c$ 点连续，且 $g(c) \neq 0$，那么 $\frac{f(x)}{g(x)}$ 也在 $c$ 点连续。</li>
+<li>复合函数的连续性：如果 $f(x)$ 在 $u$ 点连续，$g(x)$ 在 $c$ 点连续，且 $g(c)=u$，那么复合函数 $f(g(x))$ 在 $c$ 点连续。</li>
+</ol>
+<h3 id="连续性的应用"><a href="#连续性的应用" class="headerlink" title="连续性的应用"></a>连续性的应用</h3><ol>
+<li><strong>极限</strong>：连续性是极限存在的必要条件。如果一个函数在某点不连续，那么该点的极限可能不存在。</li>
+<li><strong>导数</strong>：导数的定义涉及到极限，因此连续性是可导性的前提。一个函数在某点可导，那么它在该点必定连续。</li>
+<li><strong>积分</strong>：连续函数的积分更容易计算，因为连续函数在闭区间上的积分可以通过定积分来求解。</li>
+</ol>
+<h2 id="连续性与机器学习"><a href="#连续性与机器学习" class="headerlink" title="连续性与机器学习"></a>连续性与机器学习</h2><p>在机器学习的广阔天地中，算法和模型如同繁星般繁多，而连续性则是连接这些繁星的银河。</p>
+<h3 id="连续性：模型训练的稳定剂"><a href="#连续性：模型训练的稳定剂" class="headerlink" title="连续性：模型训练的稳定剂"></a>连续性：模型训练的稳定剂</h3><p>想象一下，如果一个模型在训练过程中像过山车一样忽上忽下，那会是多么令人抓狂。连续性在这里扮演了稳定剂的角色，确保了模型在训练过程中梯度的稳定性。这就像是给过山车装上了平滑的轨道，让模型能够平稳地朝着最优解前进。</p>
+<h3 id="梯度消失？梯度爆炸？连续性来帮忙"><a href="#梯度消失？梯度爆炸？连续性来帮忙" class="headerlink" title="梯度消失？梯度爆炸？连续性来帮忙"></a>梯度消失？梯度爆炸？连续性来帮忙</h3><p>在深度学习的深渊中，梯度消失和梯度爆炸是两个让人头疼的问题。连续的激活函数和损失函数就像是潜水员的氧气瓶，帮助模型在深海中稳定地探索，避免了因为梯度问题而“窒息”。</p>
+<h3 id="提高泛化能力，连续性功不可没"><a href="#提高泛化能力，连续性功不可没" class="headerlink" title="提高泛化能力，连续性功不可没"></a>提高泛化能力，连续性功不可没</h3><p>一个连续的模型在输入空间中的变化是平滑的，这意味着它不太可能对输入的微小变化产生极端的输出变化。这种平滑性提高了模型的泛化能力，让它在面对新的、未见过的数据时，也能做出准确的预测。</p>
+<h3 id="连续性：优化算法的得力助手"><a href="#连续性：优化算法的得力助手" class="headerlink" title="连续性：优化算法的得力助手"></a>连续性：优化算法的得力助手</h3><p>许多优化算法，如梯度下降，依赖于目标函数的连续导数。连续性确保了这些算法可以有效地更新模型的参数，就像是给算法装上了精准的导航系统，指引它朝着损失函数的最小值稳步前进。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>在微积分的世界里，连续性绘就了函数的流畅轨迹，奠定了极限与导数的坚实基础。而在机器学习的舞台上，它又成为了模型稳定性的守护者，优化算法的可靠伙伴，以及提升泛化能力和鲁棒性的秘诀。正是连续性，让微积分的力量在机器学习领域中绽放光彩。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/10/05/CC02-%E8%BF%9E%E7%BB%AD%E5%87%BD%E6%95%B0/" data-id="cm5m32i5y00046obq325fas1y" data-title="预告" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%87%BD%E6%95%B0%E9%80%BC%E8%BF%91/" rel="tag">函数逼近</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BE%AE%E7%A7%AF%E5%88%86/" rel="tag">微积分</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%BF%9E%E7%BB%AD%E5%87%BD%E6%95%B0/" rel="tag">连续函数</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%A9%AC%E5%90%8C%E5%AD%A6/" rel="tag">马同学</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-CC01-极限与函数" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/10/03/CC01-%E6%9E%81%E9%99%90%E4%B8%8E%E5%87%BD%E6%95%B0/" class="article-date">
+  <time class="dt-published" datetime="2024-10-02T16:00:00.000Z" itemprop="datePublished">2024-10-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%BE%AE%E7%A7%AF%E5%88%86/">微积分</a>►<a class="article-category-link" href="/categories/%E5%BE%AE%E7%A7%AF%E5%88%86/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/10/03/CC01-%E6%9E%81%E9%99%90%E4%B8%8E%E5%87%BD%E6%95%B0/">预告</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在人工智能时代，我们常常惊叹于算法的智能和效率。</p>
+<p>但你知道吗？这一切的背后，都离不开一个强大的数学工具——<strong>“极限”</strong>。</p>
+<p>今天，我们就来深入了解<strong>极限</strong></p>
+<h2 id="极限：微积分的基石"><a href="#极限：微积分的基石" class="headerlink" title="极限：微积分的基石"></a>极限：微积分的基石</h2><p>首先，让我们简单回顾一下极限的定义。</p>
+<p>在微积分中，<strong>极限描述了当一个数越来越接近某个值时，一个函数的行为趋势</strong>。这听起来可能有点抽象，但极限的概念却是微积分学的核心。</p>
+<p>极限的概念可以想象成“<strong>越来越接近</strong>”。这就像你不断走近一盏路灯，无论你走得多近，你的影子都会越来越接近你脚下的位置，但理论上永远无法完全重合。这里的“<strong>越来越接近</strong>”就是极限的直观理解。</p>
+<p>接下来，我们可以用数学语言来定义这个概念。</p>
+<p>假设我们有一个函数 $f(x)$，我们想知道当 $x$ 越来越接近某个特定值 $a$ 时，$f(x)$ 的行为。</p>
+<p>如果对于任何小的正数 $\epsilon$，我们总能找到另一个小的正数 $\delta$，使得当 $x$ 和 $a$ 之间的距离小于 $\delta$ 时，$f(x)$ 和极限值 $L$ 之间的距离小于 $\epsilon$，那么我们就说 $f(x)$ 在 $x$ 趋近于 $a$ 时的极限是 $L$。</p>
+<p><strong>一般函数极限</strong>的数学符号表示就是：<br>设 $f(x)$ 在 $\mathring{U}(x_0)$ 上有定义，如果 $\forall \ \epsilon &gt; 0$，$\exists \ \delta &gt;0$，$\forall \ x \in \mathring{U}(x_0, \delta)$，有：</p>
+<script type="math/tex; mode=display">|f(x)-L| < \epsilon</script><p>那么就称 $L$ 是函数 $f(x)$ 当 $x \to x_0$ 时的<strong>极限</strong>，或者称当 $x \to x_0$ 时函数 $f(x)$ <strong>收敛</strong>于 $L$，记作：</p>
+<script type="math/tex; mode=display">\lim_{x \to x_0} f(x) = L</script><p>或<script type="math/tex">f(x) \to L(x \to x_0)</script><br>若不存在这样的常数 $L$，就说当 $x \to x<em>0$ 时函数 $f(x)$ 没有极限，或说当 $x \to x_0$ 时函数 $f(x)$ 是<strong>发散</strong>的，也可以说 $\lim</em>{x \to x_0} f(x)$ 不存在。</p>
+<blockquote>
+<p>$\mathring{U}(x_0, \delta)$ 表示<strong>去心领域</strong>，即在领域 $U(x_0, \delta)$ 中去掉中心 $x_0$ 后所得的区间 $(x_0-\delta, \ x_0) \cup (x_0, \ x_0+\delta)$ 。</p>
+</blockquote>
+<p>![[Pasted image 20241019220602.png]]<br>如上图所示，一个函数的图像，当输入值越来越接近某个特定的点 $x_0$ 时，函数的输出值也越来越接近一个特定的数值 $L$ 。这个数值 $L$，就是我们所说的极限。</p>
+<p>极限与微积分</p>
+<p>极限是微积分的基石，微积分则是数学中研究变化率和累积量的一个分支。微积分中的两个核心概念——导数和积分——都建立在极限的基础上。</p>
+<h3 id="极限与导数"><a href="#极限与导数" class="headerlink" title="极限与导数"></a>极限与导数</h3><p>导数描述了函数在某一点处的变化率，它就是通过极限来定义的。</p>
+<p>具体来说，函数 $f(x)$ 在点 $x=a$ 的导数 $f’(a)$ 的定义为：</p>
+<script type="math/tex; mode=display">f'(a) = \lim_{h \to 0} \frac{f(a+h)-f(a)}{h}$$这个定义告诉我们，要找到函数在某一点的导数，我们需要观察函数值在这一点附近的变化情况。我们取一个非常小的增量$h$，计算函数在 $a$ 和 $a+h$ 两点的差值，然后除以$h$。当 $h$ 趋近于0时，这个比值的极限就是函数在 $a$ 点的导数。
+
+极限与积分
+
+积分描述了函数在某个区间上的累积量，它同样通过极限来定义。积分可以看作是无数个无限小矩形面积的总和。具体来说，函数 $f(x)$ 在区间 $a, \ b$ 上的定积分定义为：
+$$\int^b_af(x)dx=\lim_{n \to \infty} \sum^n_{i=1}f(x^*_i) \Delta x</script><p>其中，$\Delta x$ 是每个小区间的宽度，$x_i^∗$ 是第 $i$ 个小区间内的一点。当小区间的数量 $n$ 趋近于无穷大，每个小区间的宽度 $\Delta x$ 趋近于0时，这些小矩形面积的总和的极限就是函数在区间 $a, \ b$ 上的定积分。</p>
+<p>总之，极限是微积分的基石，它为我们提供了一种精确描述和计算函数变化率和累积量的方法。通过极限，我们可以深入理解函数的行为，解决各种涉及变化和累积的问题。</p>
+<p>极限在机器学习中扮演着至关重要的角色，尤其是在微积分的基础上。</p>
+<ol>
+<li><strong>优化算法</strong>：机器学习中的优化算法，如梯度下降，依赖于极限的概念来更新模型参数。通过计算损失函数关于参数的导数（梯度），算法逐步调整参数以最小化损失。这个过程中，导数的定义就涉及到极限，因为导数本质上是函数在某点的瞬时变化率的极限表示。</li>
+<li><strong>统计学习理论</strong>：机器学习理论中的许多概念，如收敛性、一致性和泛化能力，都建立在极限的基础上。例如，Vapnik-Chervonenkis (VC) 维数的概念，它描述了模型的复杂度，涉及到函数在输入空间中的行为极限。</li>
+<li><strong>函数逼近</strong>：在机器学习中，我们经常需要用函数来逼近复杂的数据关系。极限的概念在这里帮助我们理解，当模型参数趋近于某个值时，模型的行为如何变化，这对于构建能够准确预测的模型至关重要。</li>
+</ol>
+<p>通过这些方式，极限不仅在微积分中是基础概念，在机器学习中也是理解和分析算法行为的重要工具。它帮助我们构建更加稳健和有效的机器学习模型，提高模型的预测能力和泛化性能。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/10/03/CC01-%E6%9E%81%E9%99%90%E4%B8%8E%E5%87%BD%E6%95%B0/" data-id="cm5m32i5z00056obqdqlbg0fh" data-title="预告" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%87%BD%E6%95%B0/" rel="tag">函数</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BE%AE%E7%A7%AF%E5%88%86/" rel="tag">微积分</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9E%81%E9%99%90/" rel="tag">极限</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%A9%AC%E5%90%8C%E5%AD%A6/" rel="tag">马同学</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-CC00-起源" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/10/01/CC00-%E8%B5%B7%E6%BA%90/" class="article-date">
+  <time class="dt-published" datetime="2024-09-30T16:00:00.000Z" itemprop="datePublished">2024-10-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%BE%AE%E7%A7%AF%E5%88%86/">微积分</a>►<a class="article-category-link" href="/categories/%E5%BE%AE%E7%A7%AF%E5%88%86/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/10/01/CC00-%E8%B5%B7%E6%BA%90/">预告篇</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在一个充满数据和算法的世界里，有两个强大的角色：微积分和机器学习。它们的故事，就像是一部精彩的科幻电影，充满了智慧和创新。</p>
+<h2 id="第一幕：微积分的神秘力量"><a href="#第一幕：微积分的神秘力量" class="headerlink" title="第一幕：微积分的神秘力量"></a>第一幕：微积分的神秘力量</h2><p>在这个故事的开始，我们遇到了微积分，一个古老的数学英雄。它拥有四种超能力：极限、导数、积分和微分方程。这些超能力让它能够预测和控制函数的行为，就像是能够看到未来的水晶球。</p>
+<h2 id="第二幕：机器学习的崛起"><a href="#第二幕：机器学习的崛起" class="headerlink" title="第二幕：机器学习的崛起"></a>第二幕：机器学习的崛起</h2><p>然后，故事引入了另一个角色：机器学习。这是一个年轻的技术，它渴望学习，渴望成长。它的目标是理解和预测我们周围的世界。但是，它需要一个导师，一个能够引导它走向成功的智者。</p>
+<h2 id="第三幕：奇妙的邂逅"><a href="#第三幕：奇妙的邂逅" class="headerlink" title="第三幕：奇妙的邂逅"></a>第三幕：奇妙的邂逅</h2><p>就在机器学习感到迷茫的时候，微积分出现了。它用自己的超能力，为机器学习打开了一扇扇通往知识宝库的大门。极限教会了机器学习如何理解函数的连续性和可微性；导数则教会了它如何找到函数的最小值或最大值，这是优化问题的关键；积分则帮助机器学习计算概率和期望值；而微分方程则让它能够模拟动态系统。</p>
+<h2 id="第四幕：共同的冒险"><a href="#第四幕：共同的冒险" class="headerlink" title="第四幕：共同的冒险"></a>第四幕：共同的冒险</h2><p>随着时间的推移，微积分和机器学习开始了它们的共同冒险。它们一起解决了一个又一个的难题。梯度下降，这个由微积分指导的优化算法，成为了机器学习寻找函数最小值的得力助手。链式法则，这个微积分的魔法，让机器学习能够理解复杂网络中的误差传播。泰勒级数展开，这个近似神器，简化了机器学习中的复杂计算。概率密度函数和期望方差的计算，让机器学习能够更好地理解和预测随机事件。</p>
+<h2 id="第五幕：未来的旅程"><a href="#第五幕：未来的旅程" class="headerlink" title="第五幕：未来的旅程"></a>第五幕：未来的旅程</h2><p>故事还在继续，微积分和机器学习的冒险永远不会结束。它们一起，每天都在探索新的领域，解决新的问题。从自动驾驶汽车到语音识别，从图像识别到自然语言处理，微积分和机器学习的故事正在改变我们的世界。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>这是一个关于智慧和创新的故事，一个关于古老数学和现代技术如何携手改变世界的故事。微积分和机器学习，它们是这场奇妙邂逅的主角，它们的旅程还在继续，而我们，都是这个故事的见证者。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/10/01/CC00-%E8%B5%B7%E6%BA%90/" data-id="cm5m32i5s00006obq21zweeho" data-title="预告篇" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%88%E9%9B%86%E4%BB%8B%E7%BB%8D/" rel="tag">合集介绍</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BE%AE%E7%A7%AF%E5%88%86/" rel="tag">微积分</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%A2%84%E5%91%8A%E7%AF%87/" rel="tag">预告篇</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%A9%AC%E5%90%8C%E5%AD%A6/" rel="tag">马同学</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-CC00-预告篇" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/10/01/CC00-%E9%A2%84%E5%91%8A%E7%AF%87/" class="article-date">
+  <time class="dt-published" datetime="2024-09-30T16:00:00.000Z" itemprop="datePublished">2024-10-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%BE%AE%E7%A7%AF%E5%88%86/">微积分</a>►<a class="article-category-link" href="/categories/%E5%BE%AE%E7%A7%AF%E5%88%86/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/10/01/CC00-%E9%A2%84%E5%91%8A%E7%AF%87/">预告篇</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在机器学习中，<strong>微积分</strong>扮演着不可或缺的角色。</p>
+<p>无论是优化算法的推导，还是神经网络的反向传播，微积分都是我们理解和应用机器学习的关键。</p>
+<p>为了帮助大家深入理解这一核心主题，我们精心策划了一期特别的系列文章——<strong>“机器学习中的微积分”</strong>。</p>
+<h2 id="📚-系列文章概览"><a href="#📚-系列文章概览" class="headerlink" title="📚 系列文章概览"></a>📚 系列文章概览</h2><p>这个系列将分为13篇深度好文，每篇都会聚焦于机器学习中一个关键的微积分概念，并探讨其在实际应用中的重要性。以下是即将推出的文章主题：</p>
+<ol>
+<li><strong>微积分与机器学习</strong></li>
+<li><strong>极限与函数逼近</strong></li>
+<li><strong>连续性与优化问题</strong></li>
+<li><strong>导数与梯度下降</strong></li>
+<li><strong>偏导数与模型训练</strong></li>
+<li><strong>链式法则与神经网络</strong></li>
+<li><strong>微分与反向传播</strong></li>
+<li><strong>积分与概率模型</strong></li>
+<li><strong>泰勒展开与函数近似</strong></li>
+<li><strong>拉格朗日乘数法与约束优化</strong></li>
+<li><strong>雅可比矩阵与多元函数</strong></li>
+<li><strong>Hessian矩阵与二阶优化</strong></li>
+<li><strong>傅里叶变换与信号处理</strong></li>
+</ol>
+<p>每篇文章都将以浅显易懂的语言，结合实例和图解，带你一步步走进微积分的世界，探索它在机器学习中的实际应用。</p>
+<h2 id="📖-特别推荐"><a href="#📖-特别推荐" class="headerlink" title="📖 特别推荐"></a>📖 特别推荐</h2><p>在深入系列文章之前，我们特别推荐一本图解微积分的佳作——<strong>《马同学图解微积分》</strong>。</p>
+<p>这本书以其生动的图解和直观的解释，让复杂的微积分概念变得易于理解。无论是初学者还是需要重温基础知识的朋友，都能从中受益。</p>
+<h2 id="🔍-探索更多"><a href="#🔍-探索更多" class="headerlink" title="🔍 探索更多"></a>🔍 探索更多</h2><p>不要错过这个系列的任何一篇文章，它们将陆续在我们的公众号上发布。订阅我们的公众号，开启你的机器学习微积分之旅，让你的机器学习之路更加坚实。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/10/01/CC00-%E9%A2%84%E5%91%8A%E7%AF%87/" data-id="cm5m32i5v00016obq1wkt3cut" data-title="预告篇" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%88%E9%9B%86%E4%BB%8B%E7%BB%8D/" rel="tag">合集介绍</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BE%AE%E7%A7%AF%E5%88%86/" rel="tag">微积分</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%A2%84%E5%91%8A%E7%AF%87/" rel="tag">预告篇</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%A9%AC%E5%90%8C%E5%AD%A6/" rel="tag">马同学</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BE%AE%E7%A7%AF%E5%88%86/">微积分</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BE%AE%E7%A7%AF%E5%88%86/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hessian%E7%9F%A9%E9%98%B5/" rel="tag">Hessian矩阵</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E9%98%B6%E4%BC%98%E5%8C%96/" rel="tag">二阶优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%81%8F%E5%AF%BC%E6%95%B0/" rel="tag">偏导数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" rel="tag">傅里叶变换</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%87%BD%E6%95%B0/" rel="tag">函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%87%BD%E6%95%B0%E9%80%BC%E8%BF%91/" rel="tag">函数逼近</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/" rel="tag">反向传播</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%88%E9%9B%86%E4%BB%8B%E7%BB%8D/" rel="tag">合集介绍</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E5%8F%98%E9%87%8F%E5%87%BD%E6%95%B0/" rel="tag">多变量函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AF%BC%E6%95%B0/" rel="tag">导数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E5%88%86/" rel="tag">微分</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E7%A7%AF%E5%88%86/" rel="tag">微积分</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B9%98%E6%95%B0%E6%B3%95/" rel="tag">拉格朗日乘数法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%B6%E5%BA%8F%E5%88%86%E6%9E%90/" rel="tag">时序分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%81%E9%99%90/" rel="tag">极限</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95/" rel="tag">梯度下降法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B/" rel="tag">概率模型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E5%9E%8B%E7%AE%80%E5%8C%96/" rel="tag">模型简化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B3%B0%E5%8B%92%E5%85%AC%E5%BC%8F/" rel="tag">泰勒公式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" rel="tag">神经网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A7%AF%E5%88%86/" rel="tag">积分</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%A6%E6%9D%9F%E4%BC%98%E5%8C%96/" rel="tag">约束优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%9E%E7%BB%AD%E5%87%BD%E6%95%B0/" rel="tag">连续函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%93%BE%E5%BC%8F%E6%B3%95%E5%88%99/" rel="tag">链式法则</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%85%E5%8F%AF%E6%AF%94%E7%9F%A9%E9%98%B5/" rel="tag">雅可比矩阵</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%A2%84%E5%91%8A%E7%AF%87/" rel="tag">预告篇</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%A9%AC%E5%90%8C%E5%AD%A6/" rel="tag">马同学</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Hessian%E7%9F%A9%E9%98%B5/" style="font-size: 10px;">Hessian矩阵</a> <a href="/tags/%E4%BA%8C%E9%98%B6%E4%BC%98%E5%8C%96/" style="font-size: 10px;">二阶优化</a> <a href="/tags/%E5%81%8F%E5%AF%BC%E6%95%B0/" style="font-size: 10px;">偏导数</a> <a href="/tags/%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" style="font-size: 10px;">傅里叶变换</a> <a href="/tags/%E5%87%BD%E6%95%B0/" style="font-size: 10px;">函数</a> <a href="/tags/%E5%87%BD%E6%95%B0%E9%80%BC%E8%BF%91/" style="font-size: 10px;">函数逼近</a> <a href="/tags/%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/" style="font-size: 10px;">反向传播</a> <a href="/tags/%E5%90%88%E9%9B%86%E4%BB%8B%E7%BB%8D/" style="font-size: 15px;">合集介绍</a> <a href="/tags/%E5%A4%9A%E5%8F%98%E9%87%8F%E5%87%BD%E6%95%B0/" style="font-size: 10px;">多变量函数</a> <a href="/tags/%E5%AF%BC%E6%95%B0/" style="font-size: 10px;">导数</a> <a href="/tags/%E5%BE%AE%E5%88%86/" style="font-size: 10px;">微分</a> <a href="/tags/%E5%BE%AE%E7%A7%AF%E5%88%86/" style="font-size: 20px;">微积分</a> <a href="/tags/%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B9%98%E6%95%B0%E6%B3%95/" style="font-size: 10px;">拉格朗日乘数法</a> <a href="/tags/%E6%97%B6%E5%BA%8F%E5%88%86%E6%9E%90/" style="font-size: 10px;">时序分析</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 20px;">机器学习</a> <a href="/tags/%E6%9E%81%E9%99%90/" style="font-size: 10px;">极限</a> <a href="/tags/%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95/" style="font-size: 10px;">梯度下降法</a> <a href="/tags/%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B/" style="font-size: 10px;">概率模型</a> <a href="/tags/%E6%A8%A1%E5%9E%8B%E7%AE%80%E5%8C%96/" style="font-size: 10px;">模型简化</a> <a href="/tags/%E6%B3%B0%E5%8B%92%E5%85%AC%E5%BC%8F/" style="font-size: 10px;">泰勒公式</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">神经网络</a> <a href="/tags/%E7%A7%AF%E5%88%86/" style="font-size: 10px;">积分</a> <a href="/tags/%E7%BA%A6%E6%9D%9F%E4%BC%98%E5%8C%96/" style="font-size: 10px;">约束优化</a> <a href="/tags/%E8%BF%9E%E7%BB%AD%E5%87%BD%E6%95%B0/" style="font-size: 10px;">连续函数</a> <a href="/tags/%E9%93%BE%E5%BC%8F%E6%B3%95%E5%88%99/" style="font-size: 10px;">链式法则</a> <a href="/tags/%E9%9B%85%E5%8F%AF%E6%AF%94%E7%9F%A9%E9%98%B5/" style="font-size: 10px;">雅可比矩阵</a> <a href="/tags/%E9%A2%84%E5%91%8A%E7%AF%87/" style="font-size: 15px;">预告篇</a> <a href="/tags/%E9%A9%AC%E5%90%8C%E5%AD%A6/" style="font-size: 20px;">马同学</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">December 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">October 2024</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/01/07/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/17/CC11-Hessian%E7%9F%A9%E9%98%B5/">预告</a>
+          </li>
+        
+          <li>
+            <a href="/2024/10/29/CC12-%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/">傅里叶变换：如何用一个公式读懂宇宙的语言？</a>
+          </li>
+        
+          <li>
+            <a href="/2024/10/24/CC10-%E9%9B%85%E5%8F%AF%E6%AF%94%E7%9F%A9%E9%98%B5/">预告篇</a>
+          </li>
+        
+          <li>
+            <a href="/2024/10/22/CC09-%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B9%98%E6%95%B0%E6%B3%95/">预告</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

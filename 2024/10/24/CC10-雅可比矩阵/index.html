@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>预告篇 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="雅可比矩阵在多变量函数分析中的应用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="预告篇">
+<meta property="og:url" content="http://example.com/2024/10/24/CC10-%E9%9B%85%E5%8F%AF%E6%AF%94%E7%9F%A9%E9%98%B5/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="雅可比矩阵在多变量函数分析中的应用。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-10-23T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-12-10T09:33:22.350Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="微积分">
+<meta property="article:tag" content="机器学习">
+<meta property="article:tag" content="马同学">
+<meta property="article:tag" content="雅可比矩阵">
+<meta property="article:tag" content="多变量函数">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-CC10-雅可比矩阵" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/10/24/CC10-%E9%9B%85%E5%8F%AF%E6%AF%94%E7%9F%A9%E9%98%B5/" class="article-date">
+  <time class="dt-published" datetime="2024-10-23T16:00:00.000Z" itemprop="datePublished">2024-10-24</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%BE%AE%E7%A7%AF%E5%88%86/">微积分</a>►<a class="article-category-link" href="/categories/%E5%BE%AE%E7%A7%AF%E5%88%86/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      预告篇
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="什么是雅可比矩阵？"><a href="#什么是雅可比矩阵？" class="headerlink" title="什么是雅可比矩阵？"></a>什么是雅可比矩阵？</h1><p>雅可比矩阵，听起来挺高大上的，但其实它就是一个表格，用来记录一个函数里每个变量是怎么影响结果的。<br>比如，你有一个函数，输入是火候和调料量，输出是菜肴的味道。雅可比矩阵就会告诉你，火候变一点，味道会怎么变；调料量变一点，味道又会怎么变。</p>
+<p>在单变量微积分中，我们学习了导数，它告诉我们函数在某一点的变化率。但在多变量微积分中，情况就复杂多了。雅可比矩阵就是用来描述多变量函数变化率的工具。</p>
+<p>雅可比矩阵的重要性在于它体现了一个可微方程与给出点的最优线性逼近。因此，雅可比矩阵类似于多元函数的导数。</p>
+<p>在线性代数中，雅可比矩阵是函数的一阶偏导数以一定方式排列成的矩阵，其行列式称为雅可比行列式。</p>
+<h2 id="数学定义"><a href="#数学定义" class="headerlink" title="数学定义"></a>数学定义</h2><p>假设我们有一个从 $\mathbb{R}^n$ 到 $\mathbb{R}^m$ 的函数 $f$，可以表示为 $f(x_1, x_2, \ldots, x_n)$$ = (f_1(x_1, x_2, \ldots, x_n),$ $ f_2(x_1, x_2, \ldots, x_n),$ $ \ldots, f_m(x_1, x_2, \ldots, x_n))$。</p>
+<p>那么，雅可比矩阵 $J$ 就是这个函数所有偏导数的矩阵表示，定义如下：</p>
+<script type="math/tex; mode=display">
+J = \begin{bmatrix}
+\frac{\partial f_1}{\partial x_1} & \frac{\partial f_1}{\partial x_2} & \cdots & \frac{\partial f_1}{\partial x_n} \\
+\frac{\partial f_2}{\partial x_1} & \frac{\partial f_2}{\partial x_2} & \cdots & \frac{\partial f_2}{\partial x_n} \\
+\vdots & \vdots & \ddots & \vdots \\
+\frac{\partial f_m}{\partial x_1} & \frac{\partial f_m}{\partial x_2} & \cdots & \frac{\partial f_m}{\partial x_n}
+\end{bmatrix}</script><p>雅可比矩阵的每一行对应于函数 $f$ 的一个分量函数 $f_i$ 对所有变量 $x_j$ 的偏导数，而每一列则对应于所有分量函数对一个特定变量 $x_j$ 的偏导数。</p>
+<h2 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h2><ol>
+<li><p><strong>维度</strong>：雅可比矩阵的维度是 $m \times n$，其中 $m$ 是函数 $f$ 的输出维度，$n$ 是输入维度。</p>
+</li>
+<li><p><strong>线性变换</strong>：雅可比矩阵可以被看作是函数 $f$ 在某一点的线性近似。它描述了函数在该点的局部线性行为。</p>
+</li>
+<li><p><strong>链式法则</strong>：如果 $f$ 是一个复合函数，即 $f = g \circ h$，那么 $f$ 的雅可比矩阵可以通过 $g$ 和 $h$ 的雅可比矩阵的乘积来计算，即 $J_f = J_g \cdot J_h$。</p>
+</li>
+<li><p><strong>可逆性</strong>：如果 $f$ 是一个双射函数（即一一对应），那么它的雅可比矩阵在某些条件下是可逆的。雅可比矩阵的可逆性与函数的局部可逆性有关。</p>
+</li>
+<li><p><strong>行列式</strong>：雅可比矩阵的行列式，称为雅可比行列式，它描述了函数 $f$ 在某一点的局部伸缩因子。在变量变换中，雅可比行列式用于调整积分的体积元素。</p>
+</li>
+<li><p><strong>对称性</strong>：如果 $f$ 的所有二阶偏导数都存在且连续，那么雅可比矩阵的转置等于 $f$ 的梯度向量。</p>
+</li>
+<li><p><strong>反对称性</strong>：雅可比矩阵具有反对称性。这意味着对于一个n维雅可比矩阵，如果将它转置，那么它的值会变为相反数。</p>
+</li>
+<li><p><strong>投影性质</strong>：雅可比矩阵具有投影性质。投影性质指的是将一个矩阵的行或列投影到另一个矩阵中，得到一个新的矩阵。对于一个n维雅可比矩阵，它的投影是一个n维单位矩阵。</p>
+</li>
+</ol>
+<p>通过雅可比矩阵，我们可以了解函数在某一点的局部线性行为，以及函数在变量变换中的伸缩因子。</p>
+<h1 id="雅可比矩阵的直观理解"><a href="#雅可比矩阵的直观理解" class="headerlink" title="雅可比矩阵的直观理解"></a>雅可比矩阵的直观理解</h1><p>想象一下，你正在玩一个视频游戏，游戏里的角色可以向左、向右、向前、向后移动。每个动作都会让角色在游戏世界中的位置发生变化。现在，我们把这些动作看作是输入（就像我们控制游戏手柄的指令），角色的位置变化看作是输出。</p>
+<p>如果我们想要了解，当我们按下游戏手柄的某个按钮时，角色会移动多少距离，我们就需要一个“移动手册”来告诉我们每个动作对应的移动量。这个“移动手册”就像是雅可比矩阵。</p>
+<p>具体来说，雅可比矩阵是一个表格，它告诉我们当我们改变输入（游戏手柄的指令）时，输出（角色的位置）会如何变化。在这个游戏中，雅可比矩阵可能看起来是这样的：</p>
+<script type="math/tex; mode=display">
+J = \begin{bmatrix}
+\frac{\partial x}{\partial \text{左键}} & \frac{\partial x}{\partial \text{右键}} \\
+\frac{\partial y}{\partial \text{前键}} & \frac{\partial y}{\partial \text{后键}}
+\end{bmatrix}</script><p>这里，$\frac{\partial x}{\partial \text{左键}}$ 表示按下左键时角色在x轴上移动的距离，$\frac{\partial y}{\partial \text{前键}}$ 表示按下前键时角色在y轴上移动的距离。</p>
+<p>在现实世界中，雅可比矩阵的应用要复杂得多，但它的基本思想是一样的：它是一个“手册”，告诉我们当输入变化时输出会如何变化。在数学中，这个“输出”可能是一个复杂的函数，而“输入”可能是多个变量，但雅可比矩阵的核心概念是相同的：它是一个描述输入和输出之间关系的矩阵。</p>
+<h1 id="雅可比矩阵的应用"><a href="#雅可比矩阵的应用" class="headerlink" title="雅可比矩阵的应用"></a>雅可比矩阵的应用</h1><h2 id="微积分中的应用"><a href="#微积分中的应用" class="headerlink" title="微积分中的应用"></a>微积分中的应用</h2><p>雅可比矩阵在微积分中的应用非常广泛，它提供了一种描述多变量函数局部线性行为的方法。以下是一些主要的应用：</p>
+<ol>
+<li><p><strong>变量变换</strong>：<br>在多变量积分中，雅可比矩阵用于变量变换。当我们将一个积分从一个坐标系变换到另一个坐标系时，雅可比行列式（雅可比矩阵的行列式）作为变换的伸缩因子，确保积分的值保持不变。例如，在从笛卡尔坐标系到极坐标系的变换中，雅可比行列式是 $r$，因此在极坐标系中的面积元素是 $r \, dr \, d\theta$。</p>
+</li>
+<li><p><strong>线性近似</strong>：<br>雅可比矩阵可以用来对多变量函数进行线性近似。在某一点的雅可比矩阵给出了函数在该点的局部线性行为，这在函数的泰勒展开中非常有用。线性近似可以简化复杂函数的分析，特别是在函数的非线性行为不明显时。</p>
+</li>
+<li><p><strong>链式法则</strong>：<br>在多变量微积分中，链式法则用于计算复合函数的导数。如果 $y = f(g(x))$，那么 $y$ 对 $x$ 的导数可以通过 $f$ 和 $g$ 的雅可比矩阵的乘积来计算。这在处理多变量函数的复合时非常有用。</p>
+</li>
+<li><p><strong>优化问题</strong>：<br>在优化问题中，雅可比矩阵用于找到函数的临界点。通过将雅可比矩阵设为零，我们可以找到函数的局部极值点。此外，雅可比矩阵的行列式（海森矩阵）可以用来确定这些临界点的性质（即它们是极大值、极小值还是鞍点）。</p>
+</li>
+<li><p><strong>微分方程</strong>：<br>在微分方程中，雅可比矩阵用于分析系统的稳定性。对于一个非线性系统，通过在平衡点处计算雅可比矩阵，我们可以线性化系统并分析其稳定性。如果雅可比矩阵的所有特征值的实部都是负的，那么平衡点是稳定的。</p>
+</li>
+</ol>
+<h2 id="机器学习中的应用"><a href="#机器学习中的应用" class="headerlink" title="机器学习中的应用"></a>机器学习中的应用</h2><p>雅可比矩阵在优化算法中的应用主要体现在以下几个方面：</p>
+<ol>
+<li><p><strong>梯度下降法</strong>：<br>梯度下降法是一种常用的优化算法，用于最小化目标函数。在机器学习中，我们经常需要最小化一个损失函数来优化模型参数。雅可比矩阵在这里的作用是计算损失函数对模型参数的梯度。梯度是损失函数在参数空间中的导数，它指示了损失函数增长最快的方向。雅可比矩阵包含了这些梯度信息，从而指导参数更新的方向和步长。</p>
+</li>
+<li><p><strong>优化问题的步长计算</strong>：<br>在一些优化算法中，雅可比矩阵不仅用于计算梯度，还用于确定步长。例如，在牛顿法等二阶优化算法中，除了需要梯度信息外，还需要二阶导数信息（即海森矩阵），雅可比矩阵在这里可以提供梯度信息，辅助计算步长，以更有效地逼近最优解。</p>
+</li>
+<li><p><strong>反向传播</strong>：<br>在深度学习中，雅可比矩阵与反向传播算法紧密相关。反向传播算法通过计算损失函数对网络参数的梯度来训练神经网络。雅可比矩阵在这里用于计算这些梯度，从而更新网络权重，优化网络性能。</p>
+</li>
+<li><p><strong>局部线性近似</strong>：<br>雅可比矩阵蕴含着映射的局部线性近似特征（信息）。在深度学习中，如果因变量也变成多个值（即向量），我们对每个因变量在参数点都求一个方向导数，这些方向导数构成一个矩阵，即雅可比矩阵。这个矩阵的每一行是原函数的分量的梯度。</p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/10/24/CC10-%E9%9B%85%E5%8F%AF%E6%AF%94%E7%9F%A9%E9%98%B5/" data-id="cm5m32i66000i6obqhtyfbonc" data-title="预告篇" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%9A%E5%8F%98%E9%87%8F%E5%87%BD%E6%95%B0/" rel="tag">多变量函数</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BE%AE%E7%A7%AF%E5%88%86/" rel="tag">微积分</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9B%85%E5%8F%AF%E6%AF%94%E7%9F%A9%E9%98%B5/" rel="tag">雅可比矩阵</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%A9%AC%E5%90%8C%E5%AD%A6/" rel="tag">马同学</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2024/10/29/CC12-%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          傅里叶变换：如何用一个公式读懂宇宙的语言？
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/10/22/CC09-%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B9%98%E6%95%B0%E6%B3%95/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">预告</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BE%AE%E7%A7%AF%E5%88%86/">微积分</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BE%AE%E7%A7%AF%E5%88%86/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hessian%E7%9F%A9%E9%98%B5/" rel="tag">Hessian矩阵</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E9%98%B6%E4%BC%98%E5%8C%96/" rel="tag">二阶优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%81%8F%E5%AF%BC%E6%95%B0/" rel="tag">偏导数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" rel="tag">傅里叶变换</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%87%BD%E6%95%B0/" rel="tag">函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%87%BD%E6%95%B0%E9%80%BC%E8%BF%91/" rel="tag">函数逼近</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/" rel="tag">反向传播</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%88%E9%9B%86%E4%BB%8B%E7%BB%8D/" rel="tag">合集介绍</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E5%8F%98%E9%87%8F%E5%87%BD%E6%95%B0/" rel="tag">多变量函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AF%BC%E6%95%B0/" rel="tag">导数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E5%88%86/" rel="tag">微分</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E7%A7%AF%E5%88%86/" rel="tag">微积分</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B9%98%E6%95%B0%E6%B3%95/" rel="tag">拉格朗日乘数法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%B6%E5%BA%8F%E5%88%86%E6%9E%90/" rel="tag">时序分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%81%E9%99%90/" rel="tag">极限</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95/" rel="tag">梯度下降法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B/" rel="tag">概率模型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A8%A1%E5%9E%8B%E7%AE%80%E5%8C%96/" rel="tag">模型简化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B3%B0%E5%8B%92%E5%85%AC%E5%BC%8F/" rel="tag">泰勒公式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" rel="tag">神经网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A7%AF%E5%88%86/" rel="tag">积分</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%A6%E6%9D%9F%E4%BC%98%E5%8C%96/" rel="tag">约束优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%9E%E7%BB%AD%E5%87%BD%E6%95%B0/" rel="tag">连续函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%93%BE%E5%BC%8F%E6%B3%95%E5%88%99/" rel="tag">链式法则</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%85%E5%8F%AF%E6%AF%94%E7%9F%A9%E9%98%B5/" rel="tag">雅可比矩阵</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%A2%84%E5%91%8A%E7%AF%87/" rel="tag">预告篇</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%A9%AC%E5%90%8C%E5%AD%A6/" rel="tag">马同学</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Hessian%E7%9F%A9%E9%98%B5/" style="font-size: 10px;">Hessian矩阵</a> <a href="/tags/%E4%BA%8C%E9%98%B6%E4%BC%98%E5%8C%96/" style="font-size: 10px;">二阶优化</a> <a href="/tags/%E5%81%8F%E5%AF%BC%E6%95%B0/" style="font-size: 10px;">偏导数</a> <a href="/tags/%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" style="font-size: 10px;">傅里叶变换</a> <a href="/tags/%E5%87%BD%E6%95%B0/" style="font-size: 10px;">函数</a> <a href="/tags/%E5%87%BD%E6%95%B0%E9%80%BC%E8%BF%91/" style="font-size: 10px;">函数逼近</a> <a href="/tags/%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/" style="font-size: 10px;">反向传播</a> <a href="/tags/%E5%90%88%E9%9B%86%E4%BB%8B%E7%BB%8D/" style="font-size: 15px;">合集介绍</a> <a href="/tags/%E5%A4%9A%E5%8F%98%E9%87%8F%E5%87%BD%E6%95%B0/" style="font-size: 10px;">多变量函数</a> <a href="/tags/%E5%AF%BC%E6%95%B0/" style="font-size: 10px;">导数</a> <a href="/tags/%E5%BE%AE%E5%88%86/" style="font-size: 10px;">微分</a> <a href="/tags/%E5%BE%AE%E7%A7%AF%E5%88%86/" style="font-size: 20px;">微积分</a> <a href="/tags/%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B9%98%E6%95%B0%E6%B3%95/" style="font-size: 10px;">拉格朗日乘数法</a> <a href="/tags/%E6%97%B6%E5%BA%8F%E5%88%86%E6%9E%90/" style="font-size: 10px;">时序分析</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 20px;">机器学习</a> <a href="/tags/%E6%9E%81%E9%99%90/" style="font-size: 10px;">极限</a> <a href="/tags/%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95/" style="font-size: 10px;">梯度下降法</a> <a href="/tags/%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B/" style="font-size: 10px;">概率模型</a> <a href="/tags/%E6%A8%A1%E5%9E%8B%E7%AE%80%E5%8C%96/" style="font-size: 10px;">模型简化</a> <a href="/tags/%E6%B3%B0%E5%8B%92%E5%85%AC%E5%BC%8F/" style="font-size: 10px;">泰勒公式</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">神经网络</a> <a href="/tags/%E7%A7%AF%E5%88%86/" style="font-size: 10px;">积分</a> <a href="/tags/%E7%BA%A6%E6%9D%9F%E4%BC%98%E5%8C%96/" style="font-size: 10px;">约束优化</a> <a href="/tags/%E8%BF%9E%E7%BB%AD%E5%87%BD%E6%95%B0/" style="font-size: 10px;">连续函数</a> <a href="/tags/%E9%93%BE%E5%BC%8F%E6%B3%95%E5%88%99/" style="font-size: 10px;">链式法则</a> <a href="/tags/%E9%9B%85%E5%8F%AF%E6%AF%94%E7%9F%A9%E9%98%B5/" style="font-size: 10px;">雅可比矩阵</a> <a href="/tags/%E9%A2%84%E5%91%8A%E7%AF%87/" style="font-size: 15px;">预告篇</a> <a href="/tags/%E9%A9%AC%E5%90%8C%E5%AD%A6/" style="font-size: 20px;">马同学</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">December 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">October 2024</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/01/07/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/17/CC11-Hessian%E7%9F%A9%E9%98%B5/">预告</a>
+          </li>
+        
+          <li>
+            <a href="/2024/10/29/CC12-%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/">傅里叶变换：如何用一个公式读懂宇宙的语言？</a>
+          </li>
+        
+          <li>
+            <a href="/2024/10/24/CC10-%E9%9B%85%E5%8F%AF%E6%AF%94%E7%9F%A9%E9%98%B5/">预告篇</a>
+          </li>
+        
+          <li>
+            <a href="/2024/10/22/CC09-%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B9%98%E6%95%B0%E6%B3%95/">预告</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
