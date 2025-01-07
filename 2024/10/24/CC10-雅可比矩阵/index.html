@@ -1,16 +1,522 @@
-{% extends '_layout.swig' %}
-{% import '_macro/sidebar.swig' as sidebar_template with context %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-{% block title %}{{ page.title }} | {{ title }}{% endblock %}
+<link rel="stylesheet" href="/css/main.css">
 
-{% block class %}post posts-expand{% endblock %}
 
-{% block content %}
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-  {{ partial('_macro/post.swig', {post: page}) }}
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
-{% endblock %}
+  <meta name="description" content="雅可比矩阵在多变量函数分析中的应用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="预告篇">
+<meta property="og:url" content="http://example.com/2024/10/24/CC10-%E9%9B%85%E5%8F%AF%E6%AF%94%E7%9F%A9%E9%98%B5/index.html">
+<meta property="og:site_name" content="Chaos AI">
+<meta property="og:description" content="雅可比矩阵在多变量函数分析中的应用。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-10-23T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-12-10T09:33:22.350Z">
+<meta property="article:author" content="Echo Boy">
+<meta property="article:tag" content="微积分">
+<meta property="article:tag" content="机器学习">
+<meta property="article:tag" content="马同学">
+<meta property="article:tag" content="雅可比矩阵">
+<meta property="article:tag" content="多变量函数">
+<meta name="twitter:card" content="summary">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+<link rel="canonical" href="http://example.com/2024/10/24/CC10-%E9%9B%85%E5%8F%AF%E6%AF%94%E7%9F%A9%E9%98%B5/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>预告篇 | Chaos AI</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Chaos AI</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Echo Boy 的人工智能实验室</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/echoboyhub" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/24/CC10-%E9%9B%85%E5%8F%AF%E6%AF%94%E7%9F%A9%E9%98%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Echo Boy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chaos AI">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          预告篇
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-10-24 00:00:00" itemprop="dateCreated datePublished" datetime="2024-10-24T00:00:00+08:00">2024-10-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-12-10 17:33:22" itemprop="dateModified" datetime="2024-12-10T17:33:22+08:00">2024-12-10</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%BE%AE%E7%A7%AF%E5%88%86/" itemprop="url" rel="index"><span itemprop="name">微积分</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%BE%AE%E7%A7%AF%E5%88%86/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">雅可比矩阵在多变量函数分析中的应用。</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="什么是雅可比矩阵？"><a href="#什么是雅可比矩阵？" class="headerlink" title="什么是雅可比矩阵？"></a>什么是雅可比矩阵？</h1><p>雅可比矩阵，听起来挺高大上的，但其实它就是一个表格，用来记录一个函数里每个变量是怎么影响结果的。<br>比如，你有一个函数，输入是火候和调料量，输出是菜肴的味道。雅可比矩阵就会告诉你，火候变一点，味道会怎么变；调料量变一点，味道又会怎么变。</p>
+<p>在单变量微积分中，我们学习了导数，它告诉我们函数在某一点的变化率。但在多变量微积分中，情况就复杂多了。雅可比矩阵就是用来描述多变量函数变化率的工具。</p>
+<p>雅可比矩阵的重要性在于它体现了一个可微方程与给出点的最优线性逼近。因此，雅可比矩阵类似于多元函数的导数。</p>
+<p>在线性代数中，雅可比矩阵是函数的一阶偏导数以一定方式排列成的矩阵，其行列式称为雅可比行列式。</p>
+<h2 id="数学定义"><a href="#数学定义" class="headerlink" title="数学定义"></a>数学定义</h2><p>假设我们有一个从 $\mathbb{R}^n$ 到 $\mathbb{R}^m$ 的函数 $f$，可以表示为 $f(x_1, x_2, \ldots, x_n)$$ = (f_1(x_1, x_2, \ldots, x_n),$ $ f_2(x_1, x_2, \ldots, x_n),$ $ \ldots, f_m(x_1, x_2, \ldots, x_n))$。</p>
+<p>那么，雅可比矩阵 $J$ 就是这个函数所有偏导数的矩阵表示，定义如下：</p>
+<script type="math/tex; mode=display">
+J = \begin{bmatrix}
+\frac{\partial f_1}{\partial x_1} & \frac{\partial f_1}{\partial x_2} & \cdots & \frac{\partial f_1}{\partial x_n} \\
+\frac{\partial f_2}{\partial x_1} & \frac{\partial f_2}{\partial x_2} & \cdots & \frac{\partial f_2}{\partial x_n} \\
+\vdots & \vdots & \ddots & \vdots \\
+\frac{\partial f_m}{\partial x_1} & \frac{\partial f_m}{\partial x_2} & \cdots & \frac{\partial f_m}{\partial x_n}
+\end{bmatrix}</script><p>雅可比矩阵的每一行对应于函数 $f$ 的一个分量函数 $f_i$ 对所有变量 $x_j$ 的偏导数，而每一列则对应于所有分量函数对一个特定变量 $x_j$ 的偏导数。</p>
+<h2 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h2><ol>
+<li><p><strong>维度</strong>：雅可比矩阵的维度是 $m \times n$，其中 $m$ 是函数 $f$ 的输出维度，$n$ 是输入维度。</p>
+</li>
+<li><p><strong>线性变换</strong>：雅可比矩阵可以被看作是函数 $f$ 在某一点的线性近似。它描述了函数在该点的局部线性行为。</p>
+</li>
+<li><p><strong>链式法则</strong>：如果 $f$ 是一个复合函数，即 $f = g \circ h$，那么 $f$ 的雅可比矩阵可以通过 $g$ 和 $h$ 的雅可比矩阵的乘积来计算，即 $J_f = J_g \cdot J_h$。</p>
+</li>
+<li><p><strong>可逆性</strong>：如果 $f$ 是一个双射函数（即一一对应），那么它的雅可比矩阵在某些条件下是可逆的。雅可比矩阵的可逆性与函数的局部可逆性有关。</p>
+</li>
+<li><p><strong>行列式</strong>：雅可比矩阵的行列式，称为雅可比行列式，它描述了函数 $f$ 在某一点的局部伸缩因子。在变量变换中，雅可比行列式用于调整积分的体积元素。</p>
+</li>
+<li><p><strong>对称性</strong>：如果 $f$ 的所有二阶偏导数都存在且连续，那么雅可比矩阵的转置等于 $f$ 的梯度向量。</p>
+</li>
+<li><p><strong>反对称性</strong>：雅可比矩阵具有反对称性。这意味着对于一个n维雅可比矩阵，如果将它转置，那么它的值会变为相反数。</p>
+</li>
+<li><p><strong>投影性质</strong>：雅可比矩阵具有投影性质。投影性质指的是将一个矩阵的行或列投影到另一个矩阵中，得到一个新的矩阵。对于一个n维雅可比矩阵，它的投影是一个n维单位矩阵。</p>
+</li>
+</ol>
+<p>通过雅可比矩阵，我们可以了解函数在某一点的局部线性行为，以及函数在变量变换中的伸缩因子。</p>
+<h1 id="雅可比矩阵的直观理解"><a href="#雅可比矩阵的直观理解" class="headerlink" title="雅可比矩阵的直观理解"></a>雅可比矩阵的直观理解</h1><p>想象一下，你正在玩一个视频游戏，游戏里的角色可以向左、向右、向前、向后移动。每个动作都会让角色在游戏世界中的位置发生变化。现在，我们把这些动作看作是输入（就像我们控制游戏手柄的指令），角色的位置变化看作是输出。</p>
+<p>如果我们想要了解，当我们按下游戏手柄的某个按钮时，角色会移动多少距离，我们就需要一个“移动手册”来告诉我们每个动作对应的移动量。这个“移动手册”就像是雅可比矩阵。</p>
+<p>具体来说，雅可比矩阵是一个表格，它告诉我们当我们改变输入（游戏手柄的指令）时，输出（角色的位置）会如何变化。在这个游戏中，雅可比矩阵可能看起来是这样的：</p>
+<script type="math/tex; mode=display">
+J = \begin{bmatrix}
+\frac{\partial x}{\partial \text{左键}} & \frac{\partial x}{\partial \text{右键}} \\
+\frac{\partial y}{\partial \text{前键}} & \frac{\partial y}{\partial \text{后键}}
+\end{bmatrix}</script><p>这里，$\frac{\partial x}{\partial \text{左键}}$ 表示按下左键时角色在x轴上移动的距离，$\frac{\partial y}{\partial \text{前键}}$ 表示按下前键时角色在y轴上移动的距离。</p>
+<p>在现实世界中，雅可比矩阵的应用要复杂得多，但它的基本思想是一样的：它是一个“手册”，告诉我们当输入变化时输出会如何变化。在数学中，这个“输出”可能是一个复杂的函数，而“输入”可能是多个变量，但雅可比矩阵的核心概念是相同的：它是一个描述输入和输出之间关系的矩阵。</p>
+<h1 id="雅可比矩阵的应用"><a href="#雅可比矩阵的应用" class="headerlink" title="雅可比矩阵的应用"></a>雅可比矩阵的应用</h1><h2 id="微积分中的应用"><a href="#微积分中的应用" class="headerlink" title="微积分中的应用"></a>微积分中的应用</h2><p>雅可比矩阵在微积分中的应用非常广泛，它提供了一种描述多变量函数局部线性行为的方法。以下是一些主要的应用：</p>
+<ol>
+<li><p><strong>变量变换</strong>：<br>在多变量积分中，雅可比矩阵用于变量变换。当我们将一个积分从一个坐标系变换到另一个坐标系时，雅可比行列式（雅可比矩阵的行列式）作为变换的伸缩因子，确保积分的值保持不变。例如，在从笛卡尔坐标系到极坐标系的变换中，雅可比行列式是 $r$，因此在极坐标系中的面积元素是 $r \, dr \, d\theta$。</p>
+</li>
+<li><p><strong>线性近似</strong>：<br>雅可比矩阵可以用来对多变量函数进行线性近似。在某一点的雅可比矩阵给出了函数在该点的局部线性行为，这在函数的泰勒展开中非常有用。线性近似可以简化复杂函数的分析，特别是在函数的非线性行为不明显时。</p>
+</li>
+<li><p><strong>链式法则</strong>：<br>在多变量微积分中，链式法则用于计算复合函数的导数。如果 $y = f(g(x))$，那么 $y$ 对 $x$ 的导数可以通过 $f$ 和 $g$ 的雅可比矩阵的乘积来计算。这在处理多变量函数的复合时非常有用。</p>
+</li>
+<li><p><strong>优化问题</strong>：<br>在优化问题中，雅可比矩阵用于找到函数的临界点。通过将雅可比矩阵设为零，我们可以找到函数的局部极值点。此外，雅可比矩阵的行列式（海森矩阵）可以用来确定这些临界点的性质（即它们是极大值、极小值还是鞍点）。</p>
+</li>
+<li><p><strong>微分方程</strong>：<br>在微分方程中，雅可比矩阵用于分析系统的稳定性。对于一个非线性系统，通过在平衡点处计算雅可比矩阵，我们可以线性化系统并分析其稳定性。如果雅可比矩阵的所有特征值的实部都是负的，那么平衡点是稳定的。</p>
+</li>
+</ol>
+<h2 id="机器学习中的应用"><a href="#机器学习中的应用" class="headerlink" title="机器学习中的应用"></a>机器学习中的应用</h2><p>雅可比矩阵在优化算法中的应用主要体现在以下几个方面：</p>
+<ol>
+<li><p><strong>梯度下降法</strong>：<br>梯度下降法是一种常用的优化算法，用于最小化目标函数。在机器学习中，我们经常需要最小化一个损失函数来优化模型参数。雅可比矩阵在这里的作用是计算损失函数对模型参数的梯度。梯度是损失函数在参数空间中的导数，它指示了损失函数增长最快的方向。雅可比矩阵包含了这些梯度信息，从而指导参数更新的方向和步长。</p>
+</li>
+<li><p><strong>优化问题的步长计算</strong>：<br>在一些优化算法中，雅可比矩阵不仅用于计算梯度，还用于确定步长。例如，在牛顿法等二阶优化算法中，除了需要梯度信息外，还需要二阶导数信息（即海森矩阵），雅可比矩阵在这里可以提供梯度信息，辅助计算步长，以更有效地逼近最优解。</p>
+</li>
+<li><p><strong>反向传播</strong>：<br>在深度学习中，雅可比矩阵与反向传播算法紧密相关。反向传播算法通过计算损失函数对网络参数的梯度来训练神经网络。雅可比矩阵在这里用于计算这些梯度，从而更新网络权重，优化网络性能。</p>
+</li>
+<li><p><strong>局部线性近似</strong>：<br>雅可比矩阵蕴含着映射的局部线性近似特征（信息）。在深度学习中，如果因变量也变成多个值（即向量），我们对每个因变量在参数点都求一个方向导数，这些方向导数构成一个矩阵，即雅可比矩阵。这个矩阵的每一行是原函数的分量的梯度。</p>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Echo Boy
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/2024/10/24/CC10-%E9%9B%85%E5%8F%AF%E6%AF%94%E7%9F%A9%E9%98%B5/" title="预告篇">http://example.com/2024/10/24/CC10-雅可比矩阵/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%BE%AE%E7%A7%AF%E5%88%86/" rel="tag"># 微积分</a>
+              <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag"># 机器学习</a>
+              <a href="/tags/%E9%A9%AC%E5%90%8C%E5%AD%A6/" rel="tag"># 马同学</a>
+              <a href="/tags/%E9%9B%85%E5%8F%AF%E6%AF%94%E7%9F%A9%E9%98%B5/" rel="tag"># 雅可比矩阵</a>
+              <a href="/tags/%E5%A4%9A%E5%8F%98%E9%87%8F%E5%87%BD%E6%95%B0/" rel="tag"># 多变量函数</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/10/22/CC09-%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B9%98%E6%95%B0%E6%B3%95/" rel="prev" title="预告">
+      <i class="fa fa-chevron-left"></i> 预告
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/10/29/CC12-%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" rel="next" title="傅里叶变换：如何用一个公式读懂宇宙的语言？">
+      傅里叶变换：如何用一个公式读懂宇宙的语言？ <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E9%9B%85%E5%8F%AF%E6%AF%94%E7%9F%A9%E9%98%B5%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">什么是雅可比矩阵？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E5%AD%A6%E5%AE%9A%E4%B9%89"><span class="nav-number">1.1.</span> <span class="nav-text">数学定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%A7%E8%B4%A8"><span class="nav-number">1.2.</span> <span class="nav-text">性质</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9B%85%E5%8F%AF%E6%AF%94%E7%9F%A9%E9%98%B5%E7%9A%84%E7%9B%B4%E8%A7%82%E7%90%86%E8%A7%A3"><span class="nav-number">2.</span> <span class="nav-text">雅可比矩阵的直观理解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9B%85%E5%8F%AF%E6%AF%94%E7%9F%A9%E9%98%B5%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-number">3.</span> <span class="nav-text">雅可比矩阵的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BE%AE%E7%A7%AF%E5%88%86%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-number">3.1.</span> <span class="nav-text">微积分中的应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-number">3.2.</span> <span class="nav-text">机器学习中的应用</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Echo Boy"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Echo Boy</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Echo Boy</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

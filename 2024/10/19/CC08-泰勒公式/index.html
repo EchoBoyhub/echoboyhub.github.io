@@ -1,16 +1,507 @@
-{% extends '_layout.swig' %}
-{% import '_macro/sidebar.swig' as sidebar_template with context %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-{% block title %}{{ page.title }} | {{ title }}{% endblock %}
+<link rel="stylesheet" href="/css/main.css">
 
-{% block class %}post posts-expand{% endblock %}
 
-{% block content %}
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-  {{ partial('_macro/post.swig', {post: page}) }}
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
-{% endblock %}
+  <meta name="description" content="泰勒展开在模型简化和近似中的作用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="预告篇">
+<meta property="og:url" content="http://example.com/2024/10/19/CC08-%E6%B3%B0%E5%8B%92%E5%85%AC%E5%BC%8F/index.html">
+<meta property="og:site_name" content="Chaos AI">
+<meta property="og:description" content="泰勒展开在模型简化和近似中的作用。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-10-18T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-11-26T06:14:20.155Z">
+<meta property="article:author" content="Echo Boy">
+<meta property="article:tag" content="微积分">
+<meta property="article:tag" content="机器学习">
+<meta property="article:tag" content="马同学">
+<meta property="article:tag" content="泰勒公式">
+<meta property="article:tag" content="模型简化">
+<meta name="twitter:card" content="summary">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+<link rel="canonical" href="http://example.com/2024/10/19/CC08-%E6%B3%B0%E5%8B%92%E5%85%AC%E5%BC%8F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>预告篇 | Chaos AI</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Chaos AI</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Echo Boy 的人工智能实验室</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/echoboyhub" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/19/CC08-%E6%B3%B0%E5%8B%92%E5%85%AC%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Echo Boy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chaos AI">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          预告篇
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-10-19 00:00:00" itemprop="dateCreated datePublished" datetime="2024-10-19T00:00:00+08:00">2024-10-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-11-26 14:14:20" itemprop="dateModified" datetime="2024-11-26T14:14:20+08:00">2024-11-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%BE%AE%E7%A7%AF%E5%88%86/" itemprop="url" rel="index"><span itemprop="name">微积分</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%BE%AE%E7%A7%AF%E5%88%86/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">泰勒展开在模型简化和近似中的作用。</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><strong>“想象一下，你能够用一个简单的公式，精确地描绘出复杂函数的全貌。这不是魔法，这是泰勒公式的魅力。”</strong></p>
+<p>你是否曾好奇，一个简单的数学公式如何能够预测复杂的函数行为，甚至在人工智能的心脏——机器学习中扮演关键角色？泰勒公式，这个看似简单的工具，实际上是一个强大的预测引擎，它能够能够将复杂的函数简化为几个简单的项。并对它们的行为做出精确的预测。</p>
+<p><strong>准备好了吗？让我们一起探索泰勒公式的奥秘，看看它是如何在微积分和机器学习中施展魔法的。</strong></p>
+<h1 id="什么是泰勒公式？"><a href="#什么是泰勒公式？" class="headerlink" title="什么是泰勒公式？"></a>什么是泰勒公式？</h1><p>泰勒公式是由英国数学家布鲁克·泰勒（Brook Taylor, 1685-1732）在1712年首次提出的。它是一个用于近似表达复杂函数的数学公式。简单来说，泰勒公式利用函数在某一点的各阶导数值，构建一个多项式近似函数，从而求得该点附近的值。</p>
+<p>泰勒公式的核心思想在于，如果一个函数足够平滑，且在已知其在某一点的各阶导数值的情况下，我们可以利用这些导数值作为系数，构建一个多项式函数来逼近原函数。这个多项式函数在原函数图像上的某一点展开，随着项数的增加，逼近的精度也会提高。</p>
+<h1 id="泰勒公式的推导"><a href="#泰勒公式的推导" class="headerlink" title="泰勒公式的推导"></a>泰勒公式的推导</h1><p>首先，想象一下，你有一个非常复杂的函数，比如一座山的地形图，你想要在地图上的某一点附近画一条曲线，这条曲线能够尽可能地贴近这座山的实际形状。泰勒公式就是帮你画这条曲线的工具。</p>
+<p>假设你站在山脚下（我们称之为点a），你想知道山在这一点附近的形状。你可以通过测量山的坡度（也就是函数的导数）来了解这一点。如果你只知道山在这一点的坡度（一阶导数），那么你可以用一条直线来近似山的形状。</p>
+<p>但是，如果你还知道山的曲率（二阶导数），你就可以用一个抛物线来更好地近似山的形状。如果你知道更多的信息，比如山的凹凸性（三阶导数），你就可以用一个三次多项式来近似，以此类推。</p>
+<p>每次你增加一个导数的信息，就可以在多项式中增加一个项，这样你的近似就会越来越精确。这个多项式就是泰勒多项式。</p>
+<p>但是，不管你知道多少导数的信息，你的多项式都不可能完全等于原来的复杂函数，总会有一些误差。泰勒公式中的余项就是用来描述这个误差的。</p>
+<p>用数学语言表达则是：</p>
+<p>【泰勒公式的定义】</p>
+<p>对于一个在点 $a$ 处具有所有阶导数的函数 $f(x)$，泰勒公式可以表示为：</p>
+<script type="math/tex; mode=display">f(x)=f(a)+f'(a)(x-a)+\frac{f''(a)}{2!}(x-a)^2+\frac{f'''(a)}{3!}(x-a)^3+\cdots+\frac{f^{(n)}(a)}{n!}(x-a)^n+R_n(x)</script><p>其中，$R_n(x)$ 是余项，表示泰勒多项式与函数 $f(x)$ 之间的误差。</p>
+<blockquote>
+<p>在泰勒公式中若取$x_0=0$，则有<strong>麦克劳林公式</strong>：<br>$f(x)=f(0)+f’(0)x+\frac{f’’(0)}{2!}x^2<script type="math/tex">+\cdots+\frac{f^{(n)}(0)}{n!}x^n</script>+\frac{f^{(n+1)}(\theta x)}{(n+1)!}x^{n+1}\quad(0&lt;\theta&lt;1)$.<br>近似可得：$f(x)\approx f(0)+f’(0)x<script type="math/tex">+\frac{f''(0)}{2!}x^2+\cdots</script>+\frac{f^{(n)}(0)}{n!}x^n$.</p>
+</blockquote>
+<p>泰勒展开（Taylor expansion）是微积分中一个非常重要的概念，它描述了如何使用多项式来近似一个光滑函数。具体来说，泰勒展开允许我们在一个点附近用多项式来近似一个函数，这个点通常是函数的极值点或者是一个方便计算的点。</p>
+<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>对于一个在某点 $a$ 附近具有无穷阶导数的函数 $f(x)$，其泰勒展开式（也称为麦克劳林展开式，如果 $a = 0$）可以表示为：</p>
+<script type="math/tex; mode=display">
+
+f(x) = f(a) + f'(a)(x-a) + \frac{f''(a)}{2!}(x-a)^2 + \frac{f'''(a)}{3!}(x-a)^3 + \cdots + \frac{f^{(n)}(a)}{n!}(x-a)^n + R_n(x)</script><p>其中，$f^{(n)}(a)$ 表示函数 $f$ 在 $a$ 处的第 $n$ 阶导数，$n!$ 是 $n$ 的阶乘，$R_n(x)$ 是余项，表示用 $n$ 阶多项式近似 $f(x)$ 时的误差。</p>
+<h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><ol>
+<li><p><strong>近似计算</strong>：泰勒展开可以将复杂的函数转化为多项式，便于计算和分析。在实际应用中，我们通常只取泰勒级数的前几项，因为随着项数的增加，计算的复杂度也会增加。</p>
+</li>
+<li><p><strong>误差估计</strong>：通过余项 ( R_n(x) )，我们可以估计近似的误差，这对于数值分析和算法的稳定性分析非常重要。</p>
+</li>
+<li><p><strong>函数的性质分析</strong>：泰勒展开可以帮助我们了解函数在某个点附近的行为，比如它的凹凸性、极值等。</p>
+</li>
+<li><p><strong>微分方程的解法</strong>：在求解微分方程时，泰勒展开可以用来构造级数解。</p>
+</li>
+<li><p><strong>优化算法</strong>：在数值优化中，泰勒展开可以用来构造函数的局部近似，进而用于寻找极值点。</p>
+</li>
+<li><p><strong>物理学和工程学中的应用</strong>：在物理学和工程学中，泰勒展开被用来近似复杂的物理过程和工程问题，比如在力学、电磁学、量子力学等领域。</p>
+</li>
+</ol>
+<p>泰勒展开是连接函数局部性质和全局性质的桥梁，它在数学分析、物理学、工程学以及其他科学领域都有着广泛的应用。</p>
+<h3 id="2-推导过程"><a href="#2-推导过程" class="headerlink" title="2.推导过程"></a>2.推导过程</h3><h4 id="a-拉格朗日形式的余项"><a href="#a-拉格朗日形式的余项" class="headerlink" title="a.拉格朗日形式的余项"></a>a.拉格朗日形式的余项</h4><p>首先，我们考虑函数 $f(x)$ 在区间 $[a,x]$ 上的拉格朗日中值定理（Lagrange’sMeanValueTheorem）：</p>
+<script type="math/tex; mode=display">f(x)-f(a)=f'(\xi)(x-a)</script><p>其中，$\xi$ 是 $a$ 和 $x$ 之间的某个点。</p>
+<h4 id="b-两次应用中值定理"><a href="#b-两次应用中值定理" class="headerlink" title="b.两次应用中值定理"></a>b.两次应用中值定理</h4><p>我们可以对 $f’(\xi)$ 再次应用中值定理：</p>
+<script type="math/tex; mode=display">f'(\xi)=f'(a)+f''(\eta)(\xi-a)</script><p>其中，$\eta$ 是 $a$ 和 $\xi$ 之间的某个点。</p>
+<p>将 $f’(\xi)$ 代入第一步的等式中，我们得到：</p>
+<script type="math/tex; mode=display">f(x)-f(a)=[f'(a)+f''(\eta)(\xi-a)](x-a)</script><h4 id="c-推广到高阶导数"><a href="#c-推广到高阶导数" class="headerlink" title="c.推广到高阶导数"></a>c.推广到高阶导数</h4><p>我们可以继续这个过程，对 $f’’(\eta)$ 应用中值定理，然后是 $f’’’$，以此类推，直到 $n$ 阶导数。每次应用中值定理，我们都会引入一个新的$\xi$值，这些值都位于$a$和$x$之间。</p>
+<h4 id="d-引入余项"><a href="#d-引入余项" class="headerlink" title="d.引入余项"></a>d.引入余项</h4><p>在 $n$ 次应用中值定理后，我们得到：</p>
+<script type="math/tex; mode=display">f(x)=f(a)+f'(a)(x-a)+\frac{f''(a)}{2!}(x-a)^2+\cdots+\frac{f^{(n)}(a)}{n!}(x-a)^n+R_n(x)</script><p>其中，余项 $R_n(x)$ 可以表示为：</p>
+<script type="math/tex; mode=display">R_n(x)=\frac{f^{(n+1)}(\xi_n)}{(n+1)!}(x-a)^{n+1}</script><p>这里的 $\xi_n$ 是 $a$ 和 $x$ 之间的某个点，取决于 $x$。</p>
+<h3 id="3-结论"><a href="#3-结论" class="headerlink" title="3.结论"></a>3.结论</h3><p>泰勒公式提供了一种使用函数在某一点的导数信息来近似整个函数的方法。余项 $R_n(x)$ 描述了这种近似的误差，随着 $n$ 的增加，这个误差通常会减小，近似也变得更加精确。</p>
+<p>这个推导过程展示了泰勒公式的基本原理，即通过局部的导数信息来构建对函数的全局近似。</p>
+<h3 id="3-总结"><a href="#3-总结" class="headerlink" title="3. 总结"></a>3. 总结</h3><p>泰勒公式就像是用乐高积木搭建一个模型来近似一个复杂的物体。你拥有的积木块（导数信息）越多，你的模型就能越精确地反映物体的形状。但是，总会有一些细微的地方是积木无法完全复制的，这就是余项R_n(x)的作用，它告诉我们模型和真实物体之间的差距有多大。</p>
+<p>希望这样的解释能让你更容易理解泰勒公式的推导过程！</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Echo Boy
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/2024/10/19/CC08-%E6%B3%B0%E5%8B%92%E5%85%AC%E5%BC%8F/" title="预告篇">http://example.com/2024/10/19/CC08-泰勒公式/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%BE%AE%E7%A7%AF%E5%88%86/" rel="tag"># 微积分</a>
+              <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag"># 机器学习</a>
+              <a href="/tags/%E9%A9%AC%E5%90%8C%E5%AD%A6/" rel="tag"># 马同学</a>
+              <a href="/tags/%E6%B3%B0%E5%8B%92%E5%85%AC%E5%BC%8F/" rel="tag"># 泰勒公式</a>
+              <a href="/tags/%E6%A8%A1%E5%9E%8B%E7%AE%80%E5%8C%96/" rel="tag"># 模型简化</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/10/17/CC07-%E7%A7%AF%E5%88%86/" rel="prev" title="预告">
+      <i class="fa fa-chevron-left"></i> 预告
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/10/22/CC09-%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B9%98%E6%95%B0%E6%B3%95/" rel="next" title="预告">
+      预告 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%B3%B0%E5%8B%92%E5%85%AC%E5%BC%8F%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">什么是泰勒公式？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B3%B0%E5%8B%92%E5%85%AC%E5%BC%8F%E7%9A%84%E6%8E%A8%E5%AF%BC"><span class="nav-number">2.</span> <span class="nav-text">泰勒公式的推导</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">2.0.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8"><span class="nav-number">2.0.2.</span> <span class="nav-text">作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%8E%A8%E5%AF%BC%E8%BF%87%E7%A8%8B"><span class="nav-number">2.0.3.</span> <span class="nav-text">2.推导过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#a-%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E5%BD%A2%E5%BC%8F%E7%9A%84%E4%BD%99%E9%A1%B9"><span class="nav-number">2.0.3.1.</span> <span class="nav-text">a.拉格朗日形式的余项</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#b-%E4%B8%A4%E6%AC%A1%E5%BA%94%E7%94%A8%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86"><span class="nav-number">2.0.3.2.</span> <span class="nav-text">b.两次应用中值定理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#c-%E6%8E%A8%E5%B9%BF%E5%88%B0%E9%AB%98%E9%98%B6%E5%AF%BC%E6%95%B0"><span class="nav-number">2.0.3.3.</span> <span class="nav-text">c.推广到高阶导数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#d-%E5%BC%95%E5%85%A5%E4%BD%99%E9%A1%B9"><span class="nav-number">2.0.3.4.</span> <span class="nav-text">d.引入余项</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E7%BB%93%E8%AE%BA"><span class="nav-number">2.0.4.</span> <span class="nav-text">3.结论</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%80%BB%E7%BB%93"><span class="nav-number">2.0.5.</span> <span class="nav-text">3. 总结</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Echo Boy"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Echo Boy</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Echo Boy</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

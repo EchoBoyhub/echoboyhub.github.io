@@ -1,16 +1,490 @@
-{% extends '_layout.swig' %}
-{% import '_macro/sidebar.swig' as sidebar_template with context %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-{% block title %}{{ page.title }} | {{ title }}{% endblock %}
+<link rel="stylesheet" href="/css/main.css">
 
-{% block class %}post posts-expand{% endblock %}
 
-{% block content %}
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-  {{ partial('_macro/post.swig', {post: page}) }}
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
-{% endblock %}
+  <meta name="description" content="Hessian矩阵在二阶优化问题中的作用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="预告">
+<meta property="og:url" content="http://example.com/2024/12/17/CC11-Hessian%E7%9F%A9%E9%98%B5/index.html">
+<meta property="og:site_name" content="Chaos AI">
+<meta property="og:description" content="Hessian矩阵在二阶优化问题中的作用。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-12-16T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-12-17T09:11:41.599Z">
+<meta property="article:author" content="Echo Boy">
+<meta property="article:tag" content="微积分">
+<meta property="article:tag" content="机器学习">
+<meta property="article:tag" content="马同学">
+<meta property="article:tag" content="Hessian矩阵">
+<meta property="article:tag" content="二阶优化">
+<meta name="twitter:card" content="summary">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+<link rel="canonical" href="http://example.com/2024/12/17/CC11-Hessian%E7%9F%A9%E9%98%B5/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>预告 | Chaos AI</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Chaos AI</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Echo Boy 的人工智能实验室</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/echoboyhub" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/17/CC11-Hessian%E7%9F%A9%E9%98%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Echo Boy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chaos AI">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          预告
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-12-17 00:00:00 / 修改时间：17:11:41" itemprop="dateCreated datePublished" datetime="2024-12-17T00:00:00+08:00">2024-12-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%BE%AE%E7%A7%AF%E5%88%86/" itemprop="url" rel="index"><span itemprop="name">微积分</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%BE%AE%E7%A7%AF%E5%88%86/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">Hessian矩阵在二阶优化问题中的作用。</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="什么是Hessian矩阵？"><a href="#什么是Hessian矩阵？" class="headerlink" title="什么是Hessian矩阵？"></a>什么是Hessian矩阵？</h1><p>Hessian矩阵，又称为海森矩阵或黑塞矩阵，是由多元函数的二阶偏导数构成的方阵。它主要用于描述函数在某一点附近的局部曲率，即函数在该点附近的变化趋势。这一概念最早由德国数学家Ludwig Otto Hesse提出，是数学、特别是多元函数微分学中的重要工具。</p>
+<p>对于一个二元函数 $f(x, y)$，其Hessian矩阵 $H$ 可以表示为：</p>
+<script type="math/tex; mode=display">
+H(f) = \begin{bmatrix}
+\frac{\partial^2 f}{\partial x^2} & \frac{\partial^2 f}{\partial x \partial y} \\
+\frac{\partial^2 f}{\partial y \partial x} & \frac{\partial^2 f}{\partial y^2}
+\end{bmatrix}</script><p>对于一个 $n$ 元函数 $f(x_1, x_2, \ldots, x_n)$，其Hessian矩阵是一个 $n \times n$ 的矩阵，其中第 $i$ 行第 $j$ 列的元素是 $f$ 关于 $x_i$ 和 $x_j$ 的二阶偏导数：</p>
+<script type="math/tex; mode=display">
+H(f) = \begin{bmatrix}
+\frac{\partial^2 f}{\partial x_1^2} & \frac{\partial^2 f}{\partial x_1 \partial x_2} & \cdots & \frac{\partial^2 f}{\partial x_1 \partial x_n} \\
+\frac{\partial^2 f}{\partial x_2 \partial x_1} & \frac{\partial^2 f}{\partial x_2^2} & \cdots & \frac{\partial^2 f}{\partial x_2 \partial x_n} \\
+\vdots & \vdots & \ddots & \vdots \\
+\frac{\partial^2 f}{\partial x_n \partial x_1} & \frac{\partial^2 f}{\partial x_n \partial x_2} & \cdots & \frac{\partial^2 f}{\partial x_n^2}
+\end{bmatrix}</script><p>Hessian矩阵在优化问题中非常重要，因为它可以用来判断函数在某一点是否为极值点。具体来说：</p>
+<ol>
+<li>如果Hessian矩阵是正定的，那么函数在该点有局部最小值。</li>
+<li>如果Hessian矩阵是负定的，那么函数在该点有局部最大值。</li>
+<li>如果Hessian矩阵是不定的，那么函数在该点可能是一个鞍点。</li>
+</ol>
+<p>此外，Hessian矩阵还用于牛顿法等优化算法中，帮助找到函数的极值点。</p>
+<h1 id="Hessian矩阵的通俗解释"><a href="#Hessian矩阵的通俗解释" class="headerlink" title="Hessian矩阵的通俗解释"></a>Hessian矩阵的通俗解释</h1><p>好的，让我们用一个更通俗易懂的方式来理解Hessian矩阵。</p>
+<p>想象一下，你有一个三维空间中的山丘，这个山丘的形状由一个函数 $f(x, y)$ 来描述，其中 $x$ 和 $y$ 是水平方向的坐标，而 $f(x, y)$ 是山丘的高度。</p>
+<p>现在，你想知道这个山丘在某个特定点的地形特征，比如它是不是最高峰或者最低谷。为了做到这一点，你可以观察这个点附近的斜率（一阶导数）和曲率（二阶导数）。Hessian矩阵就是帮助我们量化这种曲率的工具。</p>
+<h3 id="1-一阶导数：斜率"><a href="#1-一阶导数：斜率" class="headerlink" title="1. 一阶导数：斜率"></a>1. 一阶导数：斜率</h3><p>一阶导数告诉我们山丘在任何方向上的斜率。如果斜率为正，意味着沿着那个方向走，山丘会上升；如果斜率为负，意味着会下降。</p>
+<h3 id="2-二阶导数：曲率"><a href="#2-二阶导数：曲率" class="headerlink" title="2. 二阶导数：曲率"></a>2. 二阶导数：曲率</h3><p>二阶导数告诉我们山丘的曲率，也就是斜率变化的快慢。如果二阶导数为正，意味着山丘在那个方向上是向上弯曲的（凹形）；如果为负，意味着是向下弯曲的（凸形）。</p>
+<h3 id="3-Hessian矩阵：曲率的矩阵"><a href="#3-Hessian矩阵：曲率的矩阵" class="headerlink" title="3. Hessian矩阵：曲率的矩阵"></a>3. Hessian矩阵：曲率的矩阵</h3><p>Hessian矩阵就是将所有这些二阶导数（曲率）放在一起，形成一个矩阵。对于一个二元函数，这个矩阵看起来像这样：</p>
+<script type="math/tex; mode=display">
+H(f) = \begin{bmatrix}
+xx\text{方向的曲率} & xy\text{方向的曲率} \\
+yx\text{方向的曲率} & yy\text{方向的曲率}
+\end{bmatrix}</script><ul>
+<li><strong>$xx$ 方向的曲率</strong>：告诉你在 $x$ 方向上，山丘的曲率如何变化。</li>
+<li><strong>$yy$ 方向的曲率</strong>：告诉你在 $y$ 方向上，山丘的曲率如何变化。</li>
+<li><strong>$xy$ 和 $yx$ 方向的曲率</strong>：告诉你在 $x$ 和 $y$ 方向上，山丘的曲率是如何相互影响的。</li>
+</ul>
+<h3 id="4-判断极值点"><a href="#4-判断极值点" class="headerlink" title="4. 判断极值点"></a>4. 判断极值点</h3><p>通过分析Hessian矩阵，我们可以判断山丘上的点是山峰、山谷还是鞍点：</p>
+<ul>
+<li>如果Hessian矩阵是正定的（所有特征值都为正），那么这个点是局部最低点（山谷）。</li>
+<li>如果Hessian矩阵是负定的（所有特征值都为负），那么这个点是局部最高点（山峰）。</li>
+<li>如果Hessian矩阵是不定的（有正有负的特征值），那么这个点是鞍点。</li>
+</ul>
+<p>这样，Hessian矩阵就帮助我们理解了函数在特定点的局部行为，就像我们通过观察山丘的地形来了解它的特征一样。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Echo Boy
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/2024/12/17/CC11-Hessian%E7%9F%A9%E9%98%B5/" title="预告">http://example.com/2024/12/17/CC11-Hessian矩阵/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%BE%AE%E7%A7%AF%E5%88%86/" rel="tag"># 微积分</a>
+              <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag"># 机器学习</a>
+              <a href="/tags/%E9%A9%AC%E5%90%8C%E5%AD%A6/" rel="tag"># 马同学</a>
+              <a href="/tags/Hessian%E7%9F%A9%E9%98%B5/" rel="tag"># Hessian矩阵</a>
+              <a href="/tags/%E4%BA%8C%E9%98%B6%E4%BC%98%E5%8C%96/" rel="tag"># 二阶优化</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/10/29/CC12-%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" rel="prev" title="傅里叶变换：如何用一个公式读懂宇宙的语言？">
+      <i class="fa fa-chevron-left"></i> 傅里叶变换：如何用一个公式读懂宇宙的语言？
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFHessian%E7%9F%A9%E9%98%B5%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">什么是Hessian矩阵？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hessian%E7%9F%A9%E9%98%B5%E7%9A%84%E9%80%9A%E4%BF%97%E8%A7%A3%E9%87%8A"><span class="nav-number">2.</span> <span class="nav-text">Hessian矩阵的通俗解释</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%B8%80%E9%98%B6%E5%AF%BC%E6%95%B0%EF%BC%9A%E6%96%9C%E7%8E%87"><span class="nav-number">2.0.1.</span> <span class="nav-text">1. 一阶导数：斜率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%BA%8C%E9%98%B6%E5%AF%BC%E6%95%B0%EF%BC%9A%E6%9B%B2%E7%8E%87"><span class="nav-number">2.0.2.</span> <span class="nav-text">2. 二阶导数：曲率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Hessian%E7%9F%A9%E9%98%B5%EF%BC%9A%E6%9B%B2%E7%8E%87%E7%9A%84%E7%9F%A9%E9%98%B5"><span class="nav-number">2.0.3.</span> <span class="nav-text">3. Hessian矩阵：曲率的矩阵</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%88%A4%E6%96%AD%E6%9E%81%E5%80%BC%E7%82%B9"><span class="nav-number">2.0.4.</span> <span class="nav-text">4. 判断极值点</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Echo Boy"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Echo Boy</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Echo Boy</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
